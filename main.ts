@@ -1,8 +1,13 @@
 import express from "express";
 import expressSession from "express-session";
 import { Request, Response } from "express";
+import { registerRoutes } from "./registerRoute";
+
+import Knex from 'knex'
 
 const app = express();
+let config = require('./knexfile')
+let knex = Knex(config.development)
 
 app.use(
     expressSession({
@@ -20,6 +25,7 @@ declare module "express-session" {
 
 
 app.use(express.static('public'))
+//app.use("/register", registerRoutes)
 
 //app.use(isLoggedIn, express.static('protected'))
 
