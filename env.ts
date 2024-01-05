@@ -1,14 +1,12 @@
-import { config } from "dotenv";
-import populateEnv from "populate-env";
+import { config } from 'dotenv'
+import populateEnv from 'populate-env'
 
-config();
+config()
 
 export let env = {
-  SESSION_SECRET: "",
-  PORT: 8080,
-  DB_NAME: "",
-  DB_USER: "",
-  DB_PASSWORD: "",
-};
+  DB_NAME: '',
+  DB_USER: '',
+  DB_PASSWORD: '',
+}
 
-populateEnv(env, { mode: "halt" });
+populateEnv(env, { mode: 'halt' })

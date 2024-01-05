@@ -1,0 +1,8 @@
+install:
+numpy
+pandas
+cv2
+PIL
+matplotlib
+scipy
+seaborn
