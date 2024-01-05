@@ -4,12 +4,20 @@ import { sessionMiddleware } from "./session";
 
 import { Request, Response } from "express";
 import { registerRoutes } from "./registerRoute";
+import { isLoggedIn } from "./guards";
 
-import Knex from 'knex'
+import Knex from "knex";
+import { userRoutes } from "./userRoutes";
 
 const app = express();
-let config = require('./knexfile')
-let knex = Knex(config.development)
+let config = require("./knexfile");
+
+app.use("/", userRoutes);
+
+app.use(express.static("public"));
+app.use(isLoggedIn, express.static("protected"));
+
+export let knex = Knex(config.development);
 
 app.use(
   expressSession({
@@ -38,8 +46,7 @@ declare module "express-session" {
   }
 }
 
-
-app.use(express.static('public'))
+app.use(express.static("public"));
 //app.use("/register", registerRoutes)
 
 //app.use(isLoggedIn, express.static('protected'))
