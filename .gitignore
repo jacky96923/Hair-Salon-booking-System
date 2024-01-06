@@ -3,3 +3,4 @@ node_modules
 tf_python
 face shape detector
 test
+.env
