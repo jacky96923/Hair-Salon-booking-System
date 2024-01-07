@@ -5,7 +5,7 @@ import path, { join } from "path";
 import dayjs from "dayjs";
 import { Request, Response } from "express";
 import { registerRoutes } from "./registerRoute";
-// import { isLoggedIn } from "./guards";
+import { isLoggedIn } from "./guards";
 
 import Knex from "knex";
 import { userRoutes } from "./userRoutes";
@@ -79,6 +79,7 @@ app.get("/", (req, res, next) => {
 app.use(express.static("public"));
 app.use(express.static(join("public", "login")));
 app.use("/assets", express.static("assets"));
+app.use(isLoggedIn, express.static("hair_preview"));
 
 //app.use("/register", registerRoutes)
 
