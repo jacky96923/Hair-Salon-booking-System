@@ -1,22 +1,17 @@
 import express from "express";
-import expressSession from "express-session";
 import { sessionMiddleware } from "./session";
 import path, { join } from "path";
 import dayjs from "dayjs";
-import { Request, Response } from "express";
-import { registerRoutes } from "./registerRoute";
 import { isLoggedIn } from "./guards";
 
-import Knex from "knex";
-import { userRoutes } from "./userRoutes";
+import { userRoutes } from "./routers";
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//counter for entering the page // from the file env
+// terminal counter
 app.use(sessionMiddleware);
-
 let mediaExtnameList = [
   ".js",
   ".css",
@@ -30,11 +25,8 @@ let mediaExtnameList = [
   ".mp4",
 ];
 function isMediaExtname(extname: string): boolean {
-  return mediaExtnameList.includes(extname); // returns true when extname matches the list
+  return mediaExtnameList.includes(extname);
 }
-//
-
-//console.log request details need to be before express public // plus implementation of counter
 app.use((req, res, next) => {
   let counter = req.session.counter || 0; //counter, the number before the logs
   if (!isMediaExtname(path.extname(req.url))) {
@@ -46,6 +38,7 @@ app.use((req, res, next) => {
   console.log(`[${timestamp}] #${counter} ${req.method} Request ${req.url}`);
   next();
 });
+//terminal counter
 
 app.use("/", userRoutes);
 
