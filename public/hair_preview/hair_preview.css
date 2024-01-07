@@ -1,0 +1,11 @@
+#logo {
+  margin: 1rem black;
+  height: 2rem;
+  width: 2rem;
+  object-fit: contain;
+}
+
+#logo_image {
+  max-width: 100%;
+  height: auto;
+}

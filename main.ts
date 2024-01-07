@@ -1,52 +1,85 @@
 import express from "express";
 import expressSession from "express-session";
 import { sessionMiddleware } from "./session";
-
+import path, { join } from "path";
+import dayjs from "dayjs";
 import { Request, Response } from "express";
 import { registerRoutes } from "./registerRoute";
-import { isLoggedIn } from "./guards";
+// import { isLoggedIn } from "./guards";
 
 import Knex from "knex";
 import { userRoutes } from "./userRoutes";
 
 const app = express();
-let config = require("./knexfile");
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
+
+//counter for entering the page // from the file env
+app.use(sessionMiddleware);
+
+let mediaExtnameList = [
+  ".js",
+  ".css",
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".gif",
+  ".svg",
+  ".ico",
+  ".mp3",
+  ".mp4",
+];
+function isMediaExtname(extname: string): boolean {
+  return mediaExtnameList.includes(extname); // returns true when extname matches the list
+}
+//
+
+//console.log request details need to be before express public // plus implementation of counter
+app.use((req, res, next) => {
+  let counter = req.session.counter || 0; //counter, the number before the logs
+  if (!isMediaExtname(path.extname(req.url))) {
+    //for prevent counting .js/.css/.jpg etc.
+    counter++;
+    req.session.counter = counter;
+  }
+  let timestamp = dayjs().format("YYYY-MM-DD HH:mm:ss");
+  console.log(`[${timestamp}] #${counter} ${req.method} Request ${req.url}`);
+  next();
+});
 
 app.use("/", userRoutes);
 
-app.use(express.static("public"));
-app.use(isLoggedIn, express.static("protected"));
+// app.use(express.static("public"));
+// app.use(isLoggedIn, express.static("protected"));
 
-export let knex = Knex(config.development);
+// export let knex = Knex(config.development);
 
-app.use(
-  expressSession({
-    secret: "Haircut",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+// app.use(
+//   expressSession({
+//     secret: "Haircut",
+//     resave: true,
+//     saveUninitialized: true,
+//   })
+// );
 
 app.get("/", (req, res, next) => {
-  if (!req.session.userid) {
+  if (!req.session.user) {
     res.redirect("/login.html");
     return;
-  }
-  switch (req.session.role) {
-    case "user":
-      res.redirect("/index.html");
-      break;
   }
   next();
 });
 
-declare module "express-session" {
-  interface SessionData {
-    name?: string;
-  }
-}
+// declare module "express-session" {
+//   interface SessionData {
+//     name?: string;
+//   }
+// }
 
 app.use(express.static("public"));
+app.use(express.static(join("public", "login")));
+app.use("/assets", express.static("assets"));
+
 //app.use("/register", registerRoutes)
 
 //app.use(isLoggedIn, express.static('protected'))

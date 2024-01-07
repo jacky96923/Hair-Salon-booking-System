@@ -5,11 +5,21 @@ type Role = "user";
 
 declare module "express-session" {
   interface SessionData {
-    userid?: number;
-    username?: string;
-    role?: Role;
+    counter: number;
+    user: {
+      id: number;
+      username: string;
+    };
   }
 }
+
+// declare module "express-session" {
+//   interface SessionData {
+//     userid?: number;
+//     username?: string;
+//     role?: Role;
+//   }
+// }
 
 export let sessionMiddleware = expressSession({
   secret: env.SESSION_SECRET,
