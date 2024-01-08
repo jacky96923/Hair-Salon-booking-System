@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express'
-// import { client } from "../main";
-// import { hashPassword } from '../hash';
+import { client } from "./main";
+import { hashPassword } from './hash';
 
 
 export const registerRoutes = express.Router();
