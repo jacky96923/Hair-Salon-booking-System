@@ -3,10 +3,14 @@ import { sessionMiddleware } from "./session";
 import path, { join } from "path";
 import dayjs from "dayjs";
 import { isLoggedIn } from "./guards";
-
+import Knex from "knex";
 import { userRoutes } from "./routers";
 
 const app = express();
+let config = require('./knexfile')
+export let knex = Knex(config.development)
+
+app.use(sessionMiddleware);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -40,8 +44,6 @@ app.use((req, res, next) => {
 });
 //terminal counter
 
-app.use("/", userRoutes);
-
 // app.use(express.static("public"));
 // app.use(isLoggedIn, express.static("protected"));
 
@@ -62,6 +64,8 @@ app.get("/", (req, res, next) => {
   }
   next();
 });
+
+app.use("/", userRoutes);
 
 // declare module "express-session" {
 //   interface SessionData {
