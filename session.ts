@@ -8,7 +8,7 @@ declare module "express-session" {
     counter: number;
     user: {
       id: number;
-      username: string;
+      email: string;
     };
   }
 }
