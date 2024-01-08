@@ -9,15 +9,9 @@ import Knex from 'knex'
 
 const app = express();
 let config = require('./knexfile')
-let knex = Knex(config.development)
+export let knex = Knex(config.development)
 
-app.use(
-  expressSession({
-    secret: "Haircut",
-    resave: true,
-    saveUninitialized: true,
-  })
-);
+app.use(sessionMiddleware);
 
 app.get("/", (req, res, next) => {
   if (!req.session.userid) {
@@ -31,12 +25,6 @@ app.get("/", (req, res, next) => {
   }
   next();
 });
-
-declare module "express-session" {
-  interface SessionData {
-    name?: string;
-  }
-}
 
 
 app.use(express.static('public'))
