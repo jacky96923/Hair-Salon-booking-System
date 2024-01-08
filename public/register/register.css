@@ -85,7 +85,7 @@ input[type="submit"]{
     border-color:#ff3860;
 }
 
-.input-control .error.active{
+.active{
     color:#ff3860;
     font-size:10px;
     height:12px;
