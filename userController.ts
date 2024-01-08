@@ -1,23 +1,17 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { checkPassword } from "./hash";
 import { UserService } from "./userService";
-import { Console } from "console";
 
 export class UserController {
   constructor(private userService: UserService) {}
 
   login = async (req: Request, res: Response) => {
     try {
-<<<<<<< HEAD
-      const {username, password} = req.body;
-      if (!username) {
-        return res.status(401).json({ error: "Missing Username" });
-=======
       const email = req.body.email;
       if (!email) {
         return res.status(401).json({ error: "Missing Email" });
->>>>>>> d8fa3db6088da4bae575d5057f8088262ed9da98
       }
+      const password = req.body.password;
       if (!password) {
         return res.status(401).json({ error: "Missing Password" });
       }
@@ -38,11 +32,7 @@ export class UserController {
         return res.status(412).json({ error: "Missing request session" });
       }
 
-<<<<<<< HEAD
-      req.session["user"] = { id: user.id, username: user.username };
-=======
       req.session["user"] = { id: user.id, email: user.email };
->>>>>>> d8fa3db6088da4bae575d5057f8088262ed9da98
 
       return res.json({ message: "login success" });
     } catch (error) {
@@ -82,7 +72,7 @@ export class UserController {
       }
 
       // Add session user when login successfully
-      req.session["user"] = { id: user.id, username: user.username };
+      req.session["user"] = { id: user.id, email: user.email };
 
       return res.status(200).json({success: "register success"});
     } catch(error) {
