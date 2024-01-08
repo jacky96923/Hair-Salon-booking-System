@@ -9,7 +9,7 @@ export class UserController {
     try {
       const username = req.body.username;
       if (!username) {
-        return res.status(401).json({ error: "Missing Username" });
+        return res.status(401).json({ error: "Missing username" });
       }
       const password = req.body.password;
       if (!password) {
@@ -17,13 +17,14 @@ export class UserController {
       }
 
       const result = await this.userService.login(username, password);
+
       let user = result[0];
       console.log({ user });
-
       const match = await checkPassword({
         plainPassword: password,
         hashedPassword: user.password,
       });
+
       if (!match) {
         return res.status(401).json({ error: "Wrong Username/Password" });
       }
@@ -36,7 +37,7 @@ export class UserController {
       return res.redirect("/");
     } catch (error) {
       res.status(500);
-      res.json({ error: String(error) });
+      res.json({ error: "Wrong Username/Password" });
     }
   };
 }
