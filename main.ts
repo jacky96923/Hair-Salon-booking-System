@@ -3,16 +3,14 @@ import { sessionMiddleware } from "./session";
 import path, { join } from "path";
 import dayjs from "dayjs";
 import { isLoggedIn } from "./guards";
-
+import Knex from "knex";
 import { userRoutes } from "./routers";
 
 const app = express();
-<<<<<<< HEAD
 let config = require('./knexfile')
 export let knex = Knex(config.development)
 
 app.use(sessionMiddleware);
-=======
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
@@ -60,7 +58,6 @@ app.use("/", userRoutes);
 //     saveUninitialized: true,
 //   })
 // );
->>>>>>> e9caa832845a1df20a13b65dcb3acb62dfbcfa5f
 
 app.get("/", (req, res, next) => {
   if (!req.session.user) {
@@ -70,8 +67,6 @@ app.get("/", (req, res, next) => {
   next();
 });
 
-<<<<<<< HEAD
-=======
 // declare module "express-session" {
 //   interface SessionData {
 //     name?: string;
@@ -82,7 +77,6 @@ app.use(express.static("public"));
 app.use(express.static(join("public", "login")));
 app.use("/assets", express.static("assets"));
 app.use(isLoggedIn, express.static("hair_preview"));
->>>>>>> e9caa832845a1df20a13b65dcb3acb62dfbcfa5f
 
 //app.use("/register", registerRoutes)
 
