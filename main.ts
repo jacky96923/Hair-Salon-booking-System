@@ -40,8 +40,6 @@ app.use((req, res, next) => {
 });
 //terminal counter
 
-app.use("/", userRoutes);
-
 // app.use(express.static("public"));
 // app.use(isLoggedIn, express.static("protected"));
 
@@ -62,6 +60,8 @@ app.get("/", (req, res, next) => {
   }
   next();
 });
+
+app.use("/", userRoutes);
 
 // declare module "express-session" {
 //   interface SessionData {
