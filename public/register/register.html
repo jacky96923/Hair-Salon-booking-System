@@ -23,26 +23,28 @@
                 <h1>Register to be Our Member!</h1>
                 <p>All fields are required.</p>
                 <!-- Register Form -->
-                <form id="register-form">
+                <form id="register-form" method="POST" action="/register">
                     <div class="input-control">
-                        <input id="name" name="name" type="text" placeholder="Name">
+                        <input id="name" name="name" type="text" placeholder="Name" required>
                         <div class="error"></div>
                     </div>
 
                     <div class="input-control input-control-email">
-                        <input id="email" name="email" type="email" placeholder="Email">
+                        <input id="email" name="email" type="email" placeholder="Email" required>
                         <div class="error"></div>
                     </div>
 
                     <div class="input-control">
-                        <input id="password" name="password" type="password" placeholder="Password" autocomplete="off">
+                        <input id="password" name="password" type="password" placeholder="Password" autocomplete="off" required>
                         <div class="error"></div>
                     </div>
 
                     <div class="input-control">
-                        <input id="confirm_password" name="confirm_password" type="password" placeholder="Confirm Password" autocomplete="off">
+                        <input id="confirm_password" name="confirm_password" type="password" placeholder="Confirm Password" autocomplete="off" required>
                         <div class="error"></div>
                     </div>
+                    <div class="system-error"></div>
+
                     <div class="submit-button">
                         <input type="submit" value="Register" />
                     </div>

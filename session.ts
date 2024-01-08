@@ -13,14 +13,6 @@ declare module "express-session" {
   }
 }
 
-// declare module "express-session" {
-//   interface SessionData {
-//     userid?: number;
-//     username?: string;
-//     role?: Role;
-//   }
-// }
-
 export let sessionMiddleware = expressSession({
   secret: env.SESSION_SECRET,
   resave: true,

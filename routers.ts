@@ -1,12 +1,12 @@
 import express from "express";
 import { UserService } from "./userService";
 import { UserController } from "./userController";
-import Knex from "knex";
+import { knex } from "./main";
 
-const knexConfig = require("./knexfile");
-const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
 
-export const userRoutes = express.Router();
+
 export const userService = new UserService(knex);
 export const userController = new UserController(userService);
+export const userRoutes = express.Router();
 userRoutes.post("/login", userController.login);
+userRoutes.post("/register", userController.register);

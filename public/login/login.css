@@ -94,3 +94,10 @@
     text-decoration: underline;
 
   }
+  .message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: red;
+    margin: 2rem;
+  }
