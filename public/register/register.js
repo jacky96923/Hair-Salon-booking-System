@@ -1,7 +1,6 @@
 // DOM variables
-const input = document.querySelector('input')
-const firstName = document.getElementById('first_name');
-const lastName = document.getElementById('last_name');
+const input = document.querySelector('input');
+const name = document.getElementById('name');
 const email = document.getElementById('email');
 const password = document.getElementById('password');
 const confirmPassword = document.getElementById('confirm_password');
@@ -40,8 +39,7 @@ document
         const form = event.target;
 
         let formObject = {
-            firstName: form.first_name.value,
-            lastName: form.last_name.value,
+            name: form.name.value,
             email: form.email.value,
             password: form.password.value
         }
@@ -126,22 +124,15 @@ const isValidPassword = password =>{
 // Function to set rules to validate user input value
 const validateInputs = () => {
     //Removes whitespace from both sides of user input
-    const firstNameValue = firstName.value.trim();
-    const lastNameValue = lastName.value.trim();
+    const nameValue = name.value.trim();
     const emailValue = email.value.trim();
     const passwordValue = password.value.trim();
     const confirmPasswordValue = confirmPassword.value.trim();
 
-    if(firstNameValue === ''){
-        setError(firstName,'First name is required.')
+    if(nameValue === ''){
+        setError(name,'Name is required.')
     }else{
-        setSuccess(firstName)
-    }
-
-    if(lastNameValue === ''){
-        setError(lastName,'Last name is required.')
-    }else{
-        setSuccess(lastName)
+        setSuccess(name)
     }
 
     if(emailValue === ''){
