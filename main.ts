@@ -7,8 +7,8 @@ import Knex from "knex";
 import { userRoutes } from "./routers";
 
 const app = express();
-let config = require('./knexfile')
-export let knex = Knex(config.development)
+let config = require("./knexfile");
+export let knex = Knex(config.development);
 
 app.use(sessionMiddleware);
 app.use(express.urlencoded({ extended: false }));

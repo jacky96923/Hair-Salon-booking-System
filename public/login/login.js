@@ -3,7 +3,7 @@ async function submitLogin(event) {
   let form = event.target;
   let submitMessage = form.querySelector(".message");
   let formObject = {
-    username: form.username.value,
+    email: form.email.value,
     password: form.password.value,
   };
   let res = await fetch("/login", {
@@ -15,10 +15,14 @@ async function submitLogin(event) {
     body: JSON.stringify(formObject),
   });
   form.reset();
-  let json = await res.json();
+  const json = await res.json();
   if (json.error) {
     submitMessage.textContent = json.error;
     return;
   }
-  submitMessage.textContent = "Login Successfully";
+  // submitMessage.textContent = "Login Successfully";
+
+  if (res.status == 200) {
+    window.location.href = "index.html";
+  }
 }

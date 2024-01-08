@@ -24,6 +24,7 @@ export class UserController {
         plainPassword: password,
         hashedPassword: user.password,
       });
+      console.log(match);
 
       if (!match) {
         return res.status(401).json({ error: "Wrong Email/Password" });
@@ -32,12 +33,14 @@ export class UserController {
         return res.status(412).json({ error: "Missing request session" });
       }
 
-      req.session.user = { id: user.id, email: user.email };
+      req.session["user"] = { id: user.id, email: user.email };
 
-      return res.redirect("/");
+      return res.json({ message: "login success" });
     } catch (error) {
       res.status(500);
+
       res.json({ error: "Wrong Username/Password" });
+      return;
     }
   };
 }
