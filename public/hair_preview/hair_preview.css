@@ -46,3 +46,131 @@
   margin-left: 6rem;
   margin-right: 6rem;
 }
+
+#photo_container {
+  border: 1px solid black;
+  height: 50rem;
+  width: auto;
+  margin-left: 6rem;
+  margin-right: 6rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#vl {
+  border-left: 1px solid grey;
+  height: 98%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+#user_image {
+  border: 1px solid black;
+  height: auto;
+  width: 65rem;
+  margin: 2rem;
+}
+
+#output_image {
+  border: 1px solid black;
+  height: auto;
+  width: 65rem;
+  margin: 2rem;
+}
+
+#image_file {
+  border: 1px solid black;
+  width: auto;
+  height: auto;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  font-size: xx-large;
+}
+
+#submit_photo {
+  border: 1px dotted black;
+  width: auto;
+  height: 10rem;
+  margin-left: 8rem;
+  margin-right: 8rem;
+}
+
+#webcam_submit {
+  border: 1px dotted black;
+  width: auto;
+  height: 5rem;
+  margin-left: 8rem;
+  margin-right: 8rem;
+  margin-top: 2rem;
+}
+
+#change_select {
+  border: 1px solid black;
+  width: auto;
+  height: auto;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  font-size: xx-large;
+}
+
+#check_boxes {
+  border: 1px solid black;
+  width: auto;
+  height: auto;
+  margin-left: 8rem;
+  margin-right: 8rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+select {
+  border: 2px solid black;
+  background-color: white;
+  width: 30rem;
+  height: 3rem;
+  font-size: 23px;
+}
+
+input#textInput {
+  border: 2px solid black;
+  background-color: white;
+  width: 30rem;
+  height: 3rem;
+  font-size: 23px;
+}
+
+#suggestions {
+  border: 1px solid black;
+  width: auto;
+  height: auto;
+  margin-left: 5rem;
+  margin-right: 5rem;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  font-size: xx-large;
+}
+
+#hair_selection {
+  border: 1px dotted black;
+  width: auto;
+  height: 10rem;
+  margin-left: 8rem;
+  margin-right: 8rem;
+}
+
+#preview_select {
+  width: auto;
+  height: 10rem;
+  margin: 5rem;
+  display: flex;
+  justify-content: space-around;
+}
+
+button.btn {
+  font-size: 30px;
+}
