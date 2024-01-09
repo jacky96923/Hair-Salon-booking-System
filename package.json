@@ -1,7 +1,7 @@
 {
   "name": "bad_project",
   "version": "1.0.0",
-  "description": "bad_project Let's gooooo boyz",
+  "description": "bad_project Let's go boys",
   "main": "index.js",
   "compilerOptions": {
     "strict": true,
@@ -20,8 +20,14 @@
     "dist"
   ],
   "scripts": {
-    "start": "ts-node-dev main.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run type-check && npm run jest",
+    "type-check": "tsc --noEmit",
+    "jest": "jest --runInBand",
+    "build": "tsc -p .",
+    "start": "ts-node-dev server.ts",
+    "db:dev": "run-s db:update db:plan db:update",
+    "db:plan": "auto-migrate pg < erd.txt",
+    "db:update": "knex migrate:latest && erd-to-types < erd.txt > types.ts"
   },
   "author": "",
   "license": "ISC",
