@@ -51,36 +51,44 @@
     </div>
 
     <div id="photo_container">
-      <div id="user_image"></div>
+      <div id="user_image"><img id="uploaded_image" /></div>
       <div id="vl"></div>
       <div id="output_image"></div>
     </div>
-
-    <div id="image_file">Image file</div>
-    <div id="submit_photo">Upload a picture of yourself</div>
-    <div id="webcam_submit">Take a photo with your webcam.</div>
-    <div id="change_select">What would you change?</div>
-    <div id="check_boxes">
-      <select name="language" id="language">
-        <option value="hair">Hair</option>
-        <option value="color">Color</option>
-        <option value="both">Both</option>
-      </select>
+    <form>
+      <div id="image_file">Image file</div>
+      <div id="submit_photo">Upload a picture of yourself</div>
       <input
-        type="text"
-        name="textInput"
-        id="textInput"
-        placeholder="Enter Color"
+        type="file"
+        id="photo_input"
+        style="display: none"
+        multiple="false"
+        method="POST"
       />
-    </div>
-    <div id="suggestions">Your Hair Style Suggestions</div>
-    <div id="hair_selection"></div>
-    <div id="preview_select">
-      <button type="button" class="btn btn-outline-preview btn-lg">
-        Preview Now!
-      </button>
-      <button type="button" class="btn btn-outline-reset btn-lg">Reset</button>
-    </div>
+      <div id="webcam_submit">Take a photo with your webcam.</div>
+      <div id="change_select">What would you change?</div>
+      <div id="check_boxes">
+        <select name="language" id="language">
+          <option value="hair">Hair</option>
+          <option value="color">Color</option>
+          <option value="both">Both</option>
+        </select>
+        <input
+          type="text"
+          name="textInput"
+          id="textInput"
+          placeholder="Enter Color"
+        />
+      </div>
+      <div id="suggestions">Your Hair Style Suggestions</div>
+      <div id="hair_selection"></div>
+      <div id="preview_select">
+        <button type="submit" class="btn btn-outline-preview btn-lg">
+          Preview Now!
+        </button>
+        <button type="reset" class="btn btn-outline-reset btn-lg">Reset</button>
+      </div>
+    </form>
 
     <script src="./hair_preview.js"></script>
   </body>
