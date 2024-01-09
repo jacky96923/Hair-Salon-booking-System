@@ -19,9 +19,9 @@ jobs:
       postgres:
         image: postgres
         env:
-          POSTGRES_DB: ${{env.POSTGRES_DB}}
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
+          DB_NAME: ${{env.POSTGRES_DB}}
+          DB_USER: postgres
+          DB_PASSWORD: ${{env.POSTGRES_PASSWORD}}
           POSTGRES_HOST: postgres
           SESSION_SECRET: fhffjgjhdghdgh
         ports:
