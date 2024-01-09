@@ -29,14 +29,14 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: install dependencies
-      - run: |
+        run: |
           npm install
       - name: run test cases
-      - run: |
+        run: |
           npm test
   build:
     runs-on: ubuntu-latest
-    container: node:20.10.0-slim
+    container: node:latest
     steps:
       - uses: actions/checkout@v3
       - name: install dependencies
