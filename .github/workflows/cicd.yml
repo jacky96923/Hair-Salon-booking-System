@@ -22,11 +22,10 @@ jobs:
         image: postgres
         env:
           DB_NAME: ${{env.DB_NAME}}
-          DB_USER: postgres
+          DB_USER: ${{env.DB_USER}}
           DB_PASSWORD: ${{env.DB_PASSWORD}}
           POSTGRES_PORT: ${{env.POSTGRES_PORT}}
-          POSTGRES_HOST: postgres
-          SESSION_SECRET: fhffjgjhdghdgh
+          SESSION_SECRET: ${{env.SESSION_SECRET}}
         ports:
           - 5432:5432
     steps:
