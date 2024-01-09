@@ -27,10 +27,10 @@ jobs:
           POSTGRES_PORT: ${{env.POSTGRES_PORT}}
           SESSION_SECRET: ${{env.SESSION_SECRET}}
         ports:
-          - 5432:5432
+            - 5432:5432
     steps:
       - uses: actions/checkout@v3
       - run: |
           npm install 
-          npx knex migrate:latest --env development
+          npx knex migrate:latest
           npx jest
