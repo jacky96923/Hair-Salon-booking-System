@@ -1,56 +1,23 @@
 import type { Knex } from "knex";
 import { env } from "./env";
 
-// Update with your config settings.
+let pgConfig: Knex.Config = {
+  client: "pg",
+  connection: {
+    database: env.DB_NAME,
+    user: env.DB_USERNAME,
+    password: env.DB_PASSWORD,
+    host: env.DB_HOST,
+    port: env.DB_PORT,
+    multipleStatements: true,
+  },
+};
 
 const config: { [key: string]: Knex.Config } = {
-  development: {
-    client: "postgresql",
-    connection: {
-      database: env.POSTGRES_DB,
-      user: env.POSTGRES_USER,
-      password: env.POSTGRES_PASSWORD,
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      tableName: "knex_migrations",
-    },
-  },
-
-  staging: {
-    client: "postgresql",
-    connection: {
-      database: env.DB_NAME,
-      user: env.DB_USER,
-      password: env.DB_PASSWORD,
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      tableName: "knex_migrations",
-    },
-  },
-
-  production: {
-    client: "postgresql",
-    connection: {
-      database: env.DB_NAME,
-      user: env.DB_USER,
-      password: env.DB_PASSWORD,
-    },
-    pool: {
-      min: 2,
-      max: 10,
-    },
-    migrations: {
-      tableName: "knex_migrations",
-    },
-  },
+  development: pgConfig,
+  test: pgConfig,
+  ci: pgConfig,
+  production: pgConfig,
 };
 
 module.exports = config;
