@@ -1,17 +1,16 @@
 name: badproject
-on: 
-    push:
-        branches:
-            - "*"
-    workflow_dispatch:
-  
-env: 
-     POSTGRES_DB: badproject
-     POSTGRES_USER: postgres
-     POSTGRES_PASSWORD: postgres
-     POSTGRES_HOST: postgres
-     POSTGRES_PORT: 5432
-     SESSION_SECRET: fhffjgjhdghdgh
+on:
+  push:
+    branches:
+      - "*"
+  workflow_dispatch:
+
+env:
+  POSTGRES_DB: ci
+  POSTGRES_USER: ci
+  POSTGRES_PASSWORD: ci
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: 5432
 
 jobs:
   testing:
@@ -25,7 +24,7 @@ jobs:
           POSTGRES_USER: ${{env.POSTGRES_USER}}
           POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
         ports:
-            - 5432:5432
+          - 5432:5432
     steps:
       - uses: actions/checkout@v3
       - run: |

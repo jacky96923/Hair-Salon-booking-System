@@ -7,7 +7,11 @@ function loadEnv() {
   let env = {
     NODE_ENV: "development",
   };
+  console.log("check before populate", env);
+
   populateEnv(env, { mode: "halt" });
+  console.log("check after populate", env);
+
   switch (env.NODE_ENV) {
     case "test": {
       const env = {
@@ -50,6 +54,7 @@ function loadEnv() {
       };
     }
     case "development":
+
     case "production": {
       const env = {
         PORT: 8080,
@@ -69,3 +74,5 @@ function loadEnv() {
 }
 
 export const env = loadEnv();
+
+console.log("check check", env);

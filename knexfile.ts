@@ -1,6 +1,7 @@
 import type { Knex } from "knex";
 import { env } from "./env";
 
+console.log("knex", env);
 let pgConfig: Knex.Config = {
   client: "pg",
   connection: {
