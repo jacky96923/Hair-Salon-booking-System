@@ -11,6 +11,7 @@ env:
   POSTGRES_PASSWORD: ci
   POSTGRES_HOST: postgres
   POSTGRES_PORT: 5432
+  NODE_ENV: ci
 
 jobs:
   testing:
