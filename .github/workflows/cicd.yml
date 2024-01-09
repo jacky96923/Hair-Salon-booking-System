@@ -1,0 +1,56 @@
+name: badproject
+on:
+  push:
+    branches:
+      - "*"
+  workflow_dispatch:
+
+env:
+  POSTGRES_DB: ci
+  POSTGRES_USER: ci
+  POSTGRES_PASSWORD: ci
+  POSTGRES_HOST: postgres
+  POSTGRES_PORT: 5432
+  NODE_ENV: ci
+
+jobs:
+  testing:
+    runs-on: ubuntu-latest
+    container: node:latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_DB: ${{env.POSTGRES_DB}}
+          POSTGRES_USER: ${{env.POSTGRES_USER}}
+          POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v3
+      - name: install dependencies
+        run: |
+          npm install
+      - name: run test cases
+        run: |
+          npm test
+  build:
+    runs-on: ubuntu-latest
+    container: node:latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: install dependencies
+        run: |
+          npm install
+      - name: build typescript project
+        run: |
+          npm run build
+      - name: prepare archive built files
+        run: |
+          mkdir -p release
+          mv package.json dist public release
+      - name: upload release archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-archive
+          path: release

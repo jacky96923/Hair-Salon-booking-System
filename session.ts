@@ -14,7 +14,7 @@ declare module "express-session" {
 }
 
 export let sessionMiddleware = expressSession({
-  secret: env.SESSION_SECRET,
+  secret: "1234",
   resave: true,
   saveUninitialized: true,
 });
