@@ -2,8 +2,9 @@ name: badproject
 on: 
     push:
     branches:
-      - "*"
+        - "*"
   workflow_dispatch:
+  
 env: 
   POSTGRES_DB: badproject
   POSTGRES_USER: postgres
