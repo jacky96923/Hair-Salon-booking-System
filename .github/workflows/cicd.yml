@@ -28,7 +28,29 @@ jobs:
           - 5432:5432
     steps:
       - uses: actions/checkout@v3
+      - name: install dependencies
       - run: |
-          npm install 
-          npx knex migrate:latest
-          npx jest
+          npm install
+      - name: run test cases
+      - run: |
+          npm test
+  build:
+    runs-on: ubuntu-latest
+    container: node:20.10.0-slim
+    steps:
+      - uses: actions/checkout@v3
+      - name: install dependencies
+        run: |
+          npm install
+      - name: build typescript project
+        run: |
+          npm run build
+      - name: prepare archive built files
+        run: |
+          mkdir -p release
+          mv package.json dist public release
+      - name: upload release archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-archive
+          path: release
