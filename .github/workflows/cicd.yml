@@ -61,4 +61,7 @@ jobs:
     # needs: test
     steps:
       - name: check connection to server
-        run: ssh ${{env.SERVER_HOST}}
+        run: | 
+        mkdir -p ~/.ssh
+        ssh-keyscan ${{env.SERVER_HOST}} >> ~/.ssh/known_hosts
+        ssh ${{env.SERVER_HOST}}
