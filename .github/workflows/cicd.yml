@@ -27,3 +27,4 @@ jobs:
       - run: |
           npm install 
           npx knex migrate:latest --env test
+          npx jest
