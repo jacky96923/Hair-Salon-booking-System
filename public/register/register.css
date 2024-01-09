@@ -76,6 +76,20 @@ input[type="submit"]{
     align-items: center;
 }
 
+.login{
+    margin-top: 15px;
+}
+
+.login a{
+    all: unset;
+    color: #6c757d;
+}
+
+.login a:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 /* Style for Form Validation */
 .input-control.success input{
     border-color:#09c372;
