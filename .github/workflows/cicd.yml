@@ -71,6 +71,4 @@ jobs:
           key: ${{secrets.BADKEY2}}
       - name: install dependencies
         run: |
-          yarn install
-          yarn knex migrate:latest --env production
-          pm2 restart badproject
+          pwd
