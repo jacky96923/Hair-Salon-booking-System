@@ -65,10 +65,13 @@ jobs:
           script: |
             cd /home/bad-project/badproject
             git pull origin production
-            yarn install
-            yarn knex migrate:latest --env production
-            pm2 restart badproject
           host: 52.76.149.51
           username: bad-project
           port: 22
           key: ${{secrets.BADKEY2}}
+      - name: install dependencies 
+          run: |
+            cd /home/bad-project/badproject
+            yarn install
+            yarn knex migrate:latest --env production
+            pm2 restart badproject
