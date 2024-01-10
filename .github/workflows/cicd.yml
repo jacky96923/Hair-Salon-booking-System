@@ -65,8 +65,10 @@ jobs:
           script: |
             cd /home/bad-project/badproject
             git pull origin production
-            npm install -g yarn 
-            yarn
+            source ~/.nvm/nvm.sh
+            yarn install
+            yarn knex migrate:latest --env production
+            pm2 restart badproject
           host: 52.76.149.51
           username: bad-project
           port: 22
