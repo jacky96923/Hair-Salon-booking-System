@@ -21,7 +21,6 @@ document
   .querySelector("#submit_shape")
   .addEventListener("click", async function (event) {
     event.preventDefault();
-    const form = event.target;
     const file = photoInput.files[0];
     if (!file) {
       console.log("No file Selected");
