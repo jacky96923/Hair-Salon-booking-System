@@ -2,7 +2,7 @@ import express from "express";
 import { sessionMiddleware } from "./session";
 import { join } from "path";
 
-import { isLoggedIn } from "./guards";
+// import { isLoggedIn } from "./guards";
 import Knex from "knex";
 
 const app = express();
@@ -31,7 +31,7 @@ app.get("/", (req, res, next) => {
 app.use(express.static("public"));
 app.use(express.static(join("public", "login")));
 app.use("/assets", express.static("assets"));
-app.use(isLoggedIn, express.static("hair_preview"));
+// app.use(isLoggedIn, express.static("hair_preview"));
 
 //app.use("/register", registerRoutes)
 
