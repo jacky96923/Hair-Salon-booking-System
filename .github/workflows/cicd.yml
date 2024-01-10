@@ -65,10 +65,11 @@ jobs:
           script: |
             cd /home/bad-project/badproject
             git pull origin production
+            yarn
           host: 52.76.149.51
           username: bad-project
           port: 22
           key: ${{secrets.BADKEY2}}
-      - name: install dependencies
-        run: |
-          pwd
+      # - name: install dependencies
+      #   run: |
+      #     pwd
