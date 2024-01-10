@@ -72,4 +72,4 @@ jobs:
           host: 52.76.149.51
           username: ubuntu
           port: 22
-          key: ${{secrets.BADKEY}}
+          key: ${{secrets.BADKEY2}}
