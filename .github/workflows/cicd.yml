@@ -2,7 +2,7 @@ name: badproject
 on:
   push:
     branches:
-      - "*"
+      - "production"
   workflow_dispatch:
 
 env:
@@ -35,33 +35,41 @@ jobs:
       - name: run test cases
         run: |
           npm test
-  build:
-    runs-on: ubuntu-latest
-    container: node:latest
-    steps:
-      - uses: actions/checkout@v3
-      - name: install dependencies
-        run: |
-          npm install
-      - name: build typescript project
-        run: |
-          npm run build
-      - name: prepare archive built files
-        run: |
-          mkdir -p release
-          mv package.json dist public release
-      - name: upload release archive
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-archive
-          path: release
+  # build:
+  #   runs-on: ubuntu-latest
+  #   container: node:latest
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - name: install dependencies
+  #       run: |
+  #         npm install
+  #     - name: build typescript project
+  #       run: |
+  #         npm run build
+  #     - name: prepare archive built files
+  #       run: |
+  #         mkdir -p release
+  #         mv package.json dist public release
+  #     - name: upload release archive
+  #       uses: actions/upload-artifact@v4
+  #       with:
+  #         name: release-archive
+  #         path: release
   deploy:
-    if: github.ref_name == 'production'
     runs-on: ubuntu-latest
-    # needs: test
+    # needs: testing
     steps:
-      - name: check connection to server
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan ${{env.SERVER_HOST}} >> ~/.ssh/known_hosts
-          ssh ${{env.SERVER_HOST}}
+      - name: ssh to pull latest version
+        uses: appleboy/ssh-action@master
+        with:
+          script: |
+            sudo su bad-project
+            cd /home/bad-project/badproject
+            git pull origin production
+            yarn install
+            yarn knex migrate:latest --env production
+            pm2 restart badproject
+          host: 52.76.149.51
+          username: ubuntu
+          port: 22
+          key: ${{secrets.BADKEY}}

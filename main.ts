@@ -1,15 +1,13 @@
-import express from "express";
+import express, { Request, Response } from "express";
 import { sessionMiddleware } from "./session";
 import { join } from "path";
 
 import { isLoggedIn } from "./guards";
 import Knex from "knex";
 
-
 const app = express();
 const knexConfig = require("./knexfile");
 export const knex = Knex(knexConfig[process.env.NODE_ENV || "development"]);
-
 
 app.use(sessionMiddleware);
 app.use(express.urlencoded({ extended: false }));
@@ -19,14 +17,16 @@ import { userRoutes } from "./routers";
 import { terminalCounter } from "./terminalCounter";
 
 app.use("/", userRoutes);
-app.use(terminalCounter)
-
+app.use(terminalCounter);
+app.get("/test", (req: Request, res: Response) => {
+  res.status(200).send("CICD");
+});
 app.get("/", (req, res, next) => {
-    if (!req.session.user) {
-        res.redirect("/login.html");
-        return;
-    }
-    next();
+  if (!req.session.user) {
+    res.redirect("/login.html");
+    return;
+  }
+  next();
 });
 
 app.use(express.static("public"));
@@ -41,5 +41,5 @@ app.use(isLoggedIn, express.static("hair_preview"));
 const PORT = 8080;
 
 app.listen(PORT, () => {
-    console.log(`Listening at http://localhost:${PORT}/`);
+  console.log(`Listening at http://localhost:${PORT}/`);
 });
