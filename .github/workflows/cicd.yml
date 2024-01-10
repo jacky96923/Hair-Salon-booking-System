@@ -12,6 +12,7 @@ env:
   POSTGRES_HOST: postgres
   POSTGRES_PORT: 5432
   NODE_ENV: ci
+  SERVER_HOST: kthpang.online
 
 jobs:
   testing:
@@ -54,3 +55,13 @@ jobs:
         with:
           name: release-archive
           path: release
+  deploy:
+    if: github.ref_name == 'production'
+    runs-on: ubuntu-latest
+    # needs: test
+    steps:
+      - name: check connection to server
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan ${{env.SERVER_HOST}} >> ~/.ssh/known_hosts
+          ssh ${{env.SERVER_HOST}}
