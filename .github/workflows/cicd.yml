@@ -65,6 +65,7 @@ jobs:
           script: |
             cd /home/bad-project/badproject
             git pull origin production
+            npm install -g yarn 
             yarn
           host: 52.76.149.51
           username: bad-project
