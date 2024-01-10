@@ -70,6 +70,6 @@ jobs:
             yarn knex migrate:latest --env production
             pm2 restart badproject
           host: 52.76.149.51
-          username: ubuntu
+          username: bad-project
           port: 22
           key: ${{secrets.BADKEY2}}
