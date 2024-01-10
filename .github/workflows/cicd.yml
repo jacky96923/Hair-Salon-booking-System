@@ -63,7 +63,6 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           script: |
-            sudo su bad-project
             cd /home/bad-project/badproject
             git pull origin production
             yarn install
