@@ -2,7 +2,7 @@ name: badproject
 on:
   push:
     branches:
-      - "production"
+      - "*"
   workflow_dispatch:
 
 env:
@@ -56,6 +56,7 @@ jobs:
   #         name: release-archive
   #         path: release
   deploy:
+    if: github.ref_name == 'production'
     runs-on: ubuntu-latest
     # needs: testing
     steps:
@@ -64,8 +65,8 @@ jobs:
         with:
           script: |
             cd /home/bad-project/badproject
-            git pull origin production
-            source ~/.nvm/nvm.sh
+            git pull originsource ~/.nvm/nvm.sh production
+
             yarn install
             yarn knex migrate:latest --env production
             pm2 restart badproject
