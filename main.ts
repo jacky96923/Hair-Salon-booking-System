@@ -20,16 +20,17 @@ app.use("/", userRoutes);
 app.use("/", upload_image);
 app.use(terminalCounter);
 
+
 app.get("/", (req, res, next) => {
   if (!req.session.user) {
-    res.redirect("/login.html");
+    res.redirect("/login/login.html");
     return;
   }
   next();
 });
 
 app.use(express.static("public"));
-app.use(express.static(join("public", "login")));
+// app.use(express.static(join("public", "login")));
 app.use("/assets", express.static("assets"));
 // app.use(isLoggedIn, express.static("hair_preview"));
 
