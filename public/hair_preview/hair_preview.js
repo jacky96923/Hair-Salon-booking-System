@@ -29,16 +29,22 @@ document
     try {
       const formData = new FormData();
       formData.append("upload_image", file);
-      console.log(formData);
+      let suggestMessage = document.querySelector(".message");
       const response = await fetch("/upload", {
         method: "POST",
         body: formData,
       });
       if (response.ok) {
         const result = await response.json();
-        console.log("Image:", result);
+        shape = result.predicted_class;
+        suggestMessage.textContent =
+          "Your Face Shape is \n" +
+          shape +
+          "." +
+          " Here are some hair style we suggested for you!";
       } else {
-        console.log("Error:", response.statusText);
+        const errorText = await response.text();
+        console.log("Error:", errorText);
       }
     } catch (error) {
       console.log("error", error.message);

@@ -58,7 +58,6 @@
     <div id="image_file">Image file</div>
     <form
       id="photo_input"
-      multiple="false"
       method="POST"
       action="/upload"
       enctype="multipart/form-data"
@@ -89,6 +88,9 @@
       />
     </div>
     <div id="suggestions">Your Hair Style Suggestions</div>
+    <div id="predict_message">
+      <p class="message"></p>
+    </div>
 
     <div id="hair_selection">
       <button type="submit" id="submit_shape" for="photo_input">
