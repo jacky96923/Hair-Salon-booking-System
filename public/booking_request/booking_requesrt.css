@@ -1,0 +1,141 @@
+#logo {
+    height: 10rem;
+    width: 14rem;
+  }
+  
+  #logo_image {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  #user_wrapper {
+    display: flex;
+    width: auto;
+    margin-left: 5rem;
+    margin-right: 5rem;
+  }
+  
+  #user_info {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    height: auto;
+    width: auto;
+    margin: 1rem;
+  }
+  
+  #user_pic {
+    height: 2.5rem;
+    width: 2.5rem;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 1rem;
+  }
+  
+  #profile_pic {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+  
+  #navbar_container {
+    border-top: 1px solid grey;
+    width: auto;
+    height: 4rem;
+    margin-left: 6rem;
+    margin-right: 6rem;
+  }
+  
+  #photo_container {
+    border: 1px solid black;
+    height: 50rem;
+    width: auto;
+    margin-left: 6rem;
+    margin-right: 6rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .time-slot {
+    display: inline-block;
+    margin-right: 10px;
+    margin: 1rem;
+    border:solid 1px white;
+    margin: 7px;
+    border-radius: 1rem;
+    padding: 0.5rem;
+
+
+  }
+
+  .time-slot:hover{
+    cursor: pointer;
+  }
+  
+  .selected {
+    background-color: #33ff00;
+  }
+
+  #booking-request-form {
+    width: 50%;
+    margin-top: 3rem;
+  }
+  .content {
+    display: flex;
+    justify-content: center;
+  }  
+.topic {
+  display: flex;
+  justify-content: center;
+  border-bottom: 3px rgb(218, 218, 218) solid;
+}
+
+
+
+.category {
+margin: 2rem;
+}
+
+h1{
+  font-size: 27px;
+}
+
+h4{
+  text-align: left;
+  font-size: 20px;
+}
+
+.date {
+  display: grid ;
+  text-align: center;
+  margin: 2rem;
+}
+
+.favpic {
+  display: grid ;
+  text-align: center;
+  margin: 2rem;
+}
+
+.remark{
+  display: grid ;
+  text-align: center;
+  margin: 2rem;
+
+}
+
+#button {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 5rem;
+}
+.submit, .reset{
+  border:solid 1px white;
+  outline: none;
+  box-shadow: none;
+  border-radius: 1rem;
+  padding: 0.5rem;
+
+}

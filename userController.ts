@@ -45,25 +45,36 @@ export class UserController {
 
   register = async (req: Request, res: Response) => {
     try {
-      const {name, email, password, confirmPassword}  = req.body
+      const { name, email, password, confirmPassword } = req.body;
       if (!name) {
-        return res.status(401).json({ element: "name", error: "Missing Username" });
+        return res
+          .status(401)
+          .json({ element: "name", error: "Missing Username" });
       }
       if (!email) {
-        return res.status(401).json({ element: "email", error: "Missing Email" });
+        return res
+          .status(401)
+          .json({ element: "email", error: "Missing Email" });
       }
       if (!password) {
-        return res.status(401).json({ element: "password", error: "Missing Password" });
+        return res
+          .status(401)
+          .json({ element: "password", error: "Missing Password" });
       }
-      if (password != confirmPassword){
-        return res.status(401).json({ element: "confirmPassword", error: "Password is not the same as Confirm Password" })
+      if (password != confirmPassword) {
+        return res.status(401).json({
+          element: "confirmPassword",
+          error: "Password is not the same as Confirm Password",
+        });
       }
-      const hasUser = await this.userService.hasUser(email)
-      console.log("result:", hasUser)
-      if (hasUser){
-        return res.status(401).json({ element: "email", error: "This email is being registered"})
+      const hasUser = await this.userService.hasUser(email);
+      console.log("result:", hasUser);
+      if (hasUser) {
+        return res
+          .status(401)
+          .json({ element: "email", error: "This email is being registered" });
       }
-      const result = await this.userService.register(name, email, password)
+      const result = await this.userService.register(name, email, password);
       let user = result[0];
       console.log({ user });
 
@@ -74,10 +85,34 @@ export class UserController {
       // Add session user when login successfully
       req.session["user"] = { id: user.id, email: user.email };
 
-      return res.status(200).json({success: "register success"});
-    } catch(error) {
+      return res.status(200).json({ success: "register success" });
+    } catch (error) {
       res.status(500);
       return res.json({ error: String(error) });
     }
-  }
+  };
+
+  booking_request = async (req: Request, res: Response) => {
+    try {
+      const { category, date, timeslots } = req.body;
+      if (!category) {
+        return res
+          .status(401)
+          .json({ element: "date", error: "Missing category" });
+      }
+      if (!date) {
+        return res.status(401).json({ element: "date", error: "Missing date" });
+      }
+      if (!timeslots) {
+        return res
+          .status(401)
+          .json({ element: "date", error: "Missing timeslots" });
+      }
+
+      return res.status(200).json({ success: "register success" });
+    } catch (error) {
+      res.status(500);
+      return res.json({ error: String(error) });
+    }
+  };
 }
