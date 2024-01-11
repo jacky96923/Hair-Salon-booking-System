@@ -10,6 +10,9 @@
       integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx"
       crossorigin="anonymous"
     />
+    <script src="
+    https://cdn.jsdelivr.net/npm/moment@2.30.1/moment.min.js
+    "></script>
     <link rel="stylesheet" href="./booking_requesrt.css" />
   </head>
   <body>
@@ -49,47 +52,52 @@
         </div>
       </nav>
     </div>
+    <div class="content">
+      <form id="booking-request-form" method="POST" action="/booking_request">
+        <div class="topic">
+          <h1>Booking</h1>
+        </div>
+        <div class="category">
+          <h4>Category</h4>
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            name="category"
+          >
+            <option disabled selected>Select</option>
+            <option value="1">Haircut Wash Style</option>
+            <option value="2">Style Perming</option>
+          </select>
+        </div>
 
-    <form class="content" method="POST" action="/booking_request">
-      <div class="topic">
-        <h1>Booking</h1>
-      </div>
-      <h4>Category</h4>
-      <select
-        class="form-select"
-        aria-label="Default select example"
-        name="category"
-      >
-        <option value="1">Haircut Wash Style</option>
-        <option value="2">Style Perming</option>
-      </select>
-      <div class="date">
-        <h4>Select Date and Time</h4>
-        <label for="date">Date:</label>
-        <input type="date" id="date" name="date" />
-        <h4>Available Time Slots:</h4>
-        <div id="time-slots" name="time_slots"></div>
-      </div>
-      <hr />
-      <div class="favpic">
-        <h4>The style that you like</h4>
-        <img src="/assets/user_img.webp" alt="" />
-      </div>
-      <hr />
-      <h4>Remarks</h4>
-      <div class="input-group">
-        <textarea
-          class="form-control"
-          aria-label="With textarea"
-          name="remarks"
-        ></textarea>
-      </div>
-      <div id="button">
-        <button type="button" class="submit">Submit</button>
-        <button type="button" class="reset">Reset</button>
-      </div>
-    </form>
+        <div class="date">
+          <h4>Select Date and Time</h4>
+          <input type="date" id="date" name="date" />
+          <br />
+          <h4>Available Time Slots:</h4>
+          <div id="time-slots" name="time_slots"></div>
+        </div>
 
+        <div class="favpic">
+          <h4>The style that you like</h4>
+          <img src="/assets/user_img.webp" alt="" />
+        </div>
+        <div class="remark">
+          <h4>Remarks</h4>
+          <div class="input-group">
+            <textarea
+              class="form-control"
+              aria-label="With textarea"
+              name="remarks"
+            ></textarea>
+          </div>
+        </div>
+        <div id="button">
+          <button type="submit" class="submit">Submit</button>
+          <button type="reset" class="reset">Reset</button>
+        </div>
+      </form>
+    </div>
     <script src="./booking_requesrt.js"></script>
   </body>
 </html>
