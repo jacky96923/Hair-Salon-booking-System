@@ -12,4 +12,5 @@ export const upload_image = express.Router();
 
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
+// userRoutes.post("/booking_request", userController.updateTimeSlots)
 upload_image.post("/upload", imageController.uploadImage);

@@ -50,21 +50,25 @@
       </nav>
     </div>
 
-    <form class="content">
+    <form class="content" method="POST" action="/booking_request">
       <div class="topic">
         <h1>Booking</h1>
       </div>
       <h4>Category</h4>
-      <select class="form-select" aria-label="Default select example">
+      <select
+        class="form-select"
+        aria-label="Default select example"
+        name="category"
+      >
         <option value="1">Haircut Wash Style</option>
         <option value="2">Style Perming</option>
       </select>
       <div class="date">
         <h4>Select Date and Time</h4>
         <label for="date">Date:</label>
-        <input type="date" id="date" />
+        <input type="date" id="date" name="date" />
         <h4>Available Time Slots:</h4>
-        <div id="time-slots"></div>
+        <div id="time-slots" name="time_slots"></div>
       </div>
       <hr />
       <div class="favpic">
@@ -74,7 +78,11 @@
       <hr />
       <h4>Remarks</h4>
       <div class="input-group">
-        <textarea class="form-control" aria-label="With textarea"></textarea>
+        <textarea
+          class="form-control"
+          aria-label="With textarea"
+          name="remarks"
+        ></textarea>
       </div>
       <div id="button">
         <button type="button" class="submit">Submit</button>

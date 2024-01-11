@@ -1,3 +1,5 @@
+// const { time } = require("console");
+
 let selectedTimeSlot = null;
 
 function updateTimeSlots() {
@@ -8,7 +10,7 @@ function updateTimeSlots() {
   timeSlotsContainer.innerHTML = "";
 
   for (let i = 10; i <= 20; i++) {
-    let timeSlot = document.createElement("button");
+    let timeSlot = document.createElement("div");
     timeSlot.classList.add("time-slot");
     timeSlot.innerText = i + ":00";
 
@@ -32,3 +34,30 @@ function updateTimeSlots() {
 }
 
 document.getElementById("date").addEventListener("change", updateTimeSlots);
+
+// document
+//   .querySelector(".submit")
+//   .addEventListener("click", async function (event) {
+//     event.preventDefault();
+//     let form = event.target;
+//     let formObject = {
+//       category: form.category.value,
+//       date: form.date.value,
+//       timeslots: form.time_slots.value,
+//       remarks: form.remarks.value,
+//     };
+//     let res = await fetch("/booking_request", {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//         Accept: "application/json",
+//       },
+//       body: JSON.stringify(formObject),
+//     });
+//     const result = await res.json();
+//     if (res.ok) {
+//       console.log(result);
+//     } else {
+//       console.error(result);
+//     }
+//   });
