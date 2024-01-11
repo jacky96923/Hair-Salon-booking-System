@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { fstat, mkdirSync } from "fs";
-import formidable from "formidable";
+import { Formidable } from "formidable";
 import { randomUUID } from "crypto";
 import { toStringField, toArray } from "./form";
 import path from "path";
@@ -10,7 +10,7 @@ mkdirSync(uploadDir, { recursive: true });
 
 export class ImageController {
   uploadImage = async (req: Request, res: Response, next: NextFunction) => {
-    let form = formidable({
+    let form = new Formidable({
       uploadDir,
       multiples: true,
       maxFiles: 1,
@@ -24,17 +24,27 @@ export class ImageController {
         return `${uuid}.${extName}`;
       },
     });
+    console.log(form);
     form.parse(req, async (err, fields, files) => {
+      console.log("uploaded:", { err, fields, files });
       if (err) {
         next(err);
         return;
       }
       try {
-        let content = toStringField(fields.content);
-        let imageFiles = toArray(files.images);
+        let imageFiles = toArray(files.upload_image);
+        console.log(imageFiles);
         let image = imageFiles.map((file) => file.newFilename);
-        let rePath = path.join("/upload", image[0]);
-        let py_filename = await fetch("/upload", {
+        if (!imageFiles) {
+          res.status(400);
+          res.json({ error: "Missing image content" });
+          // next(new Error('Missing "content" in request.body'))
+          return;
+        }
+        let rePath = path.join("/uploads", image[0]);
+        console.log(rePath);
+
+        let py_filename = await fetch("http://localhost:8000/pyShape", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -46,7 +56,7 @@ export class ImageController {
 
         // fetch to python
         // get result from predition
-        res.json({ success: true });
+        res.json(prediction);
       } catch (error) {
         res.status(500);
         res.json({ error: "Sad Upload" });
