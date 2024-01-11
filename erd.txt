@@ -1,7 +1,7 @@
 users
--------
-id
-name varchar(60) 
+-----
+id integer PK
+name varchar(60)
 email varchar(255)
 password varchar(60)
 created_at timestamp
@@ -10,85 +10,53 @@ updated_at timestamp
 
 image
 -----
-id 
-user_id integer fk >0- users.id 
-filename varchar(255) 
-     
+id integer PK
+user_id integer FK >0- users.id
+filename varchar(255)
+style varchar(255)
+
 
 booking
---------
-id
-user_id integer fk >0- users.id 
-datetime time 
+-------
+id integer PK
+user_id integer FK >0- users.id
+datetime time
 remarks text
-purpose 
-image_id fk -0- image.id
+purpose integer
+image_id integer FK -0- image.id
+
 
 roster
 ------
-id
+id integer PK
 datetime time
 man_count integer
-p_count integer null
-c_count integer null
-
-
-
-oval
-----
-id
-style varchar(60)
-faceshape_id integer fk >0- faceshape.id
-
-heart
------
-id
-style varchar(60)
-faceshape_id integer fk >0- faceshape.id
-
-
-round
------
-id
-style varchar(60)
-faceshape_id integer fk >0- faceshape.id
-
-
-square
-------
-id
-style varchar(60)
-faceshape_id integer fk >0- faceshape.id
-
-
-oblong
-------
-id
-style varchar(60)
-faceshape_id integer fk >0- faceshape.id
+p_count integer NULL
+c_count integer NULL
 
 
 faceshape
 ---------
-id
+id integer PK
 shape varchar(60)
 
 
+styleMatch
+----------
+id integer PK
+styleList_id integer FK >0- styleList.id
+faceshape_id integer FK >0- faceshape.id
 
 
+styleList
+---------
+id integer PK
+style varchar(255)
+special boolean
 
 
-
-
-# view: (-599, 254)
-# zoom: 0.802
-# users (1172, 42)
-# image (1278, 379)
-# booking (870, 14)
-# oval (233, 323)
-# heart (331, 924)
-# round (249, 85)
-# square (114, 484)
-# oblong (126, 695)
-# faceshape (616, 489)
-# roster (862, 285)
+styleImages
+-----------
+id integer PK
+image integer
+styleList_id integer FK >0- styleList.id
