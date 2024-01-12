@@ -137,5 +137,9 @@ h4{
   box-shadow: none;
   border-radius: 1rem;
   padding: 0.5rem;
+}
+
+.image-container {
+  margin: 3rem;
 
 }
