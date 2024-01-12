@@ -23,6 +23,6 @@ async function submitLogin(event) {
   // submitMessage.textContent = "Login Successfully";
 
   if (res.status == 200) {
-    window.location.href = "/index.html";
+    window.location.href = "/home.html";
   }
 }

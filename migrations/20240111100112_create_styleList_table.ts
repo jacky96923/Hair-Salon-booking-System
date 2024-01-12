@@ -2,7 +2,7 @@ import type { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable("styleList", function (table) {
-    table.increments("id").primary();
+    table.increments().primary();
     table.string("style", 255);
     table.boolean("special");
   });
