@@ -2,6 +2,7 @@ import { Knex } from "knex";
 import moment from "moment";
 import { hashPassword } from "../hash";
 export async function seed(knex: Knex): Promise<void> {
+  console.log("--------------------",1,"--------------------")
   // Deletes ALL existing entries (booking)
   await knex("booking").del();
   // Deletes ALL existing entries (users)

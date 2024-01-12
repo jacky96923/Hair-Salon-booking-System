@@ -1,8 +1,5 @@
-import { truncate } from "fs/promises";
 import { Knex } from "knex";
-import fs from "fs";
 import path from "path";
-import xlsx from "xlsx";
 
 let styles = [
   { style: "Afro Hairstyle", special: true },
@@ -35,7 +32,7 @@ let styles = [
   { style: "Mohawk Hairstyle", special: false },
   { style: "Pageboy Hairstyle", special: false },
   { style: "Perm Hairstyle", special: true },
-  { style: "Pinglets Hairstyle", special: true },
+  { style: "Ringlets Hairstyle", special: true },
   { style: "Pixie Cut Hairstyle", special: false },
   { style: "Psychobilly Wedge Hairstyle", special: false },
   { style: "Quiff Hairstyle", special: false },
@@ -52,10 +49,11 @@ let styles = [
 ];
 
 export async function seed(knex: Knex): Promise<void> {
+  console.log("--------------------", 4, "--------------------");
   // Deletes ALL existing entries
-  await knex("styleMatch").del();
-  await knex("styleImages").del();
-  await knex("styleList").del();
+  await knex("style_match").del();
+  await knex("style_images").del();
+  await knex("style_list").del();
   await knex("faceshape").del();
 
   // Inserts seed entries
@@ -72,7 +70,7 @@ export async function seed(knex: Knex): Promise<void> {
   for (let style of styles) {
     const styleListId = await knex
       .insert(style)
-      .into("styleList")
+      .into("style_list")
       .returning("id");
 
     const imageFileName = `${style.style}.jpg`;
@@ -81,8 +79,8 @@ export async function seed(knex: Knex): Promise<void> {
     await knex
       .insert({
         image: imagePath,
-        styleList_id: styleListId[0].id,
+        style_list_id: styleListId[0].id,
       })
-      .into("styleImages");
+      .into("style_images");
   }
 }
