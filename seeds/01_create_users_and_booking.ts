@@ -35,13 +35,20 @@ export async function seed(knex: Knex): Promise<void> {
   ]);
   // Inserts seed entries (bookings)
   let bookings = [
-    { date: "2024-01-13", time: "10:00" },
-    { date: "2024-01-13", time: "12:00" },
-    { date: "2024-02-09", time: "12:00" },
-    { date: "2024-02-09", time: "13:00" },
-    { date: "2024-02-09", time: "13:00" },
-    { date: "2024-02-09", time: "15:00" },
+    { date: "2024-01-29", time: "10:00" }, //user_id: 1 C
+    { date: "2024-01-29", time: "10:00" }, //user_id: 2 P
+    { date: "2024-01-29", time: "11:00" }, //user_id: 3 P
+    { date: "2024-01-29", time: "12:00" }, //user_id: 1 C
+    { date: "2024-01-29", time: "13:00" }, //user_id: 1 P
+    { date: "2024-01-29", time: "13:00" }, //user_id: 2 C
   ];
+
+  // Time/Id    1        2         3       available
+  // 10 - 11    C*   |  P(3)*  |         ->    1P
+  // 11 - 12         |  P(2)   |  P(3)*  ->    1C or 2P
+  // 12 - 13    C*   |  P(1)   |  P(2)   ->    X
+  // 13 - 14   P(3)* |   C*    |  P(1)   ->    X
+  // 14 - 15   P(2)  |         |         ->  1C, 1P or 3P
 
   // console.log(
   //   moment(`${bookings[0].date} ${bookings[0].time}`, "YYYY-MM-DD hh:mm")
@@ -85,7 +92,7 @@ export async function seed(knex: Knex): Promise<void> {
       remarks: "None",
     },
     {
-      user_id: 2,
+      user_id: 1,
       datetime: moment(
         `${bookings[4].date} ${bookings[4].time}`,
         "YYYY-MM-DD hh:mm"
@@ -94,7 +101,7 @@ export async function seed(knex: Knex): Promise<void> {
       remarks: "None",
     },
     {
-      user_id: 3,
+      user_id: 2,
       datetime: moment(
         `${bookings[5].date} ${bookings[5].time}`,
         "YYYY-MM-DD hh:mm"
