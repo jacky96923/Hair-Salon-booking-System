@@ -7,38 +7,40 @@ export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries (users)
   await knex("users").del();
 
-  await knex.raw("ALTER SEQUENCE users_id_seq RESTART WITH 1")
-  await knex.raw("ALTER SEQUENCE booking_id_seq RESTART WITH 1")
-  
+  // ask here
+  await knex.raw("ALTER SEQUENCE users_id_seq RESTART WITH 1");
+  await knex.raw("ALTER SEQUENCE booking_id_seq RESTART WITH 1");
 
   // Inserts seed entries (users)
   await knex("users").insert([
     {
-      id: 1,
+      // id: 1,
       name: "jacky",
       email: "jackylai96923@gmail.com",
       password: await hashPassword("123"),
     },
     {
-      id: 2,
+      // id: 2,
       name: "brian",
       email: "brianchan@gmail.com",
       password: await hashPassword("123"),
     },
     {
-      id: 3,
+      // id: 3,
       name: "kenneth",
       email: "kennethpang@gmail.com",
       password: await hashPassword("123"),
     },
   ]);
   // Inserts seed entries (bookings)
-  let bookings = [{ date: "2024-01-13", time: "10:00" },
-   { date: "2024-01-13", time: "12:00" },
-   { date: "2024-02-09", time: "12:00" },
-   { date: "2024-02-09", time: "13:00" },
-   { date: "2024-02-09", time: "13:00" },
-  { date: "2024-02-09", time: "15:00" }];
+  let bookings = [
+    { date: "2024-01-13", time: "10:00" },
+    { date: "2024-01-13", time: "12:00" },
+    { date: "2024-02-09", time: "12:00" },
+    { date: "2024-02-09", time: "13:00" },
+    { date: "2024-02-09", time: "13:00" },
+    { date: "2024-02-09", time: "15:00" },
+  ];
 
   // console.log(
   //   moment(`${bookings[0].date} ${bookings[0].time}`, "YYYY-MM-DD hh:mm")
@@ -98,6 +100,6 @@ export async function seed(knex: Knex): Promise<void> {
       ).format("YYYY-MM-DD HH:mm"),
       purpose: "Style Perming",
       remarks: "None",
-    }
+    },
   ]);
 }
