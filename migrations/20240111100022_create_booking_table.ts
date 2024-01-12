@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     table.integer("user_id").unsigned().references("id").inTable("users");
     table.timestamp("datetime");
     table.text("remarks");
-    table.integer("purpose");
+    table.string("purpose", 60);
     table.integer("image_id").unsigned().references("id").inTable("image");
   });
 }
