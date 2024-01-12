@@ -2,7 +2,7 @@ import { truncate } from "fs/promises";
 import { Knex } from "knex";
 import fs from "fs";
 import path from "path";
-import xlsx from "xlsx-populate";
+import xlsx from "xlsx";
 
 let styles = [
   { style: "Afro Hairstyle", special: true },
@@ -53,10 +53,10 @@ let styles = [
 
 export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries
-  await knex("faceshape").del();
   await knex("styleMatch").del();
-  await knex("styleList").del();
   await knex("styleImages").del();
+  await knex("styleList").del();
+  await knex("faceshape").del();
 
   // Inserts seed entries
   await knex
@@ -81,24 +81,8 @@ export async function seed(knex: Knex): Promise<void> {
     await knex
       .insert({
         image: imagePath,
-        styleList_id: styleListId[0],
+        styleList_id: styleListId[0].id,
       })
-      .into("styleImage");
+      .into("styleImages");
   }
-
-  const workbook = await xlsx.fromFileAsync("./styleMatch.xlsx");
-  const worksheet = workbook.sheet("Sheet1");
-
-  const faceshapes = worksheet.range("A1:E1").value().filter(Boolean);
-
-  for (let i = 0; i < faceshapes.length; i++) {
-    const faceshape = faceshapes[i];
-    const hairStyles = worksheet
-      .column(i + 1)
-      .slice(1)
-      .map((cell) => cell.value())
-      .filter(Boolean);
-  }
-
-  await knex.insert([]).into("styleMatch");
 }
