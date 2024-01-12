@@ -43,7 +43,9 @@
     "knex": "^3.1.0",
     "pg": "^8.11.3",
     "populate-env": "^2.0.0",
-    "replicate": "^0.25.2"
+    "replicate": "^0.25.2",
+    "xlsx": "^0.18.5",
+    "xlsx-populate": "^1.21.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
