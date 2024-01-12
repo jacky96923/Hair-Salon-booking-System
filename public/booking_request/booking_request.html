@@ -16,42 +16,49 @@
     <link rel="stylesheet" href="./booking_request.css" />
   </head>
   <body>
-    <div id="logo">
-      <img id="logo_image" src="/assets/logo.jpg" />
-    </div>
-    <div id="user_wrapper">
-      <div id="user_info">
-        <div id="user_pic">
-          <img id="profile_pic" src="/assets/user_img.webp" />
+    <div class="container-fluid">
+      <div class="top-container">
+        <div id="logo">
+          <img id="logo_image" src="../assets/logo.jpg" />
         </div>
-        <div id="user_name">User Name</div>
-      </div>
-    </div>
-    <div id="navbar_container">
-      <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Home</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNavAltMarkup"
-            aria-controls="navbarNavAltMarkup"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link" href="#">My Styles</a>
-              <a class="nav-link" href="#">My Bookings</a>
-              <a class="nav-link" href="#">Logout</a>
+        <div id="user_wrapper">
+          <div id="user_info">
+            <div id="user_pic">
+              <img id="profile_pic" src="../assets/user_img.webp" />
             </div>
+            <div id="user_name">User Name</div>
           </div>
         </div>
-      </nav>
+      </div>
+      <div id="navbar_container">
+        <nav class="navbar navbar-expand-lg bg-light">
+          <div class="container-fluid">
+            <a class="navbar-brand" href="../home.html">Home</a>
+            <button
+              class="navbar-toggler"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#navbarNavAltMarkup"
+              aria-controls="navbarNavAltMarkup"
+              aria-expanded="false"
+              aria-label="Toggle navigation"
+            >
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div class="navbar-nav">
+                <a class="nav-link" href="">My Styles</a>
+                <a class="nav-link" href="../my_booking/my_booking.html"
+                  >My Bookings</a
+                >
+                <a class="nav-link" href="#">Logout</a>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </div>
     </div>
+
     <div class="content">
       <form id="booking-request-form" method="POST" action="/booking_request">
         <div class="topic">

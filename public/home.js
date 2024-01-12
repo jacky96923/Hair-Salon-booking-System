@@ -12,3 +12,13 @@ for (let i = 1; i <= 10; i++) {
 
   resultImg.appendChild(imageContainer);
 }
+
+let desBooking = document.getElementById("desBooking");
+desBooking.addEventListener("click", function () {
+  window.location.href = "/booking_request/booking_request.html";
+});
+
+let desCreate = document.getElementById("desCreate");
+desCreate.addEventListener("click", function () {
+  window.location.href = "/hair_preview/hair_preview.html";
+});
