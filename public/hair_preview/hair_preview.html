@@ -73,36 +73,62 @@
     </form>
 
     <div id="webcam_submit">Take a photo with your webcam.</div>
-    <div id="change_select">What would you change?</div>
-    <div id="check_boxes">
-      <select name="language" id="language">
-        <option value="hair">Hair</option>
-        <option value="color">Color</option>
-        <option value="both">Both</option>
-      </select>
-      <input
-        type="text"
-        name="textInput"
-        id="textInput"
-        placeholder="Enter Color"
-      />
-    </div>
-    <div id="suggestions">Your Hair Style Suggestions</div>
-    <div id="predict_message">
-      <p class="message"></p>
-    </div>
 
-    <div id="hair_selection">
-      <button type="submit" id="submit_shape" for="photo_input">
-        Give me some idea!
-      </button>
-    </div>
-    <div id="preview_select">
-      <button type="submit" class="btn btn-outline-preview btn-lg">
-        Preview Now!
-      </button>
-      <button type="reset" class="btn btn-outline-reset btn-lg">Reset</button>
-    </div>
+    <form id="gen_photo" method="POST" action="/genPhoto">
+      <div id="change_select">What would you change?</div>
+      <div id="check_boxes">
+        <select name="type" id="type" required>
+          <option value="hairstyle">hairstyle</option>
+          <option value="color">color</option>
+          <option value="both">both</option>
+        </select>
+        <input
+          type="text"
+          name="color"
+          id="textInput"
+          placeholder="Enter Color"
+          required
+        />
+      </div>
+      <div id="suggestions">Your Hair Style Suggestions</div>
+      <div id="predict_message">
+        <div>
+          Find Out Your Face Shape
+          <button type="submit" id="submit_shape" for="photo_input">
+            with AI!
+          </button>
+        </div>
+        <p class="message"></p>
+      </div>
+
+      <div id="hair_selection">
+        <fieldset id="selection"></fieldset>
+      </div>
+      <div id="preview_select">
+        <button
+          id="submit_request"
+          type="submit"
+          class="btn btn-outline-preview btn-lg"
+        >
+          Preview Now!
+        </button>
+
+        <button
+          id="request_reset"
+          type="reset"
+          class="btn btn-outline-reset btn-lg"
+        >
+          Reset
+        </button>
+      </div>
+    </form>
+
+    <template id="template">
+      <div>
+        <input name="hair" type="radio" />
+        <label for="hair"></label>
+      </div>
+    </template>
 
     <script src="./hair_preview.js"></script>
   </body>

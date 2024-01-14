@@ -8,6 +8,8 @@ import path from "path";
 let uploadDir = "uploads";
 mkdirSync(uploadDir, { recursive: true });
 
+let prediction: any;
+
 export class ImageController {
   uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     let form = new Formidable({
@@ -24,16 +26,13 @@ export class ImageController {
         return `${uuid}.${extName}`;
       },
     });
-    console.log(form);
     form.parse(req, async (err, fields, files) => {
-      console.log("uploaded:", { err, fields, files });
       if (err) {
         next(err);
         return;
       }
       try {
         let imageFiles = toArray(files.upload_image);
-        console.log(imageFiles);
         let image = imageFiles.map((file) => file.newFilename);
         if (!imageFiles) {
           res.status(400);
@@ -42,8 +41,6 @@ export class ImageController {
           return;
         }
         let rePath = path.join("/uploads", image[0]);
-        console.log(rePath);
-
         let py_filename = await fetch("http://localhost:8000/pyShape", {
           method: "POST",
           headers: {
@@ -51,11 +48,8 @@ export class ImageController {
           },
           body: JSON.stringify({ image: rePath }),
         });
-        let prediction = await py_filename.json();
-        console.log(prediction);
-
-        // fetch to python
-        // get result from predition
+        prediction = await py_filename.json();
+        console.log("first:", prediction);
         res.json(prediction);
       } catch (error) {
         res.status(500);
@@ -64,3 +58,5 @@ export class ImageController {
     });
   };
 }
+
+export { prediction };

@@ -6,7 +6,7 @@ import numpy as np
 import cv2
 import os
 
-class_list=['heart','oblong','oval','round','square']
+class_list=['Heart','oblong','Oval','Round','Square']
 
 app = Sanic("FaceShapeApp")
 

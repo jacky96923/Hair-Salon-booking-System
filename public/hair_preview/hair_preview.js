@@ -37,11 +37,38 @@ document
       if (response.ok) {
         const result = await response.json();
         shape = result.predicted_class;
-        suggestMessage.textContent =
+        suggestMessage.innerHTML =
           "Your Face Shape is \n" +
           shape +
           "." +
-          " Here are some hair style we suggested for you!";
+          " Here are some hair style we suggested for you!" +
+          ` <button id="get_style">
+          Get Styles
+        </button>`;
+
+        //get style
+        suggestMessage.addEventListener("click", (event) => {
+          event.preventDefault();
+          get_styles();
+        });
+
+        async function get_styles() {
+          try {
+            let req = await fetch("/suggested");
+            if (req.ok) {
+              const response = await req.json();
+              const styles = response.result;
+              console.log("style:", styles);
+
+              showItems(styles);
+            } else {
+              console.error("Error loading Hair Style(req):", error);
+            }
+          } catch (error) {
+            console.error("Error loading Hair Style:", error);
+          }
+        }
+        //end of get style
       } else {
         const errorText = await response.text();
         console.log("Error:", errorText);
@@ -49,4 +76,43 @@ document
     } catch (error) {
       console.log("error", error.message);
     }
+  });
+
+function showItems(styles) {
+  let itemsTemplate = document.querySelector("#template");
+  let itemsContainer = document.querySelector("#selection");
+  itemsContainer.textContent = " ";
+  for (let style of styles) {
+    let node = itemsTemplate.content.cloneNode(true);
+    let inputElement = node.querySelector("input[type='radio']");
+    let labelElement = node.querySelector("label");
+
+    inputElement.value = `${style.style}/${style.special}`;
+    labelElement.textContent = style.style;
+
+    itemsContainer.appendChild(node);
+  }
+}
+
+document
+  .querySelector("#gen_photo")
+  .addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const form = event.target;
+    let formObject = {
+      type: form.type.value,
+      color: form.color.value,
+      style: form.elements.hair.value,
+    };
+    console.log("logging form", form);
+
+    const res = await fetch("/genPhoto", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formObject),
+    });
+    const result = await res.json();
+    console.log(result);
   });

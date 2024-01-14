@@ -164,15 +164,22 @@ input#textInput {
   margin-left: 5rem;
   margin-right: 5rem;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 }
 
 #hair_selection {
   border: 1px dotted black;
+  font-size: larger;
   width: auto;
-  height: 10rem;
+  min-height: 3rem;
+  max-height: 20rem;
   margin-left: 8rem;
   margin-right: 8rem;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
 }
 
 #preview_select {

@@ -4,3 +4,4 @@ tf_python
 dataset
 test
 .env
+.vscode
