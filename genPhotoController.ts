@@ -20,7 +20,7 @@ export class GenPhotoController {
       //     },
       //   };
 
-      const imagePath = "./uploads/cecda5d9-a2c0-4c8a-951a-b0c2e748ea95.jpeg";
+      const imagePath = "./uploads/733a8733-7399-4b97-81da-0697c431bf9d.jpeg";
       const image = await datauri(imagePath);
       const replicate = new Replicate({
         auth: REPLICATE_API_TOKEN,
