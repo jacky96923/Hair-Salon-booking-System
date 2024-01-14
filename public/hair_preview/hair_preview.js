@@ -86,8 +86,8 @@ function showItems(styles) {
     let node = itemsTemplate.content.cloneNode(true);
     let inputElement = node.querySelector("input[type='radio']");
     let labelElement = node.querySelector("label");
-
-    inputElement.value = `${style.style}/${style.special}`;
+    // `${style.style}/${style.special}`
+    inputElement.value = style.style;
     labelElement.textContent = style.style;
 
     itemsContainer.appendChild(node);
@@ -106,13 +106,26 @@ document
     };
     console.log("logging form", form);
 
-    const res = await fetch("/genPhoto", {
+    // const uploadRes = await fetch("/send_link", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({ image: uploadRes }),
+    // });
+    // const uploadData = await uploadRes.json();
+    // const { rePath } = uploadData;
+
+    const genPhotoRes = await fetch("/genPhoto", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(formObject),
+      body: JSON.stringify({ formObject }),
     });
-    const result = await res.json();
-    console.log(result);
+    const response = await genPhotoRes.json();
+    console.log("Front-end:", response);
+
+    const outputElement = document.querySelector("#result_image");
+    outputElement.src = response;
   });

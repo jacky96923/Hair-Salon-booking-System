@@ -75,4 +75,6 @@ function loadEnv() {
 
 export const env = loadEnv();
 
+export const REPLICATE_API_TOKEN = "r8_54aeurjzKAzaYVRMRy6FyHfKYW4m3IE3Gwj2F";
+
 console.log("check check", env);

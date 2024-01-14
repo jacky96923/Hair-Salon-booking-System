@@ -4,11 +4,13 @@ import { Formidable } from "formidable";
 import { randomUUID } from "crypto";
 import { toStringField, toArray } from "./form";
 import path from "path";
+import { resolve } from "dns/promises";
 
 let uploadDir = "uploads";
 mkdirSync(uploadDir, { recursive: true });
 
 let prediction: any;
+let gen_image: any;
 
 export class ImageController {
   uploadImage = async (req: Request, res: Response, next: NextFunction) => {
@@ -51,6 +53,7 @@ export class ImageController {
         prediction = await py_filename.json();
         console.log("first:", prediction);
         res.json(prediction);
+        return rePath;
       } catch (error) {
         res.status(500);
         res.json({ error: "Sad Upload" });
