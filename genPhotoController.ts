@@ -6,21 +6,12 @@ import datauri from "datauri";
 export class GenPhotoController {
   sendRequest = async (req: Request, res: Response) => {
     try {
-      const { type, color, style } = req.body.formObject;
+      const { type, color, style, path } = req.body.formObject;
       console.log(req.body);
       console.log(type);
-      //   const [hairStyle] = style.split("/");
-      //   const response = {
-      //     success: true,
-      //     message: "Request processed successfully",
-      //     data: {
-      //       type,
-      //       color,
-      //       style,
-      //     },
-      //   };
+      console.log(path);
 
-      const imagePath = "./uploads/733a8733-7399-4b97-81da-0697c431bf9d.jpeg";
+      const imagePath = "." + path;
       const image = await datauri(imagePath);
       const replicate = new Replicate({
         auth: REPLICATE_API_TOKEN,
@@ -37,10 +28,10 @@ export class GenPhotoController {
           },
         }
       );
-      const imageUrl = output.toString();
+      const results = output.toString() + "," + style;
       console.log("controller:", output);
-      console.log("imageUrl:", imageUrl);
-      res.status(200).json(imageUrl);
+      console.log("imageUrl:", results);
+      res.status(200).json(results);
     } catch (error) {
       console.error("Error processing request:", error);
     }
