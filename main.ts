@@ -13,13 +13,20 @@ app.use(sessionMiddleware);
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-import { userRoutes, upload_image, get_style, genPhoto } from "./routers";
+import {
+  userRoutes,
+  upload_image,
+  get_style,
+  genPhoto,
+  saveResult,
+} from "./routers";
 import { terminalCounter } from "./terminalCounter";
 
 app.use("/", userRoutes);
 app.use("/", upload_image);
 app.use("/", get_style);
 app.use("/", genPhoto);
+app.use("/", saveResult);
 app.use(terminalCounter);
 
 app.get("/", (req, res, next) => {

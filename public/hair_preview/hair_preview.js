@@ -1,6 +1,7 @@
 let photoInput = document.querySelector("#upload_image");
 let uploadedImage = document.querySelector("#uploaded_image");
 let apiPath;
+let requestedStyle;
 
 document.querySelector("#submit_photo").addEventListener("click", () => {
   photoInput.click();
@@ -112,16 +113,6 @@ document
     };
     console.log("logging form", form);
 
-    // const uploadRes = await fetch("/send_link", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({ image: uploadRes }),
-    // });
-    // const uploadData = await uploadRes.json();
-    // const { rePath } = uploadData;
-
     const genPhotoRes = await fetch("/genPhoto", {
       method: "POST",
       headers: {
@@ -132,10 +123,68 @@ document
     const response = await genPhotoRes.json();
     const [imageLink, style] = response.split(",");
     console.log("link:", imageLink);
-    console.log("style:", style);
+    requestedStyle = style;
 
     const outputElement = document.querySelector("#result_image");
     const styleConfirmElement = document.querySelector("#style_confirm");
     outputElement.src = imageLink;
     styleConfirmElement.textContent = "You have chosen " + style + " !";
+
+    // Generate button when the fetch request is completed
+    const saveTemplate = document.querySelector("#save");
+    const actionContainer = document.querySelector("#action_btn");
+    const node = saveTemplate.content.cloneNode(true);
+    const saveBtnElement = node.querySelector("#save_btn");
+    const bookingBtnElement = node.querySelector("#booking_btn");
+    saveBtnElement.textContent = "Save result to your profile !";
+    bookingBtnElement.textContent = "Make an haircut appointment !";
+    // button actions
+    saveBtnElement.addEventListener("click", async (event) => {
+      event.preventDefault();
+      let resultImage = document.querySelector("#result_image");
+      let imageUrl = resultImage.src;
+      console.log(imageUrl);
+      if (!imageUrl) {
+        console.log("No generated photo");
+      }
+      try {
+        //fetch image to a blob from a image url
+        let imageBlob = await fetch(imageUrl).then((response) =>
+          response.blob()
+        );
+        const formData = new FormData();
+        formData.append("upload_image", imageBlob, "result_image.jpg");
+        formData.append("requested_style:", requestedStyle);
+        console.log(imageBlob);
+        console.log("requestedStyle:", requestedStyle);
+
+        let res = await fetch("/save", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (res.ok) {
+          console.log("ok", res);
+          // showPopup("Saved to Profile", res);
+        } else {
+          console.log("fuck", res);
+          // showPopup("Problem submitting message, refresh to try again.");
+        }
+      } catch (error) {}
+    });
+
+    //Append the buttons
+    actionContainer.appendChild(node);
   });
+
+// const saveBtnElement = node.querySelector("#save_btn");
+
+// function showPopup(message) {
+//   const popup = document.querySelector("#popup");
+//   const popupMessage = document.querySelector("#popup_message");
+//   popupMessage.textContent = message;
+//   popup.style.display = "block";
+//   setTimeout(() => {
+//     popup.style.display = "none";
+//   }, 3000);
+// }
