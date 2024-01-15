@@ -1,5 +1,6 @@
 import { Knex } from "knex";
 import { hashPassword } from "./hash";
+import { promises } from "dns";
 
 export class UserService {
   constructor(private knex: Knex) {}
@@ -20,6 +21,20 @@ export class UserService {
         .returning("*");
     } catch (error) {
       console.error("error:", error);
+      return error;
+    }
+  }
+
+  async booking_request(category: string, datetime: string, remarks: string) {
+    try {
+      return await this.knex.insert({
+        purpose: category,
+        datetime: datetime,
+        remarks: remarks,
+      });
+    } catch (error) {
+      console.error("error:", error);
+
       return error;
     }
   }
