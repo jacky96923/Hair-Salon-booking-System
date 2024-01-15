@@ -52,8 +52,8 @@ export class ImageController {
         });
         prediction = await py_filename.json();
         console.log("first:", prediction);
-        res.json(prediction);
-        return rePath;
+        res.json({ prediction, rePath });
+        // return rePath;
       } catch (error) {
         res.status(500);
         res.json({ error: "Sad Upload" });
