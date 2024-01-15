@@ -20,7 +20,7 @@ booking
 -------
 id integer PK
 user_id integer FK >0- users.id
-datetime time
+datetime timestamp
 remarks text
 purpose integer
 image_id integer FK -0- image.id

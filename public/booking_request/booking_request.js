@@ -1,37 +1,116 @@
 let selectedTimeSlot = null;
 
-console.log(moment().format("YYYY-MM-DD"));
-document.getElementById("date").value = moment().format("YYYY-MM-DD");
-updateTimeSlots();
-function updateTimeSlots() {
-  let selectedDate = new Date(document.getElementById("date").value);
+// Display timeslots for P/C after selection of users
+let categoryElement = document.querySelector("select[name=category]");
+let bookingDateElement = document.getElementById("date");
+
+let selectedCategory =
+  categoryElement.options[categoryElement.selectedIndex].value;
+
+let bookingDate = null;
+
+function getValue() {
+  selectedCategory =
+    categoryElement.options[categoryElement.selectedIndex].value;
+  bookingDateElement = document.getElementById("date");
+  bookingDate = bookingDateElement.value;
+  console.log(bookingDate);
+  if (bookingDate != "") {
+    console.log("converting");
+    bookingDate = moment(bookingDate).format("YYYY-MM-DD");
+  }
+}
+
+async function getTimeSlots() {
+  let res = await fetch("/booking_timeslot", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ category: selectedCategory, date: bookingDate }),
+  });
+  if (res.ok) {
+    let result = await res.json();
+    console.log(result);
+
+    updateTimeSlots(result);
+  }
+}
+
+categoryElement.addEventListener("change", async (event) => {
+  getValue();
+
+  console.log(bookingDate);
+  if (selectedCategory && bookingDate) {
+    await getTimeSlots();
+  } else {
+    return;
+  }
+});
+
+bookingDateElement.addEventListener("change", async (event) => {
+  getValue();
+
+  if (selectedCategory && bookingDate) {
+    await getTimeSlots();
+  } else {
+    return;
+  }
+});
+
+// updateTimeSlots();
+function updateTimeSlots(result) {
+  let selectedDate = new Date(bookingDate);
   let currentDate = new Date();
   let currentHour = currentDate.getHours();
   console.log(currentHour);
   let timeSlotsContainer = document.getElementById("time-slots");
 
   // ask for this date's all time slots
-  ///for each time interval, ask database if available of cut or perm
-
+  console.log("hihihihi");
   timeSlotsContainer.innerHTML = "";
+  if (selectedCategory === "Haircut Wash Style") {
+    for (let i = 10; i <= 20; i++) {
+      let timeSlot = document.createElement("button");
+      timeSlot.classList.add("time-slot");
+      // timeSlot.setAttribute("disabled", true);
+      timeSlot.innerText = i + ":00" + " - " + (i + 1 + ":00");
+      timeSlot.id = i + ":00";
+      timeSlotsContainer.appendChild(timeSlot);
+    }
+  } else if (selectedCategory === "Style Perming") {
+    for (let i = 10; i <= 18; i++) {
+      let timeSlot = document.createElement("button");
+      timeSlot.classList.add("time-slot");
+      // timeSlot.setAttribute("disabled", true);
+      timeSlot.innerText = i + ":00" + " - " + (i + 3 + ":00");
+      timeSlot.id = i + ":00";
+      timeSlotsContainer.appendChild(timeSlot);
+    }
+  }
 
-  for (let i = 10; i <= 20; i++) {
-    let timeSlot = document.createElement("button");
-    timeSlot.classList.add("time-slot");
-    // timeSlot.setAttribute("disabled", true);
-    timeSlot.innerText = i + ":00" + " - " + (i + 1 + ":00");
-    timeSlot.id = " " + i + ":00";
-    if (
-      selectedDate < currentDate &&
-      selectedDate.toDateString() !== currentDate.toDateString()
-    ) {
+  let timeSlots = timeSlotsContainer.querySelectorAll(".time-slot");
+  timeSlots.forEach((timeSlot, index) => {
+    // Disable outdated timeslots
+    // if (
+    //   selectedDate < currentDate &&
+    //   selectedDate.toDateString() !== currentDate.toDateString()
+    // ) {
+    //   timeSlot.disabled = true;
+    // }
+
+    // if (currentHour <= currentHour + 1 && selectedDate < currentDate) {
+    //   timeSlot.disabled = true;
+    // }
+
+    // Disable & color booked timeslots
+    // console.log(timeSlot.id, result.rosterBooking[index]);
+
+    if (result.rosterBooking[index].bookingStatus != true) {
       timeSlot.disabled = true;
     }
 
-    if (i <= currentHour && selectedDate < currentDate) {
-      timeSlot.disabled = true;
-    }
-
+    // Enable selection of timeslot
     timeSlot.addEventListener("click", function (e) {
       e.preventDefault();
       if (selectedTimeSlot) {
@@ -39,13 +118,12 @@ function updateTimeSlots() {
       }
       this.classList.add("selected");
       selectedTimeSlot = this;
+      //console.log(selectedTimeSlot)
     });
-
-    timeSlotsContainer.appendChild(timeSlot);
-  }
+  });
 }
 
-document.getElementById("date").addEventListener("change", updateTimeSlots);
+bookingDateElement.addEventListener("change", updateTimeSlots);
 
 async function submitRequestForm(event) {
   event.preventDefault();
