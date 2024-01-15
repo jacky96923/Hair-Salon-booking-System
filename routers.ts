@@ -20,7 +20,7 @@ export const genPhoto = express.Router();
 
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
-userRoutes.post("/booking_category", userController.booking_timeslot)
+userRoutes.post("/booking_timeslot", userController.booking_timeslot)
 userRoutes.post("/booking_request", userController.booking_request);
 upload_image.post("/upload", imageController.uploadImage);
 get_style.get("/suggested", suggestedController.getSuggested);

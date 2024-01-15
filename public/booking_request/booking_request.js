@@ -12,7 +12,7 @@ bookingDate = moment().format("YYYY-MM-DD");
 
 category.addEventListener("change", async (event)=>{
   if (selectedCategory && bookingDate){
-    let res = await fetch("/booking_category", {
+    let res = await fetch("/booking_timeslot", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
