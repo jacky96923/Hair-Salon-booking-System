@@ -7,6 +7,7 @@ export class UserService {
   constructor(private knex: Knex) {}
 
   async login(email: string, password: string) {
+    //console.log("check login service:", await this.knex.select("*").from("users").where("email", email))
     return await this.knex.select("*").from("users").where("email", email);
   }
 
@@ -25,7 +26,19 @@ export class UserService {
       return error;
     }
   }
-
+  //Promise<{ man_count: number; c_count: number; } | undefined>
+  async booking_timeslot(category: string, dateTime: string) {
+    try {
+      if (category === "Haircut Wash Style"){
+        return await this.knex.select("man_count", "c_count").from("roster").where("datetime", dateTime)
+      } else if (category === "Style Perming"){
+        return await this.knex.select("man_count", "c_count", "p_count").from("roster").where("datetime", dateTime)
+      }
+    } catch (error) {
+      
+    }
+    
+  }
   async booking_request(category: string, datetime: string, remarks: string) {
     try {
       if (category === "Haircut Wash Style") {

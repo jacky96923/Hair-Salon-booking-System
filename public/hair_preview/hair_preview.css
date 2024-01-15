@@ -82,6 +82,12 @@
   margin: 2rem;
 }
 
+#style_confirm {
+  height: 3rem;
+  width: 100%;
+  align-items: center;
+}
+
 #uploaded_image {
   object-fit: contain;
   height: 100%;

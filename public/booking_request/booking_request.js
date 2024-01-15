@@ -1,26 +1,63 @@
 let selectedTimeSlot = null;
 
-console.log(moment().format("YYYY-MM-DD"));
-document.getElementById("date").value = moment().format("YYYY-MM-DD");
+// Display timeslots for P/C after selection of users
+let category = document.querySelector("select[name=category]");
+let selectedCategory = category.options[category.selectedIndex].value;
+let bookingDateElement = document.getElementById("date");
+//console.log(moment().format("YYYY-MM-DD"));
+let bookingDate = bookingDateElement.value;
+bookingDate = moment().format("YYYY-MM-DD");
+//console.log(category)
+
+category.addEventListener("change", async (event) => {
+  if (selectedCategory && bookingDate) {
+    let res = await fetch("/booking_timeslot", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ category: selectedCategory, date: bookingDate }),
+    });
+    if (res.ok) {
+      let { category, bookingDate, rosterBooking } = await res.json();
+    }
+  } else {
+    return;
+  }
+});
+
 updateTimeSlots();
 function updateTimeSlots() {
-  let selectedDate = new Date(document.getElementById("date").value);
+  let selectedDate = new Date(bookingDate);
   let currentDate = new Date();
   let currentHour = currentDate.getHours();
   console.log(currentHour);
   let timeSlotsContainer = document.getElementById("time-slots");
 
   // ask for this date's all time slots
-  ///for each time interval, ask database if available of cut or perm
 
   timeSlotsContainer.innerHTML = "";
+  if (category === "Haircut Wash Style") {
+    for (let i = 10; i <= 20; i++) {
+      let timeSlot = document.createElement("button");
+      timeSlot.classList.add("time-slot");
+      // timeSlot.setAttribute("disabled", true);
+      timeSlot.innerText = i + ":00" + " - " + (i + 1 + ":00");
+      timeSlot.id = i + ":00";
+    }
+  } else if (category === "Style Perming") {
+    for (let i = 10; i <= 18; i++) {
+      let timeSlot = document.createElement("button");
+      timeSlot.classList.add("time-slot");
+      // timeSlot.setAttribute("disabled", true);
+      timeSlot.innerText = i + ":00" + " - " + (i + 3 + ":00");
+      timeSlot.id = i + ":00";
+    }
+  }
 
-  for (let i = 10; i <= 20; i++) {
-    let timeSlot = document.createElement("button");
-    timeSlot.classList.add("time-slot");
-    // timeSlot.setAttribute("disabled", true);
-    timeSlot.innerText = i + ":00" + " - " + (i + 1 + ":00");
-    timeSlot.id = i + ":00";
+  let timeSlots = timeSlotsContainer.querySelectorAll(".time-slot");
+  timeSlots.forEach((timeSlot, index, array) => {
+    // Disable outdated timeslots
     if (
       selectedDate < currentDate &&
       selectedDate.toDateString() !== currentDate.toDateString()
@@ -32,6 +69,13 @@ function updateTimeSlots() {
       timeSlot.disabled = true;
     }
 
+    // Disable & color booked timeslots
+    if (category === "Haircut Wash Style") {
+      if (timeSlot.id === rosterBooking.bookingTime) {
+      }
+    } else if (category === "Style Perming") {
+    }
+    // Enable selection of timeslot
     timeSlot.addEventListener("click", function (e) {
       e.preventDefault();
       if (selectedTimeSlot) {
@@ -39,13 +83,14 @@ function updateTimeSlots() {
       }
       this.classList.add("selected");
       selectedTimeSlot = this;
+      //console.log(selectedTimeSlot)
     });
 
     timeSlotsContainer.appendChild(timeSlot);
-  }
+  });
 }
 
-document.getElementById("date").addEventListener("change", updateTimeSlots);
+bookingDateElement.addEventListener("change", updateTimeSlots);
 
 async function submitRequestForm(event) {
   event.preventDefault();

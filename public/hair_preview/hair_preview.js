@@ -1,5 +1,6 @@
 let photoInput = document.querySelector("#upload_image");
 let uploadedImage = document.querySelector("#uploaded_image");
+let apiPath;
 
 document.querySelector("#submit_photo").addEventListener("click", () => {
   photoInput.click();
@@ -36,7 +37,11 @@ document
       });
       if (response.ok) {
         const result = await response.json();
-        shape = result.predicted_class;
+        console.log(result);
+        let shape = result.prediction.predicted_class;
+        console.log("text:", shape);
+        // receive apiPath
+        apiPath = result.rePath;
         suggestMessage.innerHTML =
           "Your Face Shape is \n" +
           shape +
@@ -103,6 +108,7 @@ document
       type: form.type.value,
       color: form.color.value,
       style: form.elements.hair.value,
+      path: apiPath,
     };
     console.log("logging form", form);
 
@@ -124,8 +130,12 @@ document
       body: JSON.stringify({ formObject }),
     });
     const response = await genPhotoRes.json();
-    console.log("Front-end:", response);
+    const [imageLink, style] = response.split(",");
+    console.log("link:", imageLink);
+    console.log("style:", style);
 
     const outputElement = document.querySelector("#result_image");
-    outputElement.src = response;
+    const styleConfirmElement = document.querySelector("#style_confirm");
+    outputElement.src = imageLink;
+    styleConfirmElement.textContent = "You have chosen " + style + " !";
   });
