@@ -2,6 +2,7 @@ import { Knex } from "knex";
 import moment from "moment";
 
 export async function seed(knex: Knex): Promise<void> {
+  console.log("--------------------", 3, "--------------------");
   // Deletes ALL existing entries (back to initial state)
   await knex("roster").update({ c_count: 0, p_count: 0 });
   // Inserts seed entries

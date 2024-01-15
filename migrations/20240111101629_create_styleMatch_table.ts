@@ -1,13 +1,13 @@
 import type { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
-  return knex.schema.createTable("styleMatch", function (table) {
+  return knex.schema.createTable("style_match", function (table) {
     table.increments().primary();
     table
-      .integer("styleList_id")
+      .integer("style_list_id")
       .unsigned()
       .references("id")
-      .inTable("styleList");
+      .inTable("style_list");
     table
       .integer("faceshape_id")
       .unsigned()
@@ -17,5 +17,5 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-  return knex.schema.dropTable("styleMatch");
+  return knex.schema.dropTable("style_match");
 }
