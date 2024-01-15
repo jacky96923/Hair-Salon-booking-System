@@ -92,6 +92,44 @@ export class UserController {
     }
   };
 
+  booking_timeslot = async (req: Request, res: Response) => {
+    try {
+      const {category, date} = req.body
+      let roster = ["10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00"]
+      let rosterBooking: {bookingTime: string, bookingStatus: boolean}[] = []
+      if (category === "Haircut Wash Style"){
+        for (let time of roster){
+          let dateTime = date + time
+          console.log("datetime:", dateTime)
+          const {man_count, c_count} = (await this.userService.booking_timeslot(category, dateTime) as any[])[0]
+          if (man_count === c_count){
+          rosterBooking[roster.indexOf(time)]={bookingTime: time, bookingStatus: false}
+        } else {
+          rosterBooking[roster.indexOf(time)]={bookingTime: time, bookingStatus: true}          
+        }
+      }
+      console.log("rosterBooking:", rosterBooking)
+      res.json({category: category, bookingDate: date, rosterBooking: rosterBooking})
+    } else if (category === "Style Perming"){
+      for (let time of roster){
+        let dateTime = date + time
+        console.log("datetime:", dateTime)
+        const {man_count, c_count, p_count} = (await this.userService.booking_timeslot(category, dateTime) as any[])[0]
+        if ((man_count-c_count)*4 + c_count*2 > p_count){
+          rosterBooking[roster.indexOf(time)]={bookingTime: time, bookingStatus: true}
+        } else {
+          rosterBooking[roster.indexOf(time)]={bookingTime: time, bookingStatus: false}          
+        }
+      }
+      console.log("rosterBooking:", rosterBooking)
+      res.json({category: category, bookingDate: date, rosterBooking: rosterBooking})
+      } 
+    } catch (error) {
+      res.status(500);
+      res.json({ error: String(error) });
+    }
+  }
+  
   booking_request = async (req: Request, res: Response) => {
     try {
       const { category, date, timeSlots } = req.body;
