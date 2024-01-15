@@ -20,7 +20,7 @@ function updateTimeSlots() {
     timeSlot.classList.add("time-slot");
     // timeSlot.setAttribute("disabled", true);
     timeSlot.innerText = i + ":00" + " - " + (i + 1 + ":00");
-    timeSlot.id = " " + i + ":00";
+    timeSlot.id = i + ":00";
     if (
       selectedDate < currentDate &&
       selectedDate.toDateString() !== currentDate.toDateString()

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { checkPassword } from "./hash";
 import { UserService } from "./userService";
+import { log } from "console";
 
 export class UserController {
   constructor(private userService: UserService) {}
@@ -94,9 +95,8 @@ export class UserController {
 
   booking_request = async (req: Request, res: Response) => {
     try {
-      const { category, date, timeSlots } = req.body;
+      const { category, date, timeSlots, remarks } = req.body;
       console.log("req.body123", req.body);
-
       if (!category) {
         return res
           .status(401)
@@ -111,10 +111,15 @@ export class UserController {
           .json({ element: "date", error: "Missing timeslots" });
       }
 
-      const dateErd = req.body.date;
-      const timeSlotsErd = req.body.timeSlots;
-      const datetime = dateErd + timeSlotsErd;
+      const datetime = date + timeSlots;
       console.log("datetime", datetime);
+
+      const result = await this.userService.booking_request(
+        category,
+        datetime,
+        remarks
+      );
+      console.log(result);
 
       return res.status(200).json({ success: "register success" });
     } catch (error) {

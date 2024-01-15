@@ -16,6 +16,7 @@ async function submitLogin(event) {
   });
   form.reset();
   const json = await res.json();
+  console.log(json);
   if (json.error) {
     submitMessage.textContent = json.error;
     return;
