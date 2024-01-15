@@ -3,7 +3,7 @@ for (let i = 1; i <= 10; i++) {
   let img = document.createElement("img");
   img.src = `/assets/user_img.webp`;
   let button = document.createElement("button");
-  button.textContent = "book now";
+  button.textContent = "Book now";
 
   const imageContainer = document.createElement("div");
   imageContainer.classList.add("image-container");

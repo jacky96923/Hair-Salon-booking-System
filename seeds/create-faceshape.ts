@@ -1,8 +1,5 @@
-import { truncate } from "fs/promises";
 import { Knex } from "knex";
-import fs from "fs";
 import path from "path";
-import xlsx from "xlsx";
 
 let styles = [
   { style: "Afro Hairstyle", special: true },

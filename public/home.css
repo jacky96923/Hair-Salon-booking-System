@@ -87,7 +87,13 @@
 .image-container {
   display:flex;
   flex-direction: column;
-  margin: 5rem;
+  margin: 3rem;
+}
+.image-container button {
+  margin: 2rem;
+  background-color: aquamarine;
+  border: 0;
+  border-radius: 10px;
 }
 #resultImg {
   display: flex;
@@ -100,4 +106,6 @@
   justify-content: center;
   align-items: center;
   margin-top: 2rem;
+  padding: 2rem;
+  border-top: 1px solid grey;
 }

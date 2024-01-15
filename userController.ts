@@ -94,7 +94,9 @@ export class UserController {
 
   booking_request = async (req: Request, res: Response) => {
     try {
-      const { category, date, timeslots } = req.body;
+      const { category, date, timeSlots } = req.body;
+      console.log("req.body123", req.body);
+
       if (!category) {
         return res
           .status(401)
@@ -103,11 +105,16 @@ export class UserController {
       if (!date) {
         return res.status(401).json({ element: "date", error: "Missing date" });
       }
-      if (!timeslots) {
+      if (!timeSlots) {
         return res
           .status(401)
           .json({ element: "date", error: "Missing timeslots" });
       }
+
+      const dateErd = req.body.date;
+      const timeSlotsErd = req.body.timeSlots;
+      const datetime = dateErd + timeSlotsErd;
+      console.log("datetime", datetime);
 
       return res.status(200).json({ success: "register success" });
     } catch (error) {
