@@ -35,7 +35,6 @@ function renderData(photos) {
   let resultImg = document.getElementById("resultImg");
   for (let photo of photos) {
     let img = document.createElement("img");
-
     img.src = photo.filename;
     let buttonBooking = document.createElement("button");
     let buttonRemove = document.createElement("button");
