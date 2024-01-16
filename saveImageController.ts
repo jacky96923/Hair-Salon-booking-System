@@ -36,8 +36,8 @@ export class SaveImageController {
         console.log("content:", requestedStyle);
         let imageFiles = toArray(files.upload_image);
         let image = imageFiles.map((file) => file.newFilename);
-        const userId = req.session.user;
-        console.log("id:", userId);
+        const userId = req.session.user ? req.session.user.id : undefined;
+        console.log(userId);
         if (!requestedStyle) {
           res.status(400);
           res.json({ error: "Missing image content" });
@@ -48,7 +48,8 @@ export class SaveImageController {
         console.log("path:", result);
         let savedPath = await this.saveImageService.saveOutput(
           result,
-          requestedStyle
+          requestedStyle,
+          userId
         );
       } catch (error) {
         res.status(500);
