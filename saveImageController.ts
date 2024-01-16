@@ -32,12 +32,12 @@ export class SaveImageController {
         return;
       }
       try {
-        const fields = { "requested_style:": ["braid hairstyle"] };
-        const requestedStyle = toStringField(fields["requested_style:"]);
-        // let content = toStringField();
+        const requestedStyle = toStringField(fields.style);
         console.log("content:", requestedStyle);
         let imageFiles = toArray(files.upload_image);
         let image = imageFiles.map((file) => file.newFilename);
+        const userId = req.session.user;
+        console.log("id:", userId);
         if (!requestedStyle) {
           res.status(400);
           res.json({ error: "Missing image content" });
@@ -50,7 +50,6 @@ export class SaveImageController {
           result,
           requestedStyle
         );
-        // res.json({ savedPath, requestedStyle });
       } catch (error) {
         res.status(500);
         res.json({ error: "Sad Upload" });

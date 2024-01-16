@@ -192,7 +192,7 @@ input#textInput {
   font-size: larger;
   width: auto;
   min-height: 3rem;
-  max-height: 20rem;
+  max-height: auto;
   margin-left: 8rem;
   margin-right: 8rem;
   display: flex;

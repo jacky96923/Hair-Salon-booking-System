@@ -1,9 +1,7 @@
-.top-container{
-    display: flex;
-    justify-content: space-between;
+.top-container {
+  display: flex;
+  justify-content: space-between;
 }
-
-
 
 #logo_image {
   max-width: 15%;
@@ -33,8 +31,8 @@
   margin-right: 1rem;
 }
 
-#user_name{
-    font-size: 18px;
+#user_name {
+  font-size: 18px;
 }
 
 #profile_pic {
@@ -47,7 +45,6 @@
   border-top: 1px solid grey;
   width: auto;
   height: 4rem;
-
 }
 
 .shopPic {
@@ -55,22 +52,20 @@
   width: 100%;
   height: 100%;
   position: relative;
-;}
+}
 
 .mainContent {
   display: inline;
   justify-content: center;
   position: relative;
-
 }
-
 
 .desBox {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 1.5rem;
   border-radius: 10px;
-  width:35rem;
-  height:11rem;
+  width: 35rem;
+  height: 11rem;
   position: absolute;
   top: 26rem;
   left: 5rem;
@@ -78,14 +73,13 @@
 .desBox button {
   background-color: rgba(225, 50, 50, 0.8);
   color: aliceblue;
-  border:solid 1px white;
+  border: solid 1px white;
   border-radius: 10px;
   padding: 0.5rem;
-
 }
 
 .image-container {
-  display:flex;
+  display: flex;
   flex-direction: column;
   margin: 3rem;
 }
@@ -98,10 +92,10 @@
 #resultImg {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center ;
+  justify-content: center;
   margin-top: 1rem;
 }
-.headerStyle {
+#headerStyle {
   display: flex;
   justify-content: center;
   align-items: center;
