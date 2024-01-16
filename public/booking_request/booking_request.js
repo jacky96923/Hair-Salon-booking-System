@@ -40,7 +40,6 @@ async function getTimeSlots() {
 categoryElement.addEventListener("change", async (event) => {
   getValue();
 
-  console.log(bookingDate);
   if (selectedCategory && bookingDate) {
     await getTimeSlots();
   } else {
@@ -61,6 +60,8 @@ bookingDateElement.addEventListener("change", async (event) => {
 // updateTimeSlots();
 function updateTimeSlots(result) {
   let selectedDate = new Date(bookingDate);
+  console.log("bookingDate", bookingDate);
+
   let currentDate = new Date();
   let currentHour = currentDate.getHours();
   console.log(currentHour);

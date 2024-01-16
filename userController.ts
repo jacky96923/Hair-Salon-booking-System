@@ -18,7 +18,7 @@ export class UserController {
 
       const result = await this.userService.login(email, password);
       let user = result[0];
-      console.log({ user });
+      // console.log({ user });
       const match = await checkPassword({
         plainPassword: password,
         hashedPassword: user.password,
@@ -68,7 +68,7 @@ export class UserController {
         });
       }
       const hasUser = await this.userService.hasUser(email);
-      console.log("result:", hasUser);
+      // console.log("result:", hasUser);
       if (hasUser) {
         return res
           .status(401)
@@ -76,7 +76,7 @@ export class UserController {
       }
       const result = await this.userService.register(name, email, password);
       let user = result[0];
-      console.log({ user });
+      // console.log({ user });
 
       if (!req.session) {
         return res.status(412).json({ error: "Missing request session" });
@@ -95,7 +95,7 @@ export class UserController {
   booking_timeslot = async (req: Request, res: Response) => {
     try {
       const { category, date } = req.body;
-      console.log(category, date);
+      // console.log(category, date);
       let roster = [
         "10:00",
         "11:00",
@@ -113,7 +113,7 @@ export class UserController {
       if (category === "Haircut Wash Style") {
         for (let time of roster) {
           let dateTime = date + " " + time;
-          console.log("datetime:", dateTime);
+          // console.log("datetime:", dateTime);
           const { man_count, c_count } = (
             (await this.userService.booking_timeslot(
               category,
@@ -141,7 +141,7 @@ export class UserController {
       } else if (category === "Style Perming") {
         for (let time of roster) {
           let dateTime = date + time;
-          console.log("datetime:", dateTime);
+          // console.log("datetime:", dateTime);
           const { man_count, c_count, p_count } = (
             (await this.userService.booking_timeslot(
               category,
@@ -160,7 +160,7 @@ export class UserController {
             };
           }
         }
-        console.log("rosterBooking:", rosterBooking);
+        // console.log("rosterBooking:", rosterBooking);
         res.json({
           category: category,
           bookingDate: date,
@@ -168,7 +168,7 @@ export class UserController {
         });
       }
     } catch (error) {
-      console.log("Error =====", error);
+      // console.log("Error =====", error);
       res.status(500);
       res.json({ error: String(error) });
     }
@@ -177,7 +177,7 @@ export class UserController {
   booking_request = async (req: Request, res: Response) => {
     try {
       const { category, date, timeSlots, remarks } = req.body;
-      console.log("req.body123", req.body);
+      // console.log("req.body123", req.body);
       if (!category) {
         return res
           .status(401)
@@ -193,7 +193,7 @@ export class UserController {
       }
 
       const datetime = date + timeSlots;
-      console.log("datetime", datetime);
+      // console.log("datetime", datetime);
 
       const result = await this.userService.booking_request(
         category,
