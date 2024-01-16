@@ -14,7 +14,7 @@ class GenPhotoController {
             console.log(req.body);
             console.log(type);
             console.log(path);
-            const imagePath = "." + path;
+            const imagePath = path;
             const image = await (0, datauri_1.default)(imagePath);
             const replicate = new replicate_1.default({
                 auth: env_1.REPLICATE_API_TOKEN,
