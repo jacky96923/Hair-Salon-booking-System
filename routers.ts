@@ -39,6 +39,12 @@ userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
 userRoutes.get("/username", userController.getUsername)
 userRoutes.post("/booking_timeslot", userController.booking_timeslot)
+export const getGenPhoto = express.Router();
+export const removeGenPhoto = express.Router();
+
+userRoutes.post("/login", userController.login);
+userRoutes.post("/register", userController.register);
+userRoutes.post("/booking_timeslot", userController.booking_timeslot);
 userRoutes.post("/booking_request", userController.booking_request);
 upload_image.post("/upload", imageController.uploadImage);
 get_style.get("/suggested", suggestedController.getSuggested);
@@ -46,3 +52,5 @@ genPhoto.post("/genPhoto", genPhotoController.sendRequest);
 saveResult.post("/save", saveImageController.saveImage);
 my_booking.get("/my_booking", myBookingController.getMyBooking)
 booking_details.get("/booking_details", bookingDetailsController.getBookingDetails)
+getGenPhoto.get("/getGenPhoto", userController.getGenPhoto);
+removeGenPhoto.delete("/removeGenPhoto", userController.removeGenPhoto);

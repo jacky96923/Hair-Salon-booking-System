@@ -21,6 +21,8 @@ import {
   saveResult,
   my_booking,
   booking_details,
+  getGenPhoto,
+  removeGenPhoto,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
 
@@ -31,6 +33,9 @@ app.use("/", genPhoto);
 app.use("/", saveResult);
 app.use("/", my_booking)
 app.use("/", booking_details)
+app.use("/", getGenPhoto);
+app.use("/", removeGenPhoto);
+
 app.use(terminalCounter);
 
 app.get("/", (req, res, next) => {
@@ -42,6 +47,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use(express.static("public"));
+app.use(express.static("result_images"));
 // app.use(express.static(join("public", "login")));
 app.use("/assets", express.static("assets"));
 // app.use(isLoggedIn, express.static("hair_preview"));

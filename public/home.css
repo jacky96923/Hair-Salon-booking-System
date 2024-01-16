@@ -1,6 +1,8 @@
-.top-container {
-  display: flex;
-  justify-content: space-between;
+.top-container{
+    display: flex;
+    justify-content: space-between;
+    
+
 }
 
 #logo_image {
@@ -82,13 +84,38 @@
   display: flex;
   flex-direction: column;
   margin: 3rem;
+  width: 15rem;
+  height: 15rem;
+  position: relative;
 }
-.image-container button {
-  margin: 2rem;
+
+.image-container img{
+  width: 100%;
+  height: auto;
+}
+
+.myStyleBooking  {
+  margin: 1rem 1rem 1rem 0rem;
   background-color: aquamarine;
   border: 0;
   border-radius: 10px;
+  font-size: 15px;
 }
+
+.myStyleRemove {
+  margin: 2rem;
+  background-color: rgb(225, 225, 225);
+  border: 0;
+  border-radius: 10px;
+  font-size: 15px;
+  position: absolute;
+  top: -2.5rem;
+  left: 12rem;
+  padding: 0rem 0.8rem 0rem 0.8rem;
+  color: rgb(95, 95, 95);
+}
+
+
 #resultImg {
   display: flex;
   flex-wrap: wrap;
@@ -102,3 +129,5 @@
   margin-top: 2rem;
   padding: 2rem;
 }
+
+

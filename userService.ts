@@ -51,7 +51,12 @@ export class UserService {
       }
     } catch (error) {}
   }
-  async booking_request(user_id: number, category: string, datetime: string, remarks: string) {
+  async booking_request(
+    user_id: number,
+    category: string,
+    datetime: string,
+    remarks: string
+  ) {
     try {
       if (category === "Haircut Wash Style") {
         await this.knex("booking").insert({
@@ -84,6 +89,27 @@ export class UserService {
         }
       }
       return;
+    } catch (error) {
+      console.error("error:", error);
+      return error;
+    }
+  }
+
+  async getGenPhoto(user_id: number) {
+    try {
+      return await this.knex
+        .select("filename", "style")
+        .from("image")
+        .where("user_id", user_id);
+    } catch (error) {
+      console.error("error:", error);
+      return error;
+    }
+  }
+  async removeGenPhoto(user_id: number) {
+    try {
+      const result = await this.knex("image").where("user_id", user_id).del();
+      return result;
     } catch (error) {
       console.error("error:", error);
       return error;

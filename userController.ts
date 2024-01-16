@@ -151,7 +151,11 @@ export class UserController {
           rosterBooking: rosterBooking,
         });
       } else if (category === "Style Perming") {
-        let pRosterData:{man_count: number, c_count: number, p_count: number}[] = []
+        let pRosterData: {
+          man_count: number;
+          c_count: number;
+          p_count: number;
+        }[] = [];
         for (let time of roster) {
           let dateTime = date + " " + time;
           //console.log("datetime:", dateTime);
@@ -161,14 +165,18 @@ export class UserController {
               dateTime
             )) as any[]
           )[0];
-          pRosterData.push({ man_count, c_count, p_count })
+          pRosterData.push({ man_count, c_count, p_count });
         }
         //console.log("pRosterData: ", pRosterData)
-        let pRoster = roster.slice(0, (roster.length - 2))
+        let pRoster = roster.slice(0, roster.length - 2);
         //console.log(pRoster)
         for (let time of pRoster) {
-          for (let i = 0; i <= 2; i++){
-            if ((pRosterData[i].man_count - pRosterData[i].c_count) * 4 + pRosterData[i].c_count * 2 > pRosterData[i].p_count) {
+          for (let i = 0; i <= 2; i++) {
+            if (
+              (pRosterData[i].man_count - pRosterData[i].c_count) * 4 +
+                pRosterData[i].c_count * 2 >
+              pRosterData[i].p_count
+            ) {
               rosterBooking[pRoster.indexOf(time)] = {
                 bookingTime: time,
                 bookingStatus: true,
@@ -199,8 +207,8 @@ export class UserController {
     try {
       const { category, date, timeSlots, remarks } = req.body;
       console.log("req.body123", req.body);
-      let user_id = req.session.user?.id
-      console.log("sessionID: ", req.session.user?.id)
+      let user_id = req.session.user?.id;
+      console.log("sessionID: ", req.session.user?.id);
       if (!category) {
         return res
           .status(401)
@@ -227,6 +235,40 @@ export class UserController {
       console.log(result);
 
       return res.status(200).json({ success: "register success" });
+    } catch (error) {
+      res.status(500);
+      return res.json({ error: String(error) });
+    }
+  };
+  getGenPhoto = async (req: Request, res: Response) => {
+    try {
+      // const { filename, user_id } = req.body;
+      // if (!filename) {
+      //   return res
+      //     .status(401)
+      //     .json({ element: filename, error: "Missing file" });
+      // }
+
+      // if (!user_id) {
+      //   return res
+      //     .status(401)
+      //     .json({ element: user_id, error: "Missing user_id" });
+      // }
+      const user_id = req.session.user?.id;
+      const result = await this.userService.getGenPhoto(user_id as number);
+      console.log("result: ", result);
+      return res.status(200).json(result);
+    } catch (error) {
+      res.status(500);
+      return res.json({ error: String(error) });
+    }
+  };
+
+  removeGenPhoto = async (req: Request, res: Response) => {
+    try {
+      const user_id = req.session.user?.id;
+      const result = await this.userService.removeGenPhoto(user_id as number);
+      return res.status(200).json(result);
     } catch (error) {
       res.status(500);
       return res.json({ error: String(error) });
