@@ -41,7 +41,7 @@ class ImageController {
                     // next(new Error('Missing "content" in request.body'))
                     return;
                 }
-                let rePath = path_1.default.join("/uploads", image[0]);
+                let rePath = path_1.default.join("../dist/uploads", image[0]);
                 let py_filename = await fetch("http://localhost:8000/pyShape", {
                     method: "POST",
                     headers: {
