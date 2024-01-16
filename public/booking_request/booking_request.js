@@ -4,15 +4,11 @@ let selectedTimeSlot = null;
 let categoryElement = document.querySelector("select[name=category]");
 let bookingDateElement = document.getElementById("date");
 
-let selectedCategory =
-  categoryElement.options[categoryElement.selectedIndex].value;
-
+let selectedCategory = categoryElement.options[categoryElement.selectedIndex].value;
 let bookingDate = null;
 
 function getValue() {
-  selectedCategory =
-    categoryElement.options[categoryElement.selectedIndex].value;
-  bookingDateElement = document.getElementById("date");
+  selectedCategory = categoryElement.options[categoryElement.selectedIndex].value;
   bookingDate = bookingDateElement.value;
   console.log(bookingDate);
   if (bookingDate != "") {
@@ -40,7 +36,6 @@ async function getTimeSlots() {
 categoryElement.addEventListener("change", async (event) => {
   getValue();
 
-  console.log(bookingDate);
   if (selectedCategory && bookingDate) {
     await getTimeSlots();
   } else {
@@ -61,6 +56,8 @@ bookingDateElement.addEventListener("change", async (event) => {
 // updateTimeSlots();
 function updateTimeSlots(result) {
   let selectedDate = new Date(bookingDate);
+  console.log("bookingDate", bookingDate);
+
   let currentDate = new Date();
   let currentHour = currentDate.getHours();
   console.log(currentHour);
@@ -103,7 +100,7 @@ function updateTimeSlots(result) {
     //   timeSlot.disabled = true;
     // }
 
-    // Disable & color booked timeslots
+    // Disable booked timeslots
     // console.log(timeSlot.id, result.rosterBooking[index]);
 
     if (result.rosterBooking[index].bookingStatus != true) {
