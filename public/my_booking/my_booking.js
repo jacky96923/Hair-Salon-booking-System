@@ -1,8 +1,12 @@
 let bookingsTbodyElement = document.querySelector("#bookings tbody")
 let usernameDivElement = document.querySelector("#user_name")
-getBookings()
-getUsername()
 
+async function main(){
+    await getUsername()
+    await getBookings()
+}
+
+window.onload = main()
 async function getUsername(){
     let res = await fetch("/username")
     if (res.ok){
@@ -45,8 +49,7 @@ function displayBookings(response){
             tdTime.innerText = booking.bookingTime + "-" + String(Number(booking.bookingTime.slice(0, 2)) + 1) + ":00"
         } else if (booking.category === "Style Perming"){
             tdTime.innerText = booking.bookingTime + "-" + String(Number(booking.bookingTime.slice(0, 2)) + 3) + ":00"
-        } else if (booking.category === "Style Perming"){
-        }
+        } 
         bookingRow.appendChild(tdTime)
         let tdCategory = document.createElement("td")
         tdCategory.innerText = booking.category
@@ -54,7 +57,8 @@ function displayBookings(response){
         
         let tdDetails = document.createElement("td")
         let detailsButton = document.createElement("button")
-        detailsButton.setAttribute("onclick", "window.location.href = '/my_booking/booking_details.html'")
+        // console.log(booking.bookingId)
+        detailsButton.setAttribute("onclick", `window.location.href = '/my_booking/booking_details.html?id=${booking.bookingId}'`)
         detailsButton.classList.add("btn", "btn-secondary")
         detailsButton.innerText = "Show Details"
         tdDetails.appendChild(detailsButton)

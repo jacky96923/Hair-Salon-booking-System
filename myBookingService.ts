@@ -6,7 +6,8 @@ export class MyBookingService {
 
     getMyBooking = async (user_id: number) => {
         try {
-            return await this.knex("booking").select("datetime", "purpose").where("user_id", user_id)
+            const booking = await this.knex("booking").select("id", "datetime", "purpose").where("user_id", user_id)
+            return booking
         } catch (error) {
             console.error("error:", error);
             return error;

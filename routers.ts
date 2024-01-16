@@ -34,13 +34,13 @@ export const genPhoto = express.Router();
 export const saveResult = express.Router();
 export const my_booking = express.Router();
 export const booking_details = express.Router();
+export const getGenPhoto = express.Router();
+export const removeGenPhoto = express.Router();
 
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
 userRoutes.get("/username", userController.getUsername)
 userRoutes.post("/booking_timeslot", userController.booking_timeslot)
-export const getGenPhoto = express.Router();
-export const removeGenPhoto = express.Router();
 
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
