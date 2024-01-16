@@ -114,13 +114,13 @@ export class UserController {
         for (let time of roster) {
           let dateTime = date + " " + time;
           // console.log("datetime:", dateTime);
-          const { man_count, c_count } = (
+          const { man_count, c_count, p_count } = (
             (await this.userService.booking_timeslot(
               category,
               dateTime
             )) as any[]
           )[0];
-          if (man_count === c_count) {
+          if (man_count === c_count || p_count > 2) {
             rosterBooking[roster.indexOf(time)] = {
               bookingTime: time,
               bookingStatus: false,

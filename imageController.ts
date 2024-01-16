@@ -4,19 +4,16 @@ import { Formidable } from "formidable";
 import { randomUUID } from "crypto";
 import { toStringField, toArray } from "./form";
 import path from "path";
-import { resolve } from "dns/promises";
 
 let uploadDir = "uploads";
 mkdirSync(uploadDir, { recursive: true });
 
 let prediction: any;
-let gen_image: any;
 
 export class ImageController {
   uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     let form = new Formidable({
       uploadDir,
-      multiples: true,
       maxFiles: 1,
       maxFileSize: 5 * 1024 * 1024 * 10,
       filter(part) {
