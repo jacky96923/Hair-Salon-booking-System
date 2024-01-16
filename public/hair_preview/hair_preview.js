@@ -113,6 +113,9 @@ document
     };
     console.log("logging form", form);
 
+    const wrapElement = document.querySelector("#result_wrap");
+    const loadingElement = document.querySelector("#loading_img");
+    wrapElement.style.display = "block";
     const genPhotoRes = await fetch("/genPhoto", {
       method: "POST",
       headers: {
@@ -120,10 +123,13 @@ document
       },
       body: JSON.stringify({ formObject }),
     });
+    // loadingElement.style.display = "none";
+
     const response = await genPhotoRes.json();
     const [imageLink, style] = response.split(",");
     console.log("link:", imageLink);
     requestedStyle = style;
+    loadingElement.style.display = "none";
 
     const outputElement = document.querySelector("#result_image");
     const styleConfirmElement = document.querySelector("#style_confirm");
@@ -204,7 +210,7 @@ document
           console.log("ok", res);
           // Show success message or perform any other actions
           // Redirect the user to another page
-          window.location.href = "/booking-details.html";
+          window.location.href = "/booking-details";
         } else {
           console.log("fuck", res);
           // Show error message or perform any other actions
@@ -218,7 +224,7 @@ document
   });
 
 document.getElementById("#to_profile").addEventListener("click", () => {
-  window.location.href = "/home.html#headerStyle";
+  window.location.href = "/home#headerStyle";
 });
 
 // const saveBtnElement = node.querySelector("#save_btn");
@@ -238,4 +244,15 @@ let previewSection = document.getElementById("#photo_container");
 
 previewBtn.addEventListener("click", () => {
   previewSection.scrollIntoView({ behavior: "smooth" });
+});
+
+const typeSelect = document.querySelector("#type");
+const textInput = document.querySelector("#textInput");
+
+typeSelect.addEventListener("change", () => {
+  if (typeSelect.value === "color" || typeSelect.value === "both") {
+    textInput.setAttribute("required", "");
+  } else {
+    textInput.removeAttribute("required");
+  }
 });

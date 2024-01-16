@@ -60,8 +60,12 @@
         enctype="multipart/form-data"
       >
         <div id="output_image">
-          <img id="result_image" />
-          <div id="style_confirm"></div>
+          <div id="result_wrap" style="display: none">
+            <img id="result_image" />
+            <img id="loading_img" src="/assets/loading.gif" />
+            <div id="style_confirm"></div>
+          </div>
+
           <div id="action_btn"></div>
         </div>
       </form>
@@ -98,7 +102,6 @@
           name="color"
           id="textInput"
           placeholder="Enter Color"
-          required
         />
       </div>
       <div id="suggestions">Your Hair Style Suggestions</div>

@@ -44,7 +44,7 @@ export class SaveImageController {
           // next(new Error('Missing "content" in request.body'))
           return;
         }
-        let result = path.join("/result_image", image[0]);
+        let result = path.join(image[0]);
         console.log("path:", result);
         let savedPath = await this.saveImageService.saveOutput(
           result,

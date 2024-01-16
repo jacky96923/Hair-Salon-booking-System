@@ -88,10 +88,23 @@
   align-items: center;
 }
 
+#result_wrap {
+  height: auto;
+  width: 65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 #uploaded_image {
   object-fit: contain;
   height: 100%;
   width: 100%;
+}
+
+#loading_img {
+  width: 5rem;
+  height: 5rem;
 }
 
 #result_image {
@@ -197,7 +210,8 @@ input#textInput {
   margin-right: 8rem;
   display: flex;
   flex-wrap: nowrap;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
 }
 
 #preview_select {
