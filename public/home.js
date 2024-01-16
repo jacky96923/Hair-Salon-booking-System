@@ -13,11 +13,34 @@ for (let i = 1; i <= 10; i++) {
 
   resultImg.appendChild(imageContainer);
 }
+async function getGenPhoto() {
+  // const photoId = req.session.user.id;
 
-let myStyleBooking = document.getElementById("myStyleBooking");
-myStyleBooking.addEventListener("click", function () {
-  window.location.href = "/booking_request/booking_request.html";
-});
+  //console.log("123123", photoId);xw
+  const res = await fetch("/getGenPhoto", {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to fetch photo");
+  }
+
+  const photo = await res.json();
+
+  if (!photo) {
+    throw new Error("Image not found");
+  }
+
+  return photo;
+}
+getGenPhoto();
+
+// let myStyleBooking = document.getElementById("myStyleBooking");
+// myStyleBooking.addEventListener("click", function () {
+//   window.location.href = "/booking_request/booking_request.html";
+// });
 let desBooking = document.getElementById("desBooking");
 desBooking.addEventListener("click", function () {
   window.location.href = "/booking_request/booking_request.html";
@@ -27,27 +50,3 @@ let desCreate = document.getElementById("desCreate");
 desCreate.addEventListener("click", function () {
   window.location.href = "/hair_preview/hair_preview.html";
 });
-
-// async function getGenImages() {
-//   const imageId = req.params.id;
-//   const res = await fetch("getGenImg", {
-//     method: "GET",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//     },
-//     body: JSON.stringify(imageId),
-//   });
-//   if (!res.ok) {
-//     throw new Error("Failed to fetch image");
-//   }
-
-//   const image = await res.json();
-
-//   if (!image) {
-//     throw new Error("Image not found");
-//   }
-
-//   return image;
-// }
-// getGenImages();

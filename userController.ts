@@ -208,4 +208,27 @@ export class UserController {
       return res.json({ error: String(error) });
     }
   };
+  getGenPhoto = async (req: Request, res: Response) => {
+    try {
+      // const { filename, user_id } = req.body;
+      // if (!filename) {
+      //   return res
+      //     .status(401)
+      //     .json({ element: filename, error: "Missing file" });
+      // }
+
+      // if (!user_id) {
+      //   return res
+      //     .status(401)
+      //     .json({ element: user_id, error: "Missing user_id" });
+      // }
+      const user_id = req.session.user?.id;
+      const result = await this.userService.getGenPhoto(user_id as number);
+      console.log("result: ", result);
+      return res.status(200).json({ success: "upload success" });
+    } catch (error) {
+      res.status(500);
+      return res.json({ error: String(error) });
+    }
+  };
 }

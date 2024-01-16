@@ -22,12 +22,14 @@ export const upload_image = express.Router();
 export const get_style = express.Router();
 export const genPhoto = express.Router();
 export const saveResult = express.Router();
+export const getGenPhoto = express.Router();
 
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
-userRoutes.post("/booking_timeslot", userController.booking_timeslot)
+userRoutes.post("/booking_timeslot", userController.booking_timeslot);
 userRoutes.post("/booking_request", userController.booking_request);
 upload_image.post("/upload", imageController.uploadImage);
 get_style.get("/suggested", suggestedController.getSuggested);
 genPhoto.post("/genPhoto", genPhotoController.sendRequest);
 saveResult.post("/save", saveImageController.saveImage);
+getGenPhoto.get("/getGenPhoto", userController.getGenPhoto);

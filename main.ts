@@ -19,6 +19,7 @@ import {
   get_style,
   genPhoto,
   saveResult,
+  getGenPhoto,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
 
@@ -27,6 +28,8 @@ app.use("/", upload_image);
 app.use("/", get_style);
 app.use("/", genPhoto);
 app.use("/", saveResult);
+app.use("/", getGenPhoto);
+
 app.use(terminalCounter);
 
 app.get("/", (req, res, next) => {

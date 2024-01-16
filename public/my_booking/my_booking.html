@@ -14,23 +14,23 @@
   </head>
   <body>
     <div class="container-fluid">
-        <div class="top-container">
-            <div id="logo">
-                <img id="logo_image" src="../assets/logo.jpg" />
+      <div class="top-container">
+        <div id="logo">
+          <img id="logo_image" src="../assets/logo.jpg" />
+        </div>
+        <div id="user_wrapper">
+          <div id="user_info">
+            <div id="user_pic">
+              <img id="profile_pic" src="../assets/user_img.webp" />
             </div>
-          <div id="user_wrapper">
-            <div id="user_info">
-              <div id="user_pic">
-                <img id="profile_pic" src="../assets/user_img.webp" />
-              </div>
-              <div id="user_name">User Name</div>
-            </div>
+            <div id="user_name">Kenneth Pang</div>
           </div>
         </div>
+      </div>
       <div id="navbar_container">
         <nav class="navbar navbar-expand-lg bg-light">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">Home</a>
+            <a class="navbar-brand" href="../home.html">Home</a>
             <button
               class="navbar-toggler"
               type="button"
@@ -44,14 +44,18 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
               <div class="navbar-nav">
-                <a class="nav-link" href="#">My Styles</a>
-                <a class="nav-link" href="#">My Bookings</a>
-                <a class="nav-link" href="#">Logout</a>
+                <a class="nav-link" href="../home.html">My Styles</a>
+                <a class="nav-link" href="../my_booking/my_booking.html"
+                  >My Bookings</a
+                >
+                <a class="nav-link" href="../login/login.html">Logout</a>
               </div>
             </div>
           </div>
         </nav>
       </div>
+    </div>
+
       <div class="booking_result-container">
         <h2>My Booking</h2>
         <div class="center"> 
@@ -72,21 +76,21 @@
                     <td>12-01-2024</td>
                     <td>13:00 - 16:00</td>
                     <td>Perm</td>
-                    <td><button onclick="window.location.href = '/booking_details'" class="btn btn-secondary">Show Details</button></td>
+                    <td><button onclick="window.location.href = 'booking_details.html'" class="btn btn-secondary">Show Details</button></td>
                   </tr>
                   <tr>
                     <th scope="row">2</th>
                     <td>15-12-2023</td>
                     <td>13:00 - 14:00</td>
                     <td>Cut</td>
-                    <td><button onclick="window.location.href = '/booking_details'" class="btn btn-secondary">Show Details</button></td>
+                    <td><button onclick="window.location.href = 'booking_details.html'" class="btn btn-secondary">Show Details</button></td>
                   </tr>
                   <tr>
                     <th scope="row">3</th>
                     <td>12-11-2023</td>
                     <td>13:00 - 16:00</td>
                     <td>Perm</td>
-                    <td><button onclick="window.location.href = '/booking_details'" class="btn btn-secondary">Show Details</button></td>
+                    <td><button onclick="window.location.href = 'booking_details.html'" class="btn btn-secondary">Show Details</button></td>
                   </tr>
                 </tbody>
               </table>
@@ -94,8 +98,8 @@
         </div>
         <h2>See You Soon~</h2>
         <div class="home">
-          <button onclick="window.location.href = '/index.html'" class="btn btn-secondary">HomePage</button>
-          <button onclick="window.location.href = '/my_booking.html'" class="btn btn-primary">Back to My Booking</button>
+          <button onclick="window.location.href = '/home.html'" class="btn btn-primary">HomePage</button>
+
         </div>
       </div>
     </div>

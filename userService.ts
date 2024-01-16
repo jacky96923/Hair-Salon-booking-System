@@ -84,6 +84,18 @@ export class UserService {
     }
   }
 
+  async getGenPhoto(user_id: number) {
+    try {
+      return await this.knex
+        .select("filename", "style")
+        .from("image")
+        .where("user_id", user_id);
+    } catch (error) {
+      console.error("error:", error);
+      return error;
+    }
+  }
+
   async hasUser(email: string) {
     try {
       const existingEmail = await this.knex.select("email").from("users");
