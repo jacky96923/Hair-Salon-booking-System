@@ -35,10 +35,11 @@ export class UserService {
     }
     
   }
-  async booking_request(category: string, datetime: string, remarks: string) {
+  async booking_request(user_id: number, category: string, datetime: string, remarks: string) {
     try {
       if (category === "Haircut Wash Style") {
         await this.knex("booking").insert({
+          user_id: user_id,
           purpose: category,
           datetime: datetime,
           remarks: remarks,
@@ -49,25 +50,21 @@ export class UserService {
         );
       } else if (category === "Style Perming") {
         await this.knex("booking").insert({
+          user_id: user_id,
           purpose: category,
           datetime: datetime,
           remarks: remarks,
         });
 
         let momentStartDateTime = moment(datetime, "YYYY-MM-DD hh:mm");
-        let days = 30;
         let timeslots = 3;
-        for (let i = 0; i < days; i++) {
-          momentStartDateTime.add(i, "days");
-          for (let j = 0; j < timeslots; j++) {
-            momentStartDateTime.add(j, "hours");
-            await this.knex.raw(
-              "update roster set p_count = p_count + 1 where datetime = ?",
-              [datetime]
-            );
-            momentStartDateTime.subtract(j, "hours");
-          }
-          momentStartDateTime.subtract(i, "days");
+        for (let j = 0; j < timeslots; j++) {
+          momentStartDateTime.add(j, "hours");
+          await this.knex.raw(
+            "update roster set p_count = p_count + 1 where datetime = ?",
+            [datetime]
+          );
+          momentStartDateTime.subtract(j, "hours");
         }
       }
       return;

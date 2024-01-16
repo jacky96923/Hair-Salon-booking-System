@@ -12,7 +12,7 @@ function getValue() {
   bookingDate = bookingDateElement.value;
   console.log(bookingDate);
   if (bookingDate != "") {
-    console.log("converting");
+    //console.log("converting");
     bookingDate = moment(bookingDate).format("YYYY-MM-DD");
   }
 }
@@ -28,7 +28,6 @@ async function getTimeSlots() {
   if (res.ok) {
     let result = await res.json();
     console.log(result);
-
     updateTimeSlots(result);
   }
 }
@@ -63,7 +62,7 @@ function updateTimeSlots(result) {
   let timeSlotsContainer = document.getElementById("time-slots");
 
   // ask for this date's all time slots
-  console.log("hihihihi");
+  //console.log("hihihihi");
   timeSlotsContainer.innerHTML = "";
   if (selectedCategory === "Haircut Wash Style") {
     for (let i = 10; i <= 20; i++) {
@@ -101,7 +100,7 @@ function updateTimeSlots(result) {
 
     // Disable booked timeslots
     // console.log(timeSlot.id, result.rosterBooking[index]);
-
+    //console.log(result.rosterBooking[index].bookingStatus)
     if (result.rosterBooking[index].bookingStatus != true) {
       timeSlot.disabled = true;
     }
@@ -119,7 +118,7 @@ function updateTimeSlots(result) {
   });
 }
 
-bookingDateElement.addEventListener("change", updateTimeSlots);
+bookingDateElement.addEventListener("change", getTimeSlots);
 
 async function submitRequestForm(event) {
   event.preventDefault();
