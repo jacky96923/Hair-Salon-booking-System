@@ -2,16 +2,18 @@ import { Knex } from "knex";
 import moment from "moment";
 import { hashPassword } from "../hash";
 export async function seed(knex: Knex): Promise<void> {
-  console.log("--------------------",1,"--------------------")
+  console.log("--------------------", 1, "--------------------");
   // Deletes ALL existing entries (booking)
   await knex("booking").del();
+  // Deletes ALL existing entries
+  await knex("image").del();
   // Deletes ALL existing entries (users)
   await knex("users").del();
 
   // ask here
   await knex.raw("ALTER SEQUENCE users_id_seq RESTART WITH 1");
   await knex.raw("ALTER SEQUENCE booking_id_seq RESTART WITH 1");
-
+  await knex.raw("ALTER SEQUENCE image_id_seq RESTART WITH 1");
   // Inserts seed entries (users)
   await knex("users").insert([
     {
@@ -108,6 +110,35 @@ export async function seed(knex: Knex): Promise<void> {
       ).format("YYYY-MM-DD HH:mm"),
       purpose: "Style Perming",
       remarks: "None",
+    },
+  ]);
+  // Inserts seed entries
+
+  await knex("image").insert([
+    {
+      user_id: 3,
+      filename: "/result_images/7c3e97e2-0a74-4bce-beae-2339f36c53b4.png",
+      style: "undercut hairstyle",
+    },
+    {
+      user_id: 3,
+      filename: "/result_images/21d0e378-9b67-4405-be62-97939fe5491c.png",
+      style: "short hair hairstyle",
+    },
+    {
+      user_id: 3,
+      filename: "/result_images/b502a3ff-b04d-4c8b-9411-4d7f1d133f8f.png",
+      style: "spiky hair hairstyle",
+    },
+    {
+      user_id: 3,
+      filename: "/result_images/d2c6fbb9-4c43-40e3-a9d8-16e4afb89eef.png",
+      style: "taper cut hairstyle",
+    },
+    {
+      user_id: 3,
+      filename: "/result_images/f175d352-fc1d-441d-ba7b-b93a2fded535.png",
+      style: "the rachel hairstyle",
     },
   ]);
 }

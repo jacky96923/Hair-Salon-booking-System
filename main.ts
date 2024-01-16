@@ -41,6 +41,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use(express.static("public"));
+app.use(express.static("result_images"));
 // app.use(express.static(join("public", "login")));
 app.use("/assets", express.static("assets"));
 // app.use(isLoggedIn, express.static("hair_preview"));
