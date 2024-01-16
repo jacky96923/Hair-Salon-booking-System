@@ -3,12 +3,11 @@ import { Knex } from "knex";
 export class SaveImageService {
   constructor(private knex: Knex) {}
 
-  async saveOutput(result: string, requestedStyle: string) {
+  async saveOutput(result: string, requestedStyle: string, userId: any) {
     try {
-      let user_id = 1;
       return await this.knex
         .insert({
-          user_id: user_id,
+          user_id: userId,
           filename: result,
           style: requestedStyle,
         })

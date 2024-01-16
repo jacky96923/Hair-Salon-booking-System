@@ -137,8 +137,8 @@ document
     const saveBtnElement = node.querySelector("#save_btn");
     const bookingBtnElement = node.querySelector("#booking_btn");
     saveBtnElement.textContent = "Save result to your profile !";
-    bookingBtnElement.textContent = "Make an haircut appointment !";
-    // button actions
+    bookingBtnElement.textContent = "Make an haircut appointment now !";
+    // button actions of the save button
     saveBtnElement.addEventListener("click", async (event) => {
       event.preventDefault();
       let resultImage = document.querySelector("#result_image");
@@ -154,7 +154,7 @@ document
         );
         const formData = new FormData();
         formData.append("upload_image", imageBlob, "result_image.jpg");
-        formData.append("requested_style:", requestedStyle);
+        formData.append("style", requestedStyle);
         console.log(imageBlob);
         console.log("requestedStyle:", requestedStyle);
 
@@ -165,7 +165,7 @@ document
 
         if (res.ok) {
           console.log("ok", res);
-          // showPopup("Saved to Profile", res);
+          $("#staticBackdrop").modal("show");
         } else {
           console.log("fuck", res);
           // showPopup("Problem submitting message, refresh to try again.");
@@ -173,9 +173,53 @@ document
       } catch (error) {}
     });
 
+    //button action for the booking button
+    bookingBtnElement.addEventListener("click", async (event) => {
+      event.preventDefault();
+      let resultImage = document.querySelector("#result_image");
+      let imageUrl = resultImage.src;
+      console.log(imageUrl);
+      if (!imageUrl) {
+        console.log("No generated photo");
+        return;
+      }
+
+      try {
+        // Fetch image to a blob from an image URL
+        let imageBlob = await fetch(imageUrl).then((response) =>
+          response.blob()
+        );
+        const formData = new FormData();
+        formData.append("upload_image", imageBlob, "result_image.jpg");
+        formData.append("style", requestedStyle);
+        console.log(imageBlob);
+        console.log("requestedStyle:", requestedStyle);
+
+        let res = await fetch("/save", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (res.ok) {
+          console.log("ok", res);
+          // Show success message or perform any other actions
+          // Redirect the user to another page
+          window.location.href = "/booking-details.html";
+        } else {
+          console.log("fuck", res);
+          // Show error message or perform any other actions
+        }
+      } catch (error) {
+        // Handle errors
+      }
+    });
     //Append the buttons
     actionContainer.appendChild(node);
   });
+
+document.getElementById("#to_profile").addEventListener("click", () => {
+  window.location.href = "/home.html#headerStyle";
+});
 
 // const saveBtnElement = node.querySelector("#save_btn");
 
@@ -188,3 +232,10 @@ document
 //     popup.style.display = "none";
 //   }, 3000);
 // }
+
+let previewBtn = document.getElementById("#submit_request");
+let previewSection = document.getElementById("#photo_container");
+
+previewBtn.addEventListener("click", () => {
+  previewSection.scrollIntoView({ behavior: "smooth" });
+});
