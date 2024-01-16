@@ -19,6 +19,7 @@ import {
   get_style,
   genPhoto,
   saveResult,
+  getGenPhoto,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
 
@@ -27,6 +28,8 @@ app.use("/", upload_image);
 app.use("/", get_style);
 app.use("/", genPhoto);
 app.use("/", saveResult);
+app.use("/", getGenPhoto);
+
 app.use(terminalCounter);
 
 app.get("/", (req, res, next) => {
@@ -38,6 +41,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use(express.static("public"));
+app.use(express.static("result_images"));
 // app.use(express.static(join("public", "login")));
 app.use("/assets", express.static("assets"));
 // app.use(isLoggedIn, express.static("hair_preview"));
