@@ -29,11 +29,7 @@ export class UserService {
   //Promise<{ man_count: number; c_count: number; } | undefined>
   async booking_timeslot(category: string, dateTime: string) {
     try {
-      if (category === "Haircut Wash Style"){
-        return await this.knex.select("man_count", "c_count").from("roster").where("datetime", dateTime)
-      } else if (category === "Style Perming"){
         return await this.knex.select("man_count", "c_count", "p_count").from("roster").where("datetime", dateTime)
-      }
     } catch (error) {
       
     }
