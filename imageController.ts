@@ -3,7 +3,7 @@ import { fstat, mkdirSync } from "fs";
 import { Formidable } from "formidable";
 import { randomUUID } from "crypto";
 import { toStringField, toArray } from "./form";
-import path from "path";
+// import path from "path";
 
 let uploadDir = "uploads";
 mkdirSync(uploadDir, { recursive: true });
@@ -39,7 +39,7 @@ export class ImageController {
           // next(new Error('Missing "content" in request.body'))
           return;
         }
-        let rePath = path.join("./uploads", image[0]);
+        let rePath = `./uploads/${image[0]}`;
         let py_filename = await fetch("http://localhost:8000/pyShape", {
           method: "POST",
           headers: {

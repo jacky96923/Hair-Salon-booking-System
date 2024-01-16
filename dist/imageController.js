@@ -1,14 +1,11 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.prediction = exports.ImageController = void 0;
 const fs_1 = require("fs");
 const formidable_1 = require("formidable");
 const crypto_1 = require("crypto");
 const form_1 = require("./form");
-const path_1 = __importDefault(require("path"));
+// import path from "path";
 let uploadDir = "uploads";
 (0, fs_1.mkdirSync)(uploadDir, { recursive: true });
 let prediction;
@@ -41,7 +38,7 @@ class ImageController {
                     // next(new Error('Missing "content" in request.body'))
                     return;
                 }
-                let rePath = path_1.default.join("../dist/uploads", image[0]);
+                let rePath = `./uploads/${image[0]}`;
                 let py_filename = await fetch("http://localhost:8000/pyShape", {
                     method: "POST",
                     headers: {
