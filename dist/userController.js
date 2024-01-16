@@ -86,6 +86,19 @@ class UserController {
             return res.json({ error: String(error) });
         }
     };
+    getUsername = async (req, res, next) => {
+        try {
+            const user_id = req.session.user?.id;
+            const result = await this.userService.getUsername(user_id);
+            //console.log(result)
+            console.log(result[0]);
+            return res.json(result[0]);
+        }
+        catch (error) {
+            console.error("error:", error);
+            return error;
+        }
+    };
     booking_timeslot = async (req, res) => {
         try {
             const { category, date } = req.body;

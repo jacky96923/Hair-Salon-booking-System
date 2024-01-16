@@ -31,6 +31,15 @@ class UserService {
             return error;
         }
     }
+    getUsername = async (user_id) => {
+        try {
+            return await this.knex("users").select("name").where("id", user_id);
+        }
+        catch (error) {
+            console.error("error:", error);
+            return error;
+        }
+    };
     //Promise<{ man_count: number; c_count: number; } | undefined>
     async booking_timeslot(category, dateTime) {
         try {

@@ -21,6 +21,8 @@ app.use("/", routers_1.upload_image);
 app.use("/", routers_1.get_style);
 app.use("/", routers_1.genPhoto);
 app.use("/", routers_1.saveResult);
+app.use("/", routers_1.my_booking);
+app.use("/", routers_1.booking_details);
 app.use("/", routers_1.getGenPhoto);
 app.use("/", routers_1.removeGenPhoto);
 app.use(terminalCounter_1.terminalCounter);
