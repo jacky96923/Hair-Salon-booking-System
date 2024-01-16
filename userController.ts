@@ -139,25 +139,34 @@ export class UserController {
           rosterBooking: rosterBooking,
         });
       } else if (category === "Style Perming") {
+        let pRosterData:{man_count: number, c_count: number, p_count: number}[] = []
         for (let time of roster) {
-          let dateTime = date + time;
-          // console.log("datetime:", dateTime);
+          let dateTime = date + " " + time;
+          //console.log("datetime:", dateTime);
           const { man_count, c_count, p_count } = (
             (await this.userService.booking_timeslot(
               category,
               dateTime
             )) as any[]
           )[0];
-          if ((man_count - c_count) * 4 + c_count * 2 > p_count) {
-            rosterBooking[roster.indexOf(time)] = {
-              bookingTime: time,
-              bookingStatus: true,
-            };
-          } else {
-            rosterBooking[roster.indexOf(time)] = {
-              bookingTime: time,
-              bookingStatus: false,
-            };
+          pRosterData.push({ man_count, c_count, p_count })
+        }
+        //console.log("pRosterData: ", pRosterData)
+        let pRoster = roster.slice(0, (roster.length - 2))
+        //console.log(pRoster)
+        for (let time of pRoster) {
+          for (let i = 0; i <= 2; i++){
+            if ((pRosterData[i].man_count - pRosterData[i].c_count) * 4 + pRosterData[i].c_count * 2 > pRosterData[i].p_count) {
+              rosterBooking[pRoster.indexOf(time)] = {
+                bookingTime: time,
+                bookingStatus: true,
+              };
+            } else {
+              rosterBooking[pRoster.indexOf(time)] = {
+                bookingTime: time,
+                bookingStatus: false,
+              };
+            }
           }
         }
         // console.log("rosterBooking:", rosterBooking);
@@ -177,7 +186,9 @@ export class UserController {
   booking_request = async (req: Request, res: Response) => {
     try {
       const { category, date, timeSlots, remarks } = req.body;
-      // console.log("req.body123", req.body);
+      console.log("req.body123", req.body);
+      let user_id = req.session.user?.id
+      console.log("sessionID: ", req.session.user?.id)
       if (!category) {
         return res
           .status(401)
@@ -192,10 +203,11 @@ export class UserController {
           .json({ element: "date", error: "Missing timeslots" });
       }
 
-      const datetime = date + timeSlots;
-      // console.log("datetime", datetime);
+      const datetime = date + " " + timeSlots;
+      console.log("datetime", datetime);
 
       const result = await this.userService.booking_request(
+        user_id as number,
         category,
         datetime,
         remarks

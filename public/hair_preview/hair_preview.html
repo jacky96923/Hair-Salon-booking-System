@@ -148,7 +148,12 @@
     </template>
 
     <template id="save">
-      <button type="submit" id="save_btn"></button>
+      <button
+        type="submit"
+        id="save_btn"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+      ></button>
       <button id="booking_btn"></button>
     </template>
 
@@ -156,6 +161,46 @@
       <span id="popup_message"></span>
     </div> -->
 
+    <!-- Modal -->
+    <div
+      class="modal fade"
+      id="staticBackdrop"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="staticBackdropLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <h1 class="modal-title fs-5" id="staticBackdropLabel">
+              Modal title
+            </h1> -->
+            <!-- <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button> -->
+          </div>
+          <div class="modal-body">Image Saved To Your profile !</div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button id="to_profile" type="button" class="btn btn-primary">
+              To your profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./hair_preview.js"></script>
   </body>
 </html>
