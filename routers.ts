@@ -23,6 +23,7 @@ export const get_style = express.Router();
 export const genPhoto = express.Router();
 export const saveResult = express.Router();
 export const getGenPhoto = express.Router();
+export const removeGenPhoto = express.Router();
 
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
@@ -33,3 +34,4 @@ get_style.get("/suggested", suggestedController.getSuggested);
 genPhoto.post("/genPhoto", genPhotoController.sendRequest);
 saveResult.post("/save", saveImageController.saveImage);
 getGenPhoto.get("/getGenPhoto", userController.getGenPhoto);
+removeGenPhoto.delete("/removeGenPhoto", userController.removeGenPhoto);

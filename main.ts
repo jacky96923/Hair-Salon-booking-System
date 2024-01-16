@@ -20,6 +20,7 @@ import {
   genPhoto,
   saveResult,
   getGenPhoto,
+  removeGenPhoto,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
 
@@ -29,6 +30,7 @@ app.use("/", get_style);
 app.use("/", genPhoto);
 app.use("/", saveResult);
 app.use("/", getGenPhoto);
+app.use("/", removeGenPhoto);
 
 app.use(terminalCounter);
 

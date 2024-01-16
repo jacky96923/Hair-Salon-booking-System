@@ -251,4 +251,15 @@ export class UserController {
       return res.json({ error: String(error) });
     }
   };
+
+  removeGenPhoto = async (req: Request, res: Response) => {
+    try {
+      const user_id = req.session.user?.id;
+      const result = await this.userService.removeGenPhoto(user_id as number);
+      return res.status(200).json(result);
+    } catch (error) {
+      res.status(500);
+      return res.json({ error: String(error) });
+    }
+  };
 }

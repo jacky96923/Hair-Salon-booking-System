@@ -1,7 +1,4 @@
 async function getGenPhoto() {
-  // const photoId = req.session.user.id;
-
-  //console.log("123123", photoId);xw
   const res = await fetch("/getGenPhoto", {
     headers: {
       "Content-Type": "application/json",
@@ -21,29 +18,67 @@ async function getGenPhoto() {
   return;
 }
 
+async function removeGenPhoto() {
+  let res = await fetch("/removeGenPhoto", {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+    },
+  });
+  if (!res.ok) {
+    throw new Error("Failed to remove photo");
+  }
+  return;
+}
+
 function renderData(photos) {
   let resultImg = document.getElementById("resultImg");
   for (let photo of photos) {
     let img = document.createElement("img");
 
     img.src = photo.filename;
-    let button = document.createElement("button");
-    button.id = "myStyleBooking";
-    button.textContent = "Book now";
+    let buttonBooking = document.createElement("button");
+    let buttonRemove = document.createElement("button");
+    buttonBooking.classList.add("myStyleBooking");
+    buttonBooking.textContent = "Book now";
+    buttonRemove.classList.add("myStyleRemove");
+    buttonRemove.textContent = "x";
 
     const imageContainer = document.createElement("div");
+    const buttonContainer = document.createElement("div");
+    buttonContainer.classList.add("myStyleButton");
     imageContainer.classList.add("image-container");
     imageContainer.appendChild(img);
-    imageContainer.appendChild(button);
-
+    buttonContainer.appendChild(buttonBooking);
+    buttonContainer.appendChild(buttonRemove);
+    imageContainer.appendChild(buttonContainer);
     resultImg.appendChild(imageContainer);
   }
+  let myStyleBooking = document.querySelectorAll(".myStyleBooking");
+  // console.log(myStyleBooking);
+  myStyleBooking.forEach((myStyleBooking) => {
+    myStyleBooking.addEventListener("click", function (e) {
+      e.preventDefault();
+      window.location.href = "/booking_request/booking_request.html";
+    });
+  });
+
+  let myStyleRemove = document.querySelectorAll(".myStyleRemove");
+  myStyleRemove.forEach((myStyleRemove) => {
+    myStyleRemove.addEventListener("click", async function (e) {
+      e.preventDefault();
+      try {
+        await removeGenPhoto(photo.id);
+        imageContainer.remove();
+      } catch (error) {
+        console.error("Error removing photo:", error);
+      }
+    });
+  });
 }
 getGenPhoto();
-let myStyleBooking = document.getElementById("myStyleBooking");
-myStyleBooking.addEventListener("click", function () {
-  window.location.href = "/booking_request/booking_request.html";
-});
+removeGenPhoto();
+
 let desBooking = document.getElementById("desBooking");
 desBooking.addEventListener("click", function () {
   window.location.href = "/booking_request/booking_request.html";
