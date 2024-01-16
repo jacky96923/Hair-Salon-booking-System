@@ -19,6 +19,8 @@ import {
   get_style,
   genPhoto,
   saveResult,
+  my_booking,
+  booking_details,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
 
@@ -27,6 +29,8 @@ app.use("/", upload_image);
 app.use("/", get_style);
 app.use("/", genPhoto);
 app.use("/", saveResult);
+app.use("/", my_booking)
+app.use("/", booking_details)
 app.use(terminalCounter);
 
 app.get("/", (req, res, next) => {

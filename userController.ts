@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { checkPassword } from "./hash";
 import { UserService } from "./userService";
 
@@ -92,6 +92,18 @@ export class UserController {
     }
   };
 
+  getUsername = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const user_id = req.session.user?.id
+        const result = await this.userService.getUsername(user_id as number)
+        //console.log(result)
+        console.log((result as {name: string}[])[0])
+        return res.json((result as {name: string}[])[0])
+    } catch (error) {
+        console.error("error:", error);
+        return error;
+    }
+}
   booking_timeslot = async (req: Request, res: Response) => {
     try {
       const { category, date } = req.body;
