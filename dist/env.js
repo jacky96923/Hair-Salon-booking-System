@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.env = void 0;
+exports.REPLICATE_API_TOKEN = exports.env = void 0;
 const dotenv_1 = require("dotenv");
 const populate_env_1 = __importDefault(require("populate-env"));
 (0, dotenv_1.config)();
@@ -74,4 +74,5 @@ function loadEnv() {
     }
 }
 exports.env = loadEnv();
+exports.REPLICATE_API_TOKEN = "r8_54aeurjzKAzaYVRMRy6FyHfKYW4m3IE3Gwj2F";
 console.log("check check", exports.env);
