@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { SuggestedService } from "./suggestedService";
+import { SuggestedService } from "../service/suggestedService";
 
 export class SuggestedController {
   constructor(private suggestedService: SuggestedService) {}

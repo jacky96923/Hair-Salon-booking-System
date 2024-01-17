@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { MyBookingService } from "./myBookingService";
+import { MyBookingService } from "../service/myBookingService";
 import moment from "moment";
 
 export class MyBookingController {

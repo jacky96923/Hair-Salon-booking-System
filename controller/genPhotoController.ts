@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import Replicate from "replicate";
-import { REPLICATE_API_TOKEN } from "./env";
+import { REPLICATE_API_TOKEN } from "../env";
 import datauri from "datauri";
 
 export class GenPhotoController {

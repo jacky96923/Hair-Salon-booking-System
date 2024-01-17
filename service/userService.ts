@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { hashPassword } from "./hash";
+import { hashPassword } from "../hash";
 import { promises } from "dns";
 import moment from "moment";
 

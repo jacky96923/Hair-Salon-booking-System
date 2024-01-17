@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import { fstat, mkdirSync } from "fs";
 import { Formidable } from "formidable";
 import { randomUUID } from "crypto";
-import { toStringField, toArray } from "./form";
+import { toStringField, toArray } from "../form";
 // import path from "path";
 
 let uploadDir = "uploads";
@@ -39,7 +39,8 @@ export class ImageController {
           // next(new Error('Missing "content" in request.body'))
           return;
         }
-        let rePath = `./uploads/${image[0]}`;
+        let rePath = `/uploads/${image[0]}`;
+        console.log("path:", rePath);
         let py_filename = await fetch("http://localhost:8000/pyShape", {
           method: "POST",
           headers: {

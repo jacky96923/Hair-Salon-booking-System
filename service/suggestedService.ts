@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { prediction } from "./imageController";
+import { prediction } from "../controller/imageController";
 
 export class SuggestedService {
   constructor(private knex: Knex) {}
