@@ -16,8 +16,11 @@ import {
   get_style,
   genPhoto,
   saveResult,
+  my_booking,
+  booking_details,
   getGenPhoto,
   get_preview,
+  removeGenPhoto,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
 
@@ -26,8 +29,11 @@ app.use("/", upload_image);
 app.use("/", get_style);
 app.use("/", genPhoto);
 app.use("/", saveResult);
+app.use("/", my_booking);
+app.use("/", booking_details);
 app.use("/", getGenPhoto);
 app.use("/", get_preview);
+app.use("/", removeGenPhoto);
 
 app.use(terminalCounter);
 
