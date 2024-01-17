@@ -27,14 +27,16 @@ export class UserService {
     }
   }
 
-  getUsername = async (user_id: number): Promise<{name: string}[] | unknown>  => {
+  getUsername = async (
+    user_id: number
+  ): Promise<{ name: string }[] | unknown> => {
     try {
-        return await this.knex("users").select("name").where("id", user_id)
+      return await this.knex("users").select("name").where("id", user_id);
     } catch (error) {
-        console.error("error:", error);
-        return error;
+      console.error("error:", error);
+      return error;
     }
-}
+  };
   //Promise<{ man_count: number; c_count: number; } | undefined>
   async booking_timeslot(category: string, dateTime: string) {
     try {
@@ -98,7 +100,7 @@ export class UserService {
   async getGenPhoto(user_id: number) {
     try {
       return await this.knex
-        .select("filename", "style")
+        .select("id", "filename", "style")
         .from("image")
         .where("user_id", user_id);
     } catch (error) {
@@ -106,9 +108,9 @@ export class UserService {
       return error;
     }
   }
-  async removeGenPhoto(user_id: number) {
+  async removeGenPhoto(photo_id: number) {
     try {
-      const result = await this.knex("image").where("user_id", user_id).del();
+      const result = await this.knex("image").where("id", photo_id).del();
       return result;
     } catch (error) {
       console.error("error:", error);

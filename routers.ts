@@ -61,5 +61,10 @@ booking_details.get(
   bookingDetailsController.getBookingDetails
 );
 getGenPhoto.get("/getGenPhoto", isLoggedIn, userController.getGenPhoto);
+<<<<<<< HEAD
 get_preview.get("/getPreview/:id", isLoggedIn, getPreviewController.getPreview);
 removeGenPhoto.delete("/removeGenPhoto", isLoggedIn, userController.removeGenPhoto);
+=======
+get_preview.get("/getPreview/:id", getPreviewController.getPreview);
+removeGenPhoto.delete("/removeGenPhoto", userController.removeGenPhoto);
+>>>>>>> 60f6285858b7d55380d064edd7b045ef03784834

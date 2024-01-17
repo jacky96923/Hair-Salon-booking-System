@@ -1,7 +1,27 @@
 let photoInput = document.querySelector("#upload_image");
 let uploadedImage = document.querySelector("#uploaded_image");
+let usernameDivElement = document.querySelector("#user_name");
 let apiPath;
 let requestedStyle;
+
+async function main() {
+  await getUsername();
+}
+window.onload = main();
+async function getUsername() {
+  let res = await fetch("/username");
+  if (res.ok) {
+    let response = await res.json();
+    console.log(response);
+    displayUser(response);
+  }
+}
+function displayUser(response){
+  usernameDivElement.innerHTML = ""
+  let username = response.name
+  username = username.slice(0, 1).toUpperCase() + username.slice(1)
+  usernameDivElement.innerText = username
+}
 
 document.querySelector("#submit_photo").addEventListener("click", () => {
   photoInput.click();

@@ -15,7 +15,7 @@ retrieved_model = tf.keras.saving.load_model("./weight/face-shape-detector-weigh
 @app.route('/pyShape', methods=['POST'])
 async def callModel(request):
     data = request.json
-    print(data)
+    print("data:", data)
     file_path =  data.get('image')
     print(file_path)
     
