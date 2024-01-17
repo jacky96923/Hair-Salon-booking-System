@@ -1,3 +1,4 @@
+/* nav bar */
 .top-container{
   display: flex;
   justify-content: space-between;
@@ -47,6 +48,8 @@ width: auto;
 height: 4rem;
 
 }
+/* ------------------------------------------------------------------ */
+
 
   .time-slot {
     display: inline-block;
@@ -132,4 +135,9 @@ h4{
 .image-container {
   margin: 3rem;
 
+}
+
+#styleImg img {
+  max-width: 100%;
+  max-height: 100%
 }

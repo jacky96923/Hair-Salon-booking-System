@@ -240,6 +240,19 @@ export class UserController {
       return res.json({ error: String(error) });
     }
   };
+
+  getStyleImg = async (req: Request, res: Response) => {
+    try {
+      const photo_id = Number(req.query.id);
+      console.log(photo_id);
+      const result = await this.userService.getStyleImg(photo_id as number);
+      return res.json(result);
+    } catch (error) {
+      res.status(500);
+      return res.json({ error: String(error) });
+    }
+  };
+
   getGenPhoto = async (req: Request, res: Response) => {
     try {
       // const { filename, user_id } = req.body;
@@ -269,6 +282,7 @@ export class UserController {
     try {
       // const user_id = req.session.user?.id;
       const photo_id = req.body.photo_id;
+      console.log(photo_id);
       const result = await this.userService.removeGenPhoto(photo_id as number);
       return res.status(200).json(result);
     } catch (error) {

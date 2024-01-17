@@ -21,6 +21,7 @@ import {
   getGenPhoto,
   get_preview,
   removeGenPhoto,
+  getStyleImg,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
 
@@ -34,6 +35,7 @@ app.use("/", booking_details);
 app.use("/", getGenPhoto);
 app.use("/", get_preview);
 app.use("/", removeGenPhoto);
+app.use("/", getStyleImg);
 
 app.use(terminalCounter);
 
