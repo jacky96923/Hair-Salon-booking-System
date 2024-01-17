@@ -262,15 +262,19 @@ function genPhotoListener() {
             if (res.ok) {
               console.log("ok", res);
               let image_id = await res.json();
-              $("#staticBackdrop").modal("show");
+              showAlert("Image saved successfully!");
             } else {
               console.log("fuck", res);
-              // showPopup("Problem submitting message, refresh to try again.");
+              showAlert("Problem saving the image. Please try again.");
             }
           } catch (error) {
             console.log("save", error);
           }
         });
+
+      function showAlert(message) {
+        alert(message);
+      }
 
       //button action for the booking button
       document
