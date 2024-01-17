@@ -35,6 +35,7 @@
 
 #user_name {
   font-size: 18px;
+
 }
 
 #profile_pic {
@@ -47,6 +48,8 @@
   border-top: 1px solid grey;
   width: auto;
   height: 4rem;
+  font-family: Fantasy;
+
 }
 
 #photo_container {
@@ -67,6 +70,7 @@
   height: 98%;
   margin-top: 1rem;
   margin-bottom: 1rem;
+  
 }
 
 #user_image {
@@ -90,6 +94,7 @@
   height: 3rem;
   width: 100%;
   align-items: center;
+  
 }
 
 #result_wrap {
@@ -143,6 +148,7 @@
   margin-left: 8rem;
   margin-right: 8rem;
   margin-top: 2rem;
+  
 }
 
 #change_select {
@@ -172,6 +178,8 @@ select {
   width: 30rem;
   height: 3rem;
   font-size: 23px;
+  font-family: Fantasy;
+
 }
 
 input#textInput {

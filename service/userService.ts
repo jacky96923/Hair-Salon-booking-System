@@ -85,7 +85,7 @@ export class UserService {
           momentStartDateTime.add(j, "hours");
           await this.knex.raw(
             "update roster set p_count = p_count + 1 where datetime = ?",
-            [datetime]
+            [momentStartDateTime]
           );
           momentStartDateTime.subtract(j, "hours");
         }
