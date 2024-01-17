@@ -11,7 +11,8 @@ export class SaveImageService {
           filename: result,
           style: requestedStyle,
         })
-        .into("image");
+        .into("image")
+        .returning("id");
     } catch (error) {
       console.log("Cannot save to knex:", error);
     }
