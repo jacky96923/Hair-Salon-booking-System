@@ -2,9 +2,9 @@ import { NextFunction, Request, Response } from "express";
 import { fstat, mkdirSync } from "fs";
 import { Formidable } from "formidable";
 import { randomUUID } from "crypto";
-import { toStringField, toArray } from "./form";
+import { toStringField, toArray } from "../form";
 import path from "path";
-import { SaveImageService } from "./saveImageService";
+import { SaveImageService } from "../service/saveImageService";
 
 let uploadDir = "result_images";
 mkdirSync(uploadDir, { recursive: true });

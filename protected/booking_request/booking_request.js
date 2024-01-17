@@ -158,3 +158,47 @@ let reset = document.querySelector(".reset");
 reset.addEventListener("click", function () {
   window.location.href = "/booking_request/booking_request.html";
 });
+
+const searchParams = new URLSearchParams(location.search);
+const photoId = searchParams.get("id");
+
+const noImg = document.querySelector(".noImg");
+async function renderImage() {
+  let photos = await getStyleImg(photoId);
+  console.log("photos", photos);
+  let styleImg = document.getElementById("styleImg");
+  if (photoId) {
+    noImg.remove();
+    for (let photo of photos) {
+      let img = document.createElement("img");
+      img.src = photo.filename;
+
+      styleImg.appendChild(img);
+    }
+  } else {
+    styleImg.remove();
+  }
+}
+renderImage();
+
+async function getStyleImg(id) {
+  const res = await fetch(`/getStyleImg?id=${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  if (!res.ok) {
+    window.location.href = "/login/login.html";
+    return;
+    // throw new Error("Failed to fetch photo");
+  }
+  const photos = await res.json();
+  console.log(photos);
+
+  // console.log("photos", photos);
+  if (!photos) {
+    throw new Error("Image not found");
+  }
+  return photos;
+}

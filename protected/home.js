@@ -50,12 +50,13 @@ async function removeGenPhoto(photo_id) {
       photo_id,
     }),
     headers: {
-      Accept: "application/json",
+      "Content-Type": "application/json",
     },
   });
   if (!res.ok) {
     throw new Error("Failed to remove photo");
   }
+  location.reload();
   return;
 }
 
@@ -68,6 +69,7 @@ function renderData(photos) {
     let buttonRemove = document.createElement("button");
     buttonBooking.classList.add("myStyleBooking");
     buttonBooking.textContent = "Book now";
+    buttonBooking.setAttribute("photo_id", photo.id);
     buttonRemove.classList.add("myStyleRemove");
     buttonRemove.setAttribute("photo_id", photo.id);
     buttonRemove.textContent = "x";
@@ -87,7 +89,10 @@ function renderData(photos) {
   myStyleBooking.forEach((myStyleBooking) => {
     myStyleBooking.addEventListener("click", function (e) {
       e.preventDefault();
-      window.location.href = "/booking_request/booking_request.html";
+      console.log(e.target.getAttribute("photo_id"));
+      window.location.href = `/booking_request/booking_request.html?id=${e.target.getAttribute(
+        "photo_id"
+      )}`;
     });
   });
 
@@ -98,7 +103,7 @@ function renderData(photos) {
       try {
         const photo_id = e.target.getAttribute("photo_id");
         await removeGenPhoto(photo_id);
-        imageContainer.remove();
+        // imageContainer.remove();
       } catch (error) {
         console.error("Error removing photo:", error);
       }

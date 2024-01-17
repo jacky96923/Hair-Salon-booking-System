@@ -21,8 +21,10 @@ import {
   getGenPhoto,
   get_preview,
   removeGenPhoto,
+  getStyleImg,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
+import { isLoggedIn } from "./guards";
 
 app.use("/", userRoutes);
 app.use("/", upload_image);
@@ -34,6 +36,7 @@ app.use("/", booking_details);
 app.use("/", getGenPhoto);
 app.use("/", get_preview);
 app.use("/", removeGenPhoto);
+app.use("/", getStyleImg);
 
 app.use(terminalCounter);
 
@@ -46,6 +49,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use(express.static("public"));
+app.use(isLoggedIn, express.static("protected"))
 app.use(express.static("result_images"));
 app.use(express.static("hair_styles"));
 // app.use(express.static(join("public", "login")));

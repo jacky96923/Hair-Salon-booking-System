@@ -7,8 +7,8 @@ export class BookingDetailsService {
         try {
             //console.log("before select data")
             const bookingDetails = await this.knex("booking").select("datetime", "remarks", "purpose", "image_id").where("id", booking_id)
-            console.log(bookingDetails)
-            console.log(bookingDetails[0].image_id)
+            //console.log(bookingDetails)
+            //console.log(bookingDetails[0].image_id)
             if (bookingDetails[0].image_id){
                 const image = await this.getBookingImage(bookingDetails[0].image_id)
                 console.log(image)

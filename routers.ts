@@ -1,20 +1,20 @@
 import express from "express";
 import { isLoggedIn } from "./guards";
-import { UserService } from "./userService";
-import { UserController } from "./userController";
-import { ImageController } from "./imageController";
-import { SuggestedController } from "./suggestedController";
-import { SuggestedService } from "./suggestedService";
-import { GenPhotoController } from "./genPhotoController";
+import { UserService } from "./service/userService";
+import { UserController } from "./controller/userController";
+import { ImageController } from "./controller/imageController";
+import { SuggestedController } from "./controller/suggestedController";
+import { SuggestedService } from "./service/suggestedService";
+import { GenPhotoController } from "./controller/genPhotoController";
 import { knex } from "./main";
-import { SaveImageController } from "./saveImageController";
-import { SaveImageService } from "./saveImageService";
-import { GetPreviewService } from "./getPreviewService";
-import { GetPreviewController } from "./getPreviewController";
-import { MyBookingController } from "./myBookingController";
-import { MyBookingService } from "./myBookingService";
-import { BookingDetailsController } from "./bookingDetailsController";
-import { BookingDetailsService } from "./bookingDetailsService";
+import { SaveImageController } from "./controller/saveImageController";
+import { SaveImageService } from "./service/saveImageService";
+import { GetPreviewService } from "./service/getPreviewService";
+import { GetPreviewController } from "./controller/getPreviewController";
+import { MyBookingController } from "./controller/myBookingController";
+import { MyBookingService } from "./service/myBookingService";
+import { BookingDetailsController } from "./controller/bookingDetailsController";
+import { BookingDetailsService } from "./service/bookingDetailsService";
 
 export const userService = new UserService(knex);
 export const userController = new UserController(userService);
@@ -43,25 +43,35 @@ export const booking_details = express.Router();
 export const getGenPhoto = express.Router();
 export const get_preview = express.Router();
 export const removeGenPhoto = express.Router();
+export const getStyleImg = express.Router();
 
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
-userRoutes.get("/username", userController.getUsername);
-userRoutes.post("/booking_timeslot", userController.booking_timeslot);
+userRoutes.get("/logout", isLoggedIn, userController.logout);
+userRoutes.get("/username", isLoggedIn, userController.getUsername);
+userRoutes.post(
+  "/booking_timeslot",
+  isLoggedIn,
+  userController.booking_timeslot
+);
+userRoutes.post("/booking_request", isLoggedIn, userController.booking_request);
 
-userRoutes.post("/login", userController.login);
-userRoutes.post("/register", userController.register);
-userRoutes.post("/booking_timeslot", userController.booking_timeslot);
-userRoutes.post("/booking_request", userController.booking_request);
-upload_image.post("/upload", imageController.uploadImage);
-get_style.get("/suggested", suggestedController.getSuggested);
-genPhoto.post("/genPhoto", genPhotoController.sendRequest);
-saveResult.post("/save", saveImageController.saveImage);
-my_booking.get("/my_booking", myBookingController.getMyBooking);
+upload_image.post("/upload", isLoggedIn, imageController.uploadImage);
+get_style.get("/suggested", isLoggedIn, suggestedController.getSuggested);
+genPhoto.post("/genPhoto", isLoggedIn, genPhotoController.sendRequest);
+saveResult.post("/save", isLoggedIn, saveImageController.saveImage);
+my_booking.get("/my_booking", isLoggedIn, myBookingController.getMyBooking);
 booking_details.get(
   "/booking_details",
+  isLoggedIn,
   bookingDetailsController.getBookingDetails
 );
 getGenPhoto.get("/getGenPhoto", isLoggedIn, userController.getGenPhoto);
-get_preview.get("/getPreview/:id", getPreviewController.getPreview);
-removeGenPhoto.delete("/removeGenPhoto", userController.removeGenPhoto);
+getStyleImg.get("/getStyleImg", isLoggedIn, userController.getStyleImg);
+
+get_preview.get("/getPreview/:id", isLoggedIn, getPreviewController.getPreview);
+removeGenPhoto.delete(
+  "/removeGenPhoto",
+  isLoggedIn,
+  userController.removeGenPhoto
+);

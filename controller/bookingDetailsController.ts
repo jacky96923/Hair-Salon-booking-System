@@ -1,14 +1,14 @@
 import { NextFunction, Request, Response } from "express";
-import { BookingDetailsService } from "./bookingDetailsService";
+import { BookingDetailsService } from "../service/bookingDetailsService";
 import moment from "moment";
 
 export class BookingDetailsController {
     constructor(private bookingDetailsService: BookingDetailsService) {}
     getBookingDetails = async (req: Request, res: Response, next: NextFunction) => {
         try {
-            console.log(req.query.id)
+            //console.log(req.query.id)
             const bookingId = Number(req.query.id)
-            console.log(bookingId)
+            //console.log(bookingId)
             let result: any = await this.bookingDetailsService.getBookingDetails(bookingId)
             console.log("Controller result", result)
             let bookingDetails: {category: string, bookingDate: string, bookingTime: string, remarks: string, imageFilename?: string, imageStyle?: string} = 

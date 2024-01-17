@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { GetPreviewService } from "./getPreviewService";
+import { GetPreviewService } from "../service/getPreviewService";
 
 export class GetPreviewController {
   constructor(private getPreviewService: GetPreviewService) {}

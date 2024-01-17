@@ -1,5 +1,5 @@
 import { Knex } from "knex";
-import { hashPassword } from "./hash";
+import { hashPassword } from "../hash";
 import { promises } from "dns";
 import moment from "moment";
 
@@ -97,6 +97,18 @@ export class UserService {
     }
   }
 
+  async getStyleImg(photo_id: number) {
+    try {
+      return await this.knex
+        .select("filename")
+        .from("image")
+        .where("id", photo_id);
+    } catch (error) {
+      console.error("error:", error);
+      return error;
+    }
+  }
+
   async getGenPhoto(user_id: number) {
     try {
       return await this.knex
@@ -110,6 +122,9 @@ export class UserService {
   }
   async removeGenPhoto(photo_id: number) {
     try {
+      await this.knex("booking")
+        .where("image_id", photo_id)
+        .update("image_id", null);
       const result = await this.knex("image").where("id", photo_id).del();
       return result;
     } catch (error) {
