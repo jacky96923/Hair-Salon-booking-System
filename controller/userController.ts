@@ -94,15 +94,15 @@ export class UserController {
 
   logout = async (req: Request, res: Response) => {
     try {
-      if (req.session.user){
-        delete req.session.user
-        console.log("user session deleted")
+      if (req.session.user) {
+        delete req.session.user;
+        console.log("user session deleted");
       }
 
-      return res.redirect("/login/login.html")
+      return res.redirect("/login/login.html");
     } catch (error) {
       res.status(500);
-      return res.json({ error: error})
+      return res.json({ error: error });
     }
   };
   getUsername = async (req: Request, res: Response, next: NextFunction) => {
@@ -140,12 +140,15 @@ export class UserController {
           let dateTime = date + " " + time;
           // console.log("datetime:", dateTime);
           const { man_count, c_count, p_count } = (
-            (await this.userService.booking_timeslot(
-              category,
-              dateTime
-            )) as any[]
+            (await this.userService.booking_timeslot(dateTime)) as any[]
           )[0];
-          if (man_count === c_count || p_count > 2) {
+          console.log({ man_count, c_count, p_count });
+          if (man_count === c_count) {
+            rosterBooking[roster.indexOf(time)] = {
+              bookingTime: time,
+              bookingStatus: false,
+            };
+          } else if (p_count > 2) {
             rosterBooking[roster.indexOf(time)] = {
               bookingTime: time,
               bookingStatus: false,
@@ -156,6 +159,7 @@ export class UserController {
               bookingStatus: true,
             };
           }
+          console.log("add roster:", time, rosterBooking);
         }
         console.log("rosterBooking:", rosterBooking);
         res.json({
@@ -173,36 +177,36 @@ export class UserController {
           let dateTime = date + " " + time;
           //console.log("datetime:", dateTime);
           const { man_count, c_count, p_count } = (
-            (await this.userService.booking_timeslot(
-              category,
-              dateTime
-            )) as any[]
+            (await this.userService.booking_timeslot(dateTime)) as any[]
           )[0];
           pRosterData.push({ man_count, c_count, p_count });
         }
-        //console.log("pRosterData: ", pRosterData)
+        console.log("pRosterData: ", pRosterData);
         let pRoster = roster.slice(0, roster.length - 2);
-        //console.log(pRoster)
+        console.log(pRoster);
         for (let time of pRoster) {
-          for (let i = 0; i <= 2; i++) {
-            if (
-              (pRosterData[i].man_count - pRosterData[i].c_count) * 4 +
-                pRosterData[i].c_count * 2 >
-              pRosterData[i].p_count
-            ) {
-              rosterBooking[pRoster.indexOf(time)] = {
-                bookingTime: time,
-                bookingStatus: true,
-              };
-            } else {
-              rosterBooking[pRoster.indexOf(time)] = {
-                bookingTime: time,
-                bookingStatus: false,
-              };
-            }
+          // for (let i = 0; i <= 2; i++) {
+          let i = pRoster.indexOf(time);
+          let availablePerm =
+            (pRosterData[i].man_count - pRosterData[i].c_count) * 4 +
+              pRosterData[i].c_count * 2 >
+            pRosterData[i].p_count;
+          console.log("available Perm:", availablePerm);
+          if (availablePerm) {
+            rosterBooking[pRoster.indexOf(time)] = {
+              bookingTime: time,
+              bookingStatus: true,
+            };
+          } else {
+            rosterBooking[pRoster.indexOf(time)] = {
+              bookingTime: time,
+              bookingStatus: false,
+            };
           }
+          // }
+          console.log("add roster:", time, rosterBooking);
         }
-        // console.log("rosterBooking:", rosterBooking);
+        console.log("rosterBooking:", rosterBooking);
         res.json({
           category: category,
           bookingDate: date,

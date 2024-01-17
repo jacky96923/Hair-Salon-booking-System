@@ -38,19 +38,12 @@ export class UserService {
     }
   };
   //Promise<{ man_count: number; c_count: number; } | undefined>
-  async booking_timeslot(category: string, dateTime: string) {
+  async booking_timeslot(dateTime: string) {
     try {
-      if (category === "Haircut Wash Style") {
-        return await this.knex
-          .select("man_count", "c_count")
-          .from("roster")
-          .where("datetime", dateTime);
-      } else if (category === "Style Perming") {
-        return await this.knex
-          .select("man_count", "c_count", "p_count")
-          .from("roster")
-          .where("datetime", dateTime);
-      }
+      return await this.knex
+        .select("man_count", "c_count", "p_count")
+        .from("roster")
+        .where("datetime", dateTime);
     } catch (error) {}
   }
   async booking_request(
@@ -85,7 +78,7 @@ export class UserService {
           momentStartDateTime.add(j, "hours");
           await this.knex.raw(
             "update roster set p_count = p_count + 1 where datetime = ?",
-            [datetime]
+            [momentStartDateTime]
           );
           momentStartDateTime.subtract(j, "hours");
         }
