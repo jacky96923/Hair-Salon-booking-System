@@ -140,12 +140,15 @@ export class UserController {
           let dateTime = date + " " + time;
           // console.log("datetime:", dateTime);
           const { man_count, c_count, p_count } = (
-            (await this.userService.booking_timeslot(
-              category,
-              dateTime
-            )) as any[]
+            (await this.userService.booking_timeslot(dateTime)) as any[]
           )[0];
-          if (man_count === c_count || p_count > 2) {
+          console.log({ man_count, c_count, p_count });
+          if (man_count === c_count) {
+            rosterBooking[roster.indexOf(time)] = {
+              bookingTime: time,
+              bookingStatus: false,
+            };
+          } else if (p_count > 2) {
             rosterBooking[roster.indexOf(time)] = {
               bookingTime: time,
               bookingStatus: false,
@@ -156,6 +159,7 @@ export class UserController {
               bookingStatus: true,
             };
           }
+          console.log("add roster:", time, rosterBooking);
         }
         console.log("rosterBooking:", rosterBooking);
         res.json({
@@ -173,10 +177,7 @@ export class UserController {
           let dateTime = date + " " + time;
           //console.log("datetime:", dateTime);
           const { man_count, c_count, p_count } = (
-            (await this.userService.booking_timeslot(
-              category,
-              dateTime
-            )) as any[]
+            (await this.userService.booking_timeslot(dateTime)) as any[]
           )[0];
           pRosterData.push({ man_count, c_count, p_count });
         }
