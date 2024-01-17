@@ -32,6 +32,7 @@ export class SaveImageController {
         return;
       }
       try {
+        console.log("saveIcon:", fields, files);
         const requestedStyle = toStringField(fields.style);
         console.log("content:", requestedStyle);
         let imageFiles = toArray(files.upload_image);
@@ -39,18 +40,19 @@ export class SaveImageController {
         const userId = req.session.user ? req.session.user.id : undefined;
         console.log(userId);
         if (!requestedStyle) {
-          res.status(400);
+          res.status(200);
           res.json({ error: "Missing image content" });
           // next(new Error('Missing "content" in request.body'))
           return;
         }
         let result = path.join(image[0]);
         console.log("path:", result);
-        let savedPath = await this.saveImageService.saveOutput(
+        let imageId = (await this.saveImageService.saveOutput(
           result,
           requestedStyle,
           userId
-        );
+        )) as any[];
+        res.json({ imageId: imageId[0] });
       } catch (error) {
         res.status(500);
         res.json({ error: "Sad Upload" });

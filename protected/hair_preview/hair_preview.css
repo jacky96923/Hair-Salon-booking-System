@@ -53,8 +53,8 @@
 }
 
 #photo_container {
-  border: 1px solid black;
-  height: 50rem;
+  /* border: 1px solid black; */
+  height: auto;
   width: auto;
   margin-left: 6rem;
   margin-right: 6rem;
@@ -75,8 +75,9 @@
 
 #user_image {
   border: 1px solid black;
-  height: auto;
-  width: 65rem;
+  height: 50rem;
+  width: 50rem;
+  min-width: 50rem;
   margin: 2rem;
   display: flex;
   align-items: center;
@@ -85,8 +86,9 @@
 
 #output_image {
   border: 1px solid black;
-  height: auto;
-  width: 65rem;
+  height: 50rem;
+  min-width: 50rem;
+  max-width: 65rem;
   margin: 2rem;
 }
 
@@ -97,10 +99,21 @@
   
 }
 
+/* @media (max-width: 50rem) {
+  #photo_container {
+    flex-direction: column;
+    align-items: center;
+  }
+  #vl {
+    display: none;
+  }
+} */
+
 #result_wrap {
   height: auto;
   width: 65rem;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 }

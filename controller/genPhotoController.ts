@@ -9,9 +9,9 @@ export class GenPhotoController {
       const { type, color, style, path } = req.body.formObject;
       console.log(req.body);
       console.log(type);
-      console.log(path);
+      console.log("genConPath:", path);
 
-      const imagePath = path;
+      const imagePath = "." + path;
       const image = await datauri(imagePath);
       const replicate = new Replicate({
         auth: REPLICATE_API_TOKEN,
