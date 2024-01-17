@@ -74,7 +74,7 @@ export async function seed(knex: Knex): Promise<void> {
       .returning("id");
 
     const imageFileName = `${style.style}.jpg`;
-    const imagePath = path.join("hair_style", imageFileName);
+    const imagePath = path.join(imageFileName);
 
     await knex
       .insert({

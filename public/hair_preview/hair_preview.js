@@ -92,11 +92,44 @@ function showItems(styles) {
     let node = itemsTemplate.content.cloneNode(true);
     let inputElement = node.querySelector("input[type='radio']");
     let labelElement = node.querySelector("label");
-    // `${style.style}/${style.special}`
     inputElement.value = style.style;
     labelElement.textContent = style.style;
 
+    // Add a hover event listener to the label element
+    labelElement.addEventListener("mouseenter", async () => {
+      // Retrieve the style image from SQL using style.id or style.name
+      // Replace 'style.id' or 'style.name' with the appropriate property
+      const styleImage = await getStyleImageFromSQL(style.id);
+      // Set the background image of the label element
+      console.log(styleImage);
+      document.querySelector("#preview_img").src =
+        "../hair_preview/hair_styles/" + styleImage;
+    });
+
+    // Remove the background image when the mouse leaves the label element
+    labelElement.addEventListener("mouseleave", () => {
+      document.querySelector("#preview_img").src = "";
+    });
+
     itemsContainer.appendChild(node);
+  }
+}
+
+async function getStyleImageFromSQL(styleId) {
+  try {
+    console.log(styleId);
+    const response = await fetch(`/getPreview/${styleId}`);
+    if (response.ok) {
+      const result = await response.json();
+      imageUrl = result[0].image;
+      const convertedImageUrl = imageUrl.replace(/ /g, "_");
+      console.log("previewLink:", convertedImageUrl);
+      return convertedImageUrl;
+    } else {
+      console.error("Failed to get preview");
+    }
+  } catch (error) {
+    console.error("error getStyleImage function:", error);
   }
 }
 
@@ -113,6 +146,9 @@ document
     };
     console.log("logging form", form);
 
+    const wrapElement = document.querySelector("#result_wrap");
+    const loadingElement = document.querySelector("#loading_img");
+    wrapElement.style.display = "block";
     const genPhotoRes = await fetch("/genPhoto", {
       method: "POST",
       headers: {
@@ -120,10 +156,13 @@ document
       },
       body: JSON.stringify({ formObject }),
     });
+    // loadingElement.style.display = "none";
+
     const response = await genPhotoRes.json();
     const [imageLink, style] = response.split(",");
     console.log("link:", imageLink);
     requestedStyle = style;
+    loadingElement.style.display = "none";
 
     const outputElement = document.querySelector("#result_image");
     const styleConfirmElement = document.querySelector("#style_confirm");
@@ -204,7 +243,7 @@ document
           console.log("ok", res);
           // Show success message or perform any other actions
           // Redirect the user to another page
-          window.location.href = "/booking-details.html";
+          window.location.href = "/booking_request/booking_request";
         } else {
           console.log("fuck", res);
           // Show error message or perform any other actions
@@ -218,24 +257,54 @@ document
   });
 
 document.getElementById("#to_profile").addEventListener("click", () => {
-  window.location.href = "/home.html#headerStyle";
+  window.location.href = "/home#headerStyle";
 });
 
-// const saveBtnElement = node.querySelector("#save_btn");
+// let previewBtn = document.getElementById("#submit_request");
+// let previewSection = document.getElementById("#photo_container");
 
-// function showPopup(message) {
-//   const popup = document.querySelector("#popup");
-//   const popupMessage = document.querySelector("#popup_message");
-//   popupMessage.textContent = message;
-//   popup.style.display = "block";
-//   setTimeout(() => {
-//     popup.style.display = "none";
-//   }, 3000);
-// }
+document.getElementById("#submit_request").addEventListener("click", () => {
+  document
+    .getElementById("#photo_container")
+    .scrollIntoView({ behavior: "smooth" });
+});
 
-let previewBtn = document.getElementById("#submit_request");
-let previewSection = document.getElementById("#photo_container");
+const typeSelect = document.querySelector("#type");
+const textInput = document.querySelector("#textInput");
 
-previewBtn.addEventListener("click", () => {
-  previewSection.scrollIntoView({ behavior: "smooth" });
+typeSelect.addEventListener("change", () => {
+  if (typeSelect.value === "color" || typeSelect.value === "both") {
+    textInput.setAttribute("required", "");
+  } else {
+    textInput.removeAttribute("required");
+  }
+});
+
+//reset
+const resetButton = document.getElementById("request_reset");
+
+resetButton.addEventListener("click", (event) => {
+  // Reset the upload form
+  document.getElementById("photo_input").reset();
+
+  // Reset the gen_photo form
+  const genPhotoForm = document.getElementById("gen_photo");
+  genPhotoForm.reset();
+  const typeSelect = genPhotoForm.querySelector("#type");
+  const textInput = genPhotoForm.querySelector("#textInput");
+  typeSelect.selectedIndex = 0;
+  textInput.value = "";
+
+  // Reset other form elements or values as needed
+
+  // Optionally, you can reset the result display elements
+  document.getElementById("result_wrap").style.display = "none";
+  document.getElementById("result_image").src = "";
+  document.getElementById("style_confirm").textContent = "";
+  uploadedImage.src = null;
+
+  // Optionally, you can reset any other elements or states in your page
+
+  // Prevent the form from actually submitting
+  event.preventDefault();
 });
