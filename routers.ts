@@ -44,11 +44,7 @@ export const getGenPhoto = express.Router();
 export const get_preview = express.Router();
 export const removeGenPhoto = express.Router();
 
-userRoutes.post("/login", userController.login);
-userRoutes.post("/register", userController.register);
 userRoutes.get("/username", userController.getUsername);
-userRoutes.post("/booking_timeslot", userController.booking_timeslot);
-
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
 userRoutes.post("/booking_timeslot", userController.booking_timeslot);
