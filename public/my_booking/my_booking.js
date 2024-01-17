@@ -16,8 +16,8 @@ async function getUsername(){
     }
 }
 
-async function getBookings(){
-    let res = await fetch("/my_booking")
+async function getBookings(bookingId){
+    let res = await fetch(`/my_booking`)
     if (res.ok){
         let response = await res.json()
         console.log(response)

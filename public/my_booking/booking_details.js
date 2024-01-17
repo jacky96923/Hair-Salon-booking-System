@@ -1,9 +1,11 @@
 let bookingDetailsDlElement = document.querySelector("#booking_details dl")
 let usernameDivElement = document.querySelector("#user_name")
+const searchParams = new URLSearchParams(location.search);
+const bookingId = searchParams.get('id');
 
 async function main(){
     await getUsername()
-    await getBookingDetails()
+    await getBookingDetails(bookingId)
 }
 
 window.onload = main()
@@ -16,8 +18,8 @@ async function getUsername(){
     }
 }
 
-async function getBookingDetails(){
-    let res = await fetch("/booking_details")
+async function getBookingDetails(bookingId){
+    let res = await fetch(`/booking_details?id=${bookingId}`)
     if (res.ok){
         let response = await res.json()
         console.log(response)
@@ -38,9 +40,6 @@ function displayBookings(response){
     const dd4 = document.createElement('dd');
     const dt5 = document.createElement('dt');
     const dd5 = document.createElement('dd');
-    if (response.imageFilename){
-        const img = document.createElement('img');
-    }
 
     // Set class names
     dt1.className = 'col-sm-3';
@@ -51,6 +50,7 @@ function displayBookings(response){
     dd3.className = 'col-sm-9';
     dt4.className = 'col-sm-3 text-truncate';
     dd4.className = 'col-sm-9';
+    
 
     // Set text content
     dt1.textContent = 'Haircut Style:';
@@ -65,29 +65,43 @@ function displayBookings(response){
     } 
     dt4.textContent = 'Remarks:';
     dd4.textContent = response.remarks;
-    dt5.textContent = 'Your desired style:';
+
+    
+    // Append elements to the document
+    bookingDetailsDlElement.appendChild(dt1);
+    bookingDetailsDlElement.appendChild(dd1);
+    bookingDetailsDlElement.appendChild(dt2);
+    bookingDetailsDlElement.appendChild(dd2);
+    bookingDetailsDlElement.appendChild(dt3);
+    bookingDetailsDlElement.appendChild(dd3);
+    bookingDetailsDlElement.appendChild(dt4);
+    bookingDetailsDlElement.appendChild(dd4);
     
     if (response.imageFilename){
-        dd5.textContent = response.imageStyle
+        const img = document.createElement('img');
         img.alt = 'Your desired style image';
-    
         // Set attribute
         img.src = response.imageFilename;
-    }
 
-    // Append elements to the document
-    const container = document.getElementById('container'); // Assuming there's a container element in your HTML where these elements should be added
-    container.appendChild(dt1);
-    container.appendChild(dd1);
-    container.appendChild(dt2);
-    container.appendChild(dd2);
-    container.appendChild(dt3);
-    container.appendChild(dd3);
-    container.appendChild(dt4);
-    container.appendChild(dd4);
-    container.appendChild(dt5);
-    container.appendChild(dd5);
-    dd5.appendChild(img);
+        dt5.className = 'col-sm-3'
+        dd5.className = 'col-sm-9'
+        
+        dt5.textContent = 'Your desired style:';
+        dd5.textContent = response.imageStyle.split(" ").map((word)=>{
+            return word.slice(0, 1).toUpperCase() + word.slice(1, word.length)
+        }).join(" ")
+    
+        dd5.appendChild(img);
+        bookingDetailsDlElement.appendChild(dt5);
+        bookingDetailsDlElement.appendChild(dd5);
+    } else {
+        dt5.className = 'col-sm-3'
+        dd5.className = 'col-sm-9'
+        dt5.textContent = 'Your desired style:';
+        dd5.textContent = "No specific style desired"
+        bookingDetailsDlElement.appendChild(dt5);
+        bookingDetailsDlElement.appendChild(dd5);
+    }
 }
 
 function displayUser(response){
