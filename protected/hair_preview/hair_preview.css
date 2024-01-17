@@ -21,6 +21,8 @@
   height: auto;
   width: auto;
   margin: 1rem;
+  font-family: Fantasy;
+
 }
 
 #user_pic {
@@ -56,6 +58,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  font-family: Fantasy;
+
 }
 
 #vl {

@@ -19,6 +19,13 @@ function displayUser(response) {
   username = username.slice(0, 1).toUpperCase() + username.slice(1);
   usernameDivElement.innerText = username;
 }
+window.addEventListener("load", function () {
+  var targetElement = document.getElementById("scrollTarget");
+
+  targetElement.scrollIntoView({
+    behavior: "smooth",
+  });
+});
 
 async function getGenPhoto() {
   const res = await fetch("/getGenPhoto", {
