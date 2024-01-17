@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { checkPassword } from "./hash";
-import { UserService } from "./userService";
+import { checkPassword } from "../hash";
+import { UserService } from "../service/userService";
 
 export class UserController {
   constructor(private userService: UserService) {}
@@ -92,6 +92,19 @@ export class UserController {
     }
   };
 
+  logout = async (req: Request, res: Response) => {
+    try {
+      if (req.session.user){
+        delete req.session.user
+        console.log("user session deleted")
+      }
+
+      return res.redirect("/login/login.html")
+    } catch (error) {
+      res.status(500);
+      return res.json({ error: error})
+    }
+  };
   getUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const user_id = req.session.user?.id

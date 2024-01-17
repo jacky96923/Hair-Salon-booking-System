@@ -2,16 +2,16 @@ import { NextFunction, Request, Response } from "express";
 import { fstat, mkdirSync } from "fs";
 import { Formidable } from "formidable";
 import { randomUUID } from "crypto";
-import { toStringField, toArray } from "./form";
-import path from "path";
-import { SaveImageService } from "./saveImageService";
+import { toStringField, toArray } from "../form";
+// import path from "path";
 
-let uploadDir = "result_images";
+let uploadDir = "uploads";
 mkdirSync(uploadDir, { recursive: true });
 
-export class SaveImageController {
-  constructor(private saveImageService: SaveImageService) {}
-  saveImage = async (req: Request, res: Response, next: NextFunction) => {
+let prediction: any;
+
+export class ImageController {
+  uploadImage = async (req: Request, res: Response, next: NextFunction) => {
     let form = new Formidable({
       uploadDir,
       maxFiles: 1,
@@ -25,32 +25,32 @@ export class SaveImageController {
         return `${uuid}.${extName}`;
       },
     });
-    console.log("saveImage:", form);
     form.parse(req, async (err, fields, files) => {
       if (err) {
         next(err);
         return;
       }
       try {
-        const requestedStyle = toStringField(fields.style);
-        console.log("content:", requestedStyle);
         let imageFiles = toArray(files.upload_image);
         let image = imageFiles.map((file) => file.newFilename);
-        const userId = req.session.user ? req.session.user.id : undefined;
-        console.log(userId);
-        if (!requestedStyle) {
+        if (!imageFiles) {
           res.status(400);
           res.json({ error: "Missing image content" });
           // next(new Error('Missing "content" in request.body'))
           return;
         }
-        let result = path.join(image[0]);
-        console.log("path:", result);
-        let savedPath = await this.saveImageService.saveOutput(
-          result,
-          requestedStyle,
-          userId
-        );
+        let rePath = `./uploads/${image[0]}`;
+        let py_filename = await fetch("http://localhost:8000/pyShape", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ image: rePath }),
+        });
+        prediction = await py_filename.json();
+        console.log("first:", prediction);
+        res.json({ prediction, rePath });
+        // return rePath;
       } catch (error) {
         res.status(500);
         res.json({ error: "Sad Upload" });
@@ -58,3 +58,5 @@ export class SaveImageController {
     });
   };
 }
+
+export { prediction };

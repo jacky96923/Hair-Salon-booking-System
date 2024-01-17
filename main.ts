@@ -23,6 +23,7 @@ import {
   removeGenPhoto,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
+import { isLoggedIn } from "./guards";
 
 app.use("/", userRoutes);
 app.use("/", upload_image);
@@ -46,6 +47,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use(express.static("public"));
+app.use(isLoggedIn, express.static("protected"))
 app.use(express.static("result_images"));
 app.use(express.static("hair_styles"));
 // app.use(express.static(join("public", "login")));
