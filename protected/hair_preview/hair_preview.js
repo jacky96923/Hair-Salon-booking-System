@@ -49,18 +49,19 @@ function uploadImageListener() {
       // remove file button
     }
   });
-
-  document
-    .querySelector("#remove_preview")
-    .addEventListener("click", (event) => {
-      event.preventDefault();
-      // Clear file input value and remove file details
-      photoInput.removeAttribute("src");
-      console.log("attribute removed");
-      document.querySelector("#submit_photo").innerHTML =
-        "Upload a picture of yourself";
-    });
 }
+
+//   document
+//     .querySelector("#remove_preview")
+//     .addEventListener("click", (event) => {
+//       event.preventDefault();
+//       // Clear file input value and remove file details
+//       photoInput.removeAttribute("src");
+//       console.log("attribute removed");
+//       document.querySelector("#submit_photo").innerHTML =
+//         "Upload a picture of yourself";
+//     });
+// }
 
 function callAIListener() {
   document
@@ -300,7 +301,8 @@ function genPhotoListener() {
             if (res.ok) {
               console.log("ok", res);
               let image_id = await res.json();
-              window.location.href = `/booking_request/booking_request.html?id=${image_id}`;
+              console.log("hair id:", image_id.imageId);
+              window.location.href = `/booking_request/booking_request.html?id=${image_id.imageId.id}`;
             } else {
               console.log("fuck", res);
               // Show error message or perform any other actions
