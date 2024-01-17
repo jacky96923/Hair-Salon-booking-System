@@ -4,11 +4,13 @@ let selectedTimeSlot = null;
 let categoryElement = document.querySelector("select[name=category]");
 let bookingDateElement = document.getElementById("date");
 
-let selectedCategory = categoryElement.options[categoryElement.selectedIndex].value;
+let selectedCategory =
+  categoryElement.options[categoryElement.selectedIndex].value;
 let bookingDate = null;
 
 function getValue() {
-  selectedCategory = categoryElement.options[categoryElement.selectedIndex].value;
+  selectedCategory =
+    categoryElement.options[categoryElement.selectedIndex].value;
   bookingDate = bookingDateElement.value;
   console.log(bookingDate);
   if (bookingDate != "") {
@@ -31,6 +33,9 @@ async function getTimeSlots() {
     updateTimeSlots(result);
   }
 }
+// async function getPhoto(){
+//   const res = await fetch("/getPhoto")
+// }
 
 categoryElement.addEventListener("change", async (event) => {
   getValue();

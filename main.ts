@@ -1,8 +1,5 @@
 import express from "express";
 import { sessionMiddleware } from "./session";
-import { join } from "path";
-
-// import { isLoggedIn } from "./guards";
 import Knex from "knex";
 
 const app = express();
@@ -22,6 +19,7 @@ import {
   my_booking,
   booking_details,
   getGenPhoto,
+  get_preview,
   removeGenPhoto,
 } from "./routers";
 import { terminalCounter } from "./terminalCounter";
@@ -31,9 +29,10 @@ app.use("/", upload_image);
 app.use("/", get_style);
 app.use("/", genPhoto);
 app.use("/", saveResult);
-app.use("/", my_booking)
-app.use("/", booking_details)
+app.use("/", my_booking);
+app.use("/", booking_details);
 app.use("/", getGenPhoto);
+app.use("/", get_preview);
 app.use("/", removeGenPhoto);
 
 app.use(terminalCounter);
@@ -48,6 +47,7 @@ app.get("/", (req, res, next) => {
 
 app.use(express.static("public"));
 app.use(express.static("result_images"));
+app.use(express.static("hair_styles"));
 // app.use(express.static(join("public", "login")));
 app.use("/assets", express.static("assets"));
 // app.use(isLoggedIn, express.static("hair_preview"));

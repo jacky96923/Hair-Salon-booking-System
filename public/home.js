@@ -6,11 +6,14 @@ async function getGenPhoto() {
     },
   });
   if (!res.ok) {
-    throw new Error("Failed to fetch photo");
+    window.location.href = "/login/login.html";
+    return;
+    // throw new Error("Failed to fetch photo");
   }
-
   const photos = await res.json();
-  console.log("photos", photos);
+  console.log(photos);
+
+  // console.log("photos", photos);
   if (!photos) {
     throw new Error("Image not found");
   }
@@ -18,9 +21,12 @@ async function getGenPhoto() {
   return;
 }
 
-async function removeGenPhoto() {
-  let res = await fetch("/removeGenPhoto", {
+async function removeGenPhoto(photo_id) {
+  let res = await fetch(`/removeGenPhoto`, {
     method: "DELETE",
+    body: JSON.stringify({
+      photo_id,
+    }),
     headers: {
       Accept: "application/json",
     },
@@ -41,6 +47,7 @@ function renderData(photos) {
     buttonBooking.classList.add("myStyleBooking");
     buttonBooking.textContent = "Book now";
     buttonRemove.classList.add("myStyleRemove");
+    buttonRemove.setAttribute("photo_id", photo.id);
     buttonRemove.textContent = "x";
 
     const imageContainer = document.createElement("div");
@@ -67,7 +74,8 @@ function renderData(photos) {
     myStyleRemove.addEventListener("click", async function (e) {
       e.preventDefault();
       try {
-        await removeGenPhoto(photo.id);
+        const photo_id = e.target.getAttribute("photo_id");
+        await removeGenPhoto(photo_id);
         imageContainer.remove();
       } catch (error) {
         console.error("Error removing photo:", error);
@@ -76,7 +84,6 @@ function renderData(photos) {
   });
 }
 getGenPhoto();
-removeGenPhoto();
 
 let desBooking = document.getElementById("desBooking");
 desBooking.addEventListener("click", function () {

@@ -94,16 +94,16 @@ export class UserController {
 
   getUsername = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const user_id = req.session.user?.id
-        const result = await this.userService.getUsername(user_id as number)
-        //console.log(result)
-        console.log((result as {name: string}[])[0])
-        return res.json((result as {name: string}[])[0])
+      const user_id = req.session.user?.id;
+      const result = await this.userService.getUsername(user_id as number);
+      //console.log(result)
+      console.log((result as { name: string }[])[0]);
+      return res.json((result as { name: string }[])[0]);
     } catch (error) {
-        console.error("error:", error);
-        return error;
+      console.error("error:", error);
+      return error;
     }
-}
+  };
   booking_timeslot = async (req: Request, res: Response) => {
     try {
       const { category, date } = req.body;
@@ -255,6 +255,7 @@ export class UserController {
       //     .json({ element: user_id, error: "Missing user_id" });
       // }
       const user_id = req.session.user?.id;
+      console.log("user_id", user_id);
       const result = await this.userService.getGenPhoto(user_id as number);
       console.log("result: ", result);
       return res.status(200).json(result);
@@ -266,8 +267,9 @@ export class UserController {
 
   removeGenPhoto = async (req: Request, res: Response) => {
     try {
-      const user_id = req.session.user?.id;
-      const result = await this.userService.removeGenPhoto(user_id as number);
+      // const user_id = req.session.user?.id;
+      const photo_id = req.body.photo_id;
+      const result = await this.userService.removeGenPhoto(photo_id as number);
       return res.status(200).json(result);
     } catch (error) {
       res.status(500);

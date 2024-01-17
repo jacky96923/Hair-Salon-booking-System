@@ -95,7 +95,6 @@ export async function seed(knex: Knex): Promise<void> {
       ).format("YYYY-MM-DD HH:mm"),
       purpose: "Haircut Wash Style",
       remarks: "I need to go before 14:00",
-
     },
     {
       user_id: 2,
@@ -105,7 +104,7 @@ export async function seed(knex: Knex): Promise<void> {
       ).format("YYYY-MM-DD HH:mm"),
       purpose: "Haircut Wash Style",
       remarks: "Fuck postgres",
-      image_id: 1
+      image_id: 1,
     },
     {
       user_id: 3,
@@ -115,7 +114,6 @@ export async function seed(knex: Knex): Promise<void> {
       ).format("YYYY-MM-DD HH:mm"),
       purpose: "Haircut Wash Style",
       remarks: "Fuck postgres",
-
     },
     {
       user_id: 1,
@@ -125,7 +123,6 @@ export async function seed(knex: Knex): Promise<void> {
       ).format("YYYY-MM-DD HH:mm"),
       purpose: "Style Perming",
       remarks: "Fuck postgres",
-
     },
     {
       user_id: 1,
@@ -135,7 +132,6 @@ export async function seed(knex: Knex): Promise<void> {
       ).format("YYYY-MM-DD HH:mm"),
       purpose: "Style Perming",
       remarks: "Fuck postgres",
-
     },
     {
       user_id: 2,
@@ -145,8 +141,6 @@ export async function seed(knex: Knex): Promise<void> {
       ).format("YYYY-MM-DD HH:mm"),
       purpose: "Style Perming",
       remarks: "Fuck postgres",
-
     },
   ]);
-  
 }
