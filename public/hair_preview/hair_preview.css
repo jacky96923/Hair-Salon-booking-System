@@ -1,53 +1,50 @@
-.top-container{
+.top-container {
   display: flex;
   justify-content: space-between;
 }
 
-
-
 #logo_image {
-max-width: 15%;
-height: auto;
+  max-width: 15%;
+  height: auto;
 }
 
 #user_wrapper {
-display: flex;
-width: auto;
+  display: flex;
+  width: auto;
 }
 
 #user_info {
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-align-items: flex-end;
-height: auto;
-width: auto;
-margin: 1rem;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  height: auto;
+  width: auto;
+  margin: 1rem;
 }
 
 #user_pic {
-height: 2em;
-width: 2rem;
-overflow: hidden;
-border-radius: 50%;
-margin-right: 1rem;
+  height: 2em;
+  width: 2rem;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 1rem;
 }
 
-#user_name{
+#user_name {
   font-size: 18px;
 }
 
 #profile_pic {
-height: 100%;
-width: 100%;
-object-fit: contain;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
 }
 
 #navbar_container {
-border-top: 1px solid grey;
-width: auto;
-height: 4rem;
-
+  border-top: 1px solid grey;
+  width: auto;
+  height: 4rem;
 }
 
 #photo_container {
@@ -206,6 +203,7 @@ input#textInput {
 #hair_selection {
   border: 1px dotted black;
   font-size: larger;
+  min-width: 20rem;
   width: auto;
   min-height: 3rem;
   max-height: auto;
@@ -215,6 +213,17 @@ input#textInput {
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
+  justify-content: space-evenly;
+}
+
+#preview {
+  border: 1px solid black;
+  width: 30rem;
+  height: 30rem;
+}
+#preview_img {
+  width: 100%;
+  height: 100%;
 }
 
 #preview_select {

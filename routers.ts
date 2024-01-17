@@ -1,4 +1,5 @@
 import express from "express";
+import { isLoggedIn } from "./guards";
 import { UserService } from "./userService";
 import { UserController } from "./userController";
 import { ImageController } from "./imageController";
@@ -8,6 +9,8 @@ import { GenPhotoController } from "./genPhotoController";
 import { knex } from "./main";
 import { SaveImageController } from "./saveImageController";
 import { SaveImageService } from "./saveImageService";
+import { GetPreviewService } from "./getPreviewService";
+import { GetPreviewController } from "./getPreviewController";
 
 export const userService = new UserService(knex);
 export const userController = new UserController(userService);
@@ -17,12 +20,16 @@ export const imageController = new ImageController();
 export const genPhotoController = new GenPhotoController();
 export const saveImageService = new SaveImageService(knex);
 export const saveImageController = new SaveImageController(saveImageService);
+export const getPreviewService = new GetPreviewService(knex);
+export const getPreviewController = new GetPreviewController(getPreviewService);
+
 export const userRoutes = express.Router();
 export const upload_image = express.Router();
 export const get_style = express.Router();
 export const genPhoto = express.Router();
 export const saveResult = express.Router();
 export const getGenPhoto = express.Router();
+export const get_preview = express.Router();
 
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
@@ -33,3 +40,4 @@ get_style.get("/suggested", suggestedController.getSuggested);
 genPhoto.post("/genPhoto", genPhotoController.sendRequest);
 saveResult.post("/save", saveImageController.saveImage);
 getGenPhoto.get("/getGenPhoto", userController.getGenPhoto);
+get_preview.get("/getPreview/:id", getPreviewController.getPreview);
