@@ -121,29 +121,33 @@
         </div>
         <p class="message"></p>
       </div>
-
-      <div id="hair_selection">
-        <fieldset id="selection"></fieldset>
-        <div id="preview"><img id="preview_img" /></div>
+      <div id="style_select">
+        <div id="hair_selection">
+          <fieldset id="selection"></fieldset>
+          <div id="preview"><img id="preview_img" /></div>
+        </div>
       </div>
+
       <div id="preview_select">
         <button
           id="submit_request"
           type="submit"
-          class="btn btn-outline-preview btn-lg"
+          class="btn btn-outline-preview"
         >
           Preview Now!
         </button>
 
-        <button
-          id="request_reset"
-          type="reset"
-          class="btn btn-outline-reset btn-lg"
-        >
-          Reset
+        <button id="request_reset" type="reset" class="btn btn-outline-reset">
+          Reset Style
         </button>
       </div>
     </form>
+
+    <div id="All_reset">
+      <button id="reset_all" type="reset" class="btn btn-outline-reset btn-lg">
+        Reset All
+      </button>
+    </div>
 
     <template id="template">
       <div>
