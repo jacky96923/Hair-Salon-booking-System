@@ -9,34 +9,12 @@ const emailErrorContainer = document.querySelector(
 );
 const emailInputDiv = document.querySelector(".input-control-email");
 
-// Sweetalert setup
-// const swalWithBootstrapButtons = Swal.mixin({
-//     customClass: {
-//       confirmButton: "btn btn-success",
-//       cancelButton: "btn btn-danger"
-//     },
-//     buttonsStyling: false
-//   });
-
 // Register submission
 document
   .querySelector("#register-form")
   .addEventListener("submit", async (event) => {
     // let formError = false;
     event.preventDefault();
-
-    // validateInputs();
-    // const inputControlDiv = document.querySelectorAll('.input-control')
-
-    // inputControlDiv.forEach((field) => {
-    //     if(field.classList.contains("error")){
-    //         formError = true;
-    //     }
-    // })
-
-    // if(formError){
-    //     return;
-    // }
 
     const form = event.target;
 
@@ -60,23 +38,6 @@ document
     if (validateInputs(result)) {
       window.location.href = "../home.html";
     }
-    // swalWithBootstrapButtons.fire({
-    //     title: "Registration succeed!",
-    //     text: "You can choose to login or go back to main page.",
-    //     icon: "success",
-    //     showCancelButton: true,
-    //     confirmButtonText: "Login",
-    //     cancelButtonText: "Go Back to Main Page"
-    //   }).then((result) => {
-    //     if (result.isConfirmed) {
-    //      window.location.href = "/index.html"}
-    //     } else if (
-    //       /* Read more about handling dismissals below */
-    //       result.dismiss === Swal.DismissReason.cancel
-    //     ) {
-    //         window.location.href = "/index.html"
-    //         }
-    //   });
   });
 
 // Display Error Message when error

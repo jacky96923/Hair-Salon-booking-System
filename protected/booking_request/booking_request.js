@@ -193,7 +193,8 @@ async function renderImage() {
     noImg.remove();
     for (let photo of photos) {
       let img = document.createElement("img");
-      img.src = photo.filename;
+      img.src = "/" + photo.filename;
+      console.log("request:", photo.filename);
 
       styleImg.appendChild(img);
     }

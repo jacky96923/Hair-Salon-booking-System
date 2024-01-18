@@ -49,18 +49,19 @@ function uploadImageListener() {
       // remove file button
     }
   });
-
-  document
-    .querySelector("#remove_preview")
-    .addEventListener("click", (event) => {
-      event.preventDefault();
-      // Clear file input value and remove file details
-      photoInput.removeAttribute("src");
-      console.log("attribute removed");
-      document.querySelector("#submit_photo").innerHTML =
-        "Upload a picture of yourself";
-    });
 }
+
+//   document
+//     .querySelector("#remove_preview")
+//     .addEventListener("click", (event) => {
+//       event.preventDefault();
+//       // Clear file input value and remove file details
+//       photoInput.removeAttribute("src");
+//       console.log("attribute removed");
+//       document.querySelector("#submit_photo").innerHTML =
+//         "Upload a picture of yourself";
+//     });
+// }
 
 function callAIListener() {
   document
@@ -141,6 +142,7 @@ function showItems(styles) {
     inputElement.value = style.style;
     labelElement.textContent = style.style;
 
+    let currentStyleImage = "";
     // Add a hover event listener to the label element
     labelElement.addEventListener("mouseenter", async () => {
       // Retrieve the style image from SQL using style.id or style.name
@@ -150,11 +152,13 @@ function showItems(styles) {
       console.log(styleImage);
       document.querySelector("#preview_img").src =
         "../hair_preview/hair_styles/" + styleImage;
+      currentStyleImage = styleImage;
     });
 
     // Remove the background image when the mouse leaves the label element
     labelElement.addEventListener("mouseleave", () => {
-      document.querySelector("#preview_img").src = "";
+      document.querySelector("#preview_img").src =
+        "../hair_preview/hair_styles/" + currentStyleImage;
     });
 
     itemsContainer.appendChild(node);
@@ -258,15 +262,19 @@ function genPhotoListener() {
             if (res.ok) {
               console.log("ok", res);
               let image_id = await res.json();
-              $("#staticBackdrop").modal("show");
+              showAlert("Image saved successfully!");
             } else {
               console.log("fuck", res);
-              // showPopup("Problem submitting message, refresh to try again.");
+              showAlert("Problem saving the image. Please try again.");
             }
           } catch (error) {
             console.log("save", error);
           }
         });
+
+      function showAlert(message) {
+        alert(message);
+      }
 
       //button action for the booking button
       document
@@ -300,7 +308,8 @@ function genPhotoListener() {
             if (res.ok) {
               console.log("ok", res);
               let image_id = await res.json();
-              window.location.href = `/booking_request/booking_request.html?id=${image_id}`;
+              console.log("hair id:", image_id.imageId);
+              window.location.href = `/booking_request/booking_request.html?id=${image_id.imageId.id}`;
             } else {
               console.log("fuck", res);
               // Show error message or perform any other actions
@@ -312,9 +321,9 @@ function genPhotoListener() {
     });
 }
 
-document.getElementById("#to_profile").addEventListener("click", () => {
-  window.location.href = "/home#headerStyle";
-});
+// document.getElementById("#to_profile").addEventListener("click", () => {
+//   window.location.href = "/home#headerStyle";
+// });
 
 // let previewBtn = document.getElementById("#submit_request");
 // let previewSection = document.getElementById("#photo_container");
@@ -363,4 +372,18 @@ resetButton.addEventListener("click", (event) => {
 
   // Prevent the form from actually submitting
   event.preventDefault();
+});
+
+document.querySelector("#reset_all").addEventListener("click", () => {
+  location.reload();
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
 });
