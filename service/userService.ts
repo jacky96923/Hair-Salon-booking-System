@@ -50,28 +50,48 @@ export class UserService {
     user_id: number,
     category: string,
     datetime: string,
-    remarks: string
+    remarks: string,
+    image_id?: number
   ) {
     try {
       if (category === "Haircut Wash Style") {
-        await this.knex("booking").insert({
-          user_id: user_id,
-          purpose: category,
-          datetime: datetime,
-          remarks: remarks,
-        });
+        if (image_id) {
+          await this.knex("booking").insert({
+            user_id: user_id,
+            purpose: category,
+            datetime: datetime,
+            remarks: remarks,
+            image_id: image_id,
+          });
+        } else {
+          await this.knex("booking").insert({
+            user_id: user_id,
+            purpose: category,
+            datetime: datetime,
+            remarks: remarks,
+          });
+        }
         await this.knex.raw(
           "update roster set c_count = c_count + 1 where datetime = ?",
           [datetime]
         );
       } else if (category === "Style Perming") {
-        await this.knex("booking").insert({
-          user_id: user_id,
-          purpose: category,
-          datetime: datetime,
-          remarks: remarks,
-        });
-
+        if (image_id) {
+          await this.knex("booking").insert({
+            user_id: user_id,
+            purpose: category,
+            datetime: datetime,
+            remarks: remarks,
+            image_id: image_id,
+          });
+        } else {
+          await this.knex("booking").insert({
+            user_id: user_id,
+            purpose: category,
+            datetime: datetime,
+            remarks: remarks,
+          });
+        }
         let momentStartDateTime = moment(datetime, "YYYY-MM-DD hh:mm");
         let timeslots = 3;
         for (let j = 0; j < timeslots; j++) {

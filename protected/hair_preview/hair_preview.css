@@ -74,7 +74,7 @@
 }
 
 #user_image {
-  border: 1px solid black;
+  border: 1px dotted black;
   height: 35rem;
   width: 35rem;
   min-width: 35rem;
@@ -85,7 +85,7 @@
 }
 
 #output_image {
-  border: 1px solid black;
+  border: 1px dotted black;
   height: 35rem;
   min-width: 35rem;
   max-width: 35rem;
@@ -276,7 +276,7 @@ input#textInput {
 
 #preview_select {
   width: auto;
-  height: 10rem;
+  height: 5rem;
   margin: 5rem;
   display: flex;
   justify-content: space-around;
@@ -284,17 +284,6 @@ input#textInput {
 
 button.btn {
   font-size: 30px;
-}
-
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  padding: 20px;
-  z-index: 9999;
 }
 
 .popup_message {
@@ -308,6 +297,7 @@ button.btn {
   justify-content: center;
   position: relative;
   bottom: 8rem;
+  margin-top: 7rem;
 }
 
 #loading_img {
@@ -317,5 +307,5 @@ button.btn {
 }
 
 #action_btn {
-  margin-top: 3rem;
+  margin-top: 5rem;
 }

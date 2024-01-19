@@ -222,7 +222,7 @@ export class UserController {
 
   booking_request = async (req: Request, res: Response) => {
     try {
-      const { category, date, timeSlots, remarks } = req.body;
+      const { category, date, timeSlots, remarks, image_id } = req.body;
       console.log("req.body123", req.body);
       let user_id = req.session.user?.id;
       console.log("sessionID: ", req.session.user?.id);
@@ -243,15 +243,27 @@ export class UserController {
       const datetime = date + " " + timeSlots;
       console.log("datetime", datetime);
 
-      const result = await this.userService.booking_request(
-        user_id as number,
-        category,
-        datetime,
-        remarks
-      );
-      console.log(result);
-
-      return res.status(200).json({ success: "register success" });
+      if (image_id) {
+        let imageId = Number(image_id);
+        const result = await this.userService.booking_request(
+          user_id as number,
+          category,
+          datetime,
+          remarks,
+          imageId
+        );
+        console.log(result);
+        return res.status(200).json({ success: "register success" });
+      } else {
+        const result = await this.userService.booking_request(
+          user_id as number,
+          category,
+          datetime,
+          remarks
+        );
+        console.log(result);
+        return res.status(200).json({ success: "register success" });
+      }
     } catch (error) {
       res.status(500);
       return res.json({ error: String(error) });
