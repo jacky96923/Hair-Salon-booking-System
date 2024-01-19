@@ -117,7 +117,7 @@ export class UserController {
       return error;
     }
   };
-  booking_timeslot = async (req: Request, res: Response) => {
+  bookingTimeslots = async (req: Request, res: Response) => {
     try {
       const { category, date } = req.body;
       // console.log(category, date);
@@ -134,26 +134,35 @@ export class UserController {
         "19:00",
         "20:00",
       ];
+
+      //  rosterBooking is an array of object specifying availability of all timeslots on give date
       let rosterBooking: { bookingTime: string; bookingStatus: boolean }[] = [];
+
       if (category === "Haircut Wash Style") {
         for (let time of roster) {
           let dateTime = date + " " + time;
-          // console.log("datetime:", dateTime);
+
           const { man_count, c_count, p_count } = (
             (await this.userService.booking_timeslot(dateTime)) as any[]
           )[0];
           console.log({ man_count, c_count, p_count });
+
+          // If cut count is equal to manpower count, not available for booking haircut wash
           if (man_count === c_count) {
             rosterBooking[roster.indexOf(time)] = {
               bookingTime: time,
               bookingStatus: false,
             };
+
+            // if p count is more than 2 ,as stylist can only handle 2 perm 1 cut simultaneously, not available for booking haircut wash
           } else if (p_count > 2) {
             rosterBooking[roster.indexOf(time)] = {
               bookingTime: time,
               bookingStatus: false,
             };
-          } else {
+          }
+          // available for booking haircut wash
+          else {
             rosterBooking[roster.indexOf(time)] = {
               bookingTime: time,
               bookingStatus: true,
@@ -161,7 +170,9 @@ export class UserController {
           }
           console.log("add roster:", time, rosterBooking);
         }
+
         console.log("rosterBooking:", rosterBooking);
+
         res.json({
           category: category,
           bookingDate: date,
@@ -175,36 +186,77 @@ export class UserController {
         }[] = [];
         for (let time of roster) {
           let dateTime = date + " " + time;
-          //console.log("datetime:", dateTime);
+
           const { man_count, c_count, p_count } = (
             (await this.userService.booking_timeslot(dateTime)) as any[]
           )[0];
           pRosterData.push({ man_count, c_count, p_count });
         }
+
         console.log("pRosterData: ", pRosterData);
-        let pRoster = roster.slice(0, roster.length - 2);
-        console.log(pRoster);
+        // slice off two time interval before closing , since perm has to be 3 hrs long
+        let pRoster = roster;
+        console.log("*********", pRoster);
+
         for (let time of pRoster) {
-          // for (let i = 0; i <= 2; i++) {
-          let i = pRoster.indexOf(time);
-          let availablePerm =
-            (pRosterData[i].man_count - pRosterData[i].c_count) * 4 +
-              pRosterData[i].c_count * 2 >
-            pRosterData[i].p_count;
-          console.log("available Perm:", availablePerm);
-          if (availablePerm) {
-            rosterBooking[pRoster.indexOf(time)] = {
-              bookingTime: time,
+          if (time == "19:00") break;
+          let flag = true;
+          let startTime = time;
+
+          for (let j = 0; j <= 2; j++) {
+            // 11:00
+
+            let consecutiveTime =
+              (parseInt(time.split(":")[0]) + j).toString() + ":" + "00";
+
+            console.log("check time ------", consecutiveTime);
+
+            let i = pRoster.indexOf(consecutiveTime);
+            console.log("i", i);
+            // totally free stylist can handle at most 4 perm ,while cutting stylist can only handle 2 perm 1 cut
+            // combing all stylist's perm capacity if it is more than perm count, available for booking perm
+            let availablePerm =
+              (pRosterData[i].man_count - pRosterData[i].c_count) * 4 +
+                pRosterData[i].c_count * 2 >
+              pRosterData[i].p_count;
+            console.log("available Perm:", availablePerm);
+
+            if (!availablePerm) flag = false;
+          }
+
+          if (flag) {
+            rosterBooking[pRoster.indexOf(startTime)] = {
+              bookingTime: startTime,
               bookingStatus: true,
             };
           } else {
-            rosterBooking[pRoster.indexOf(time)] = {
-              bookingTime: time,
+            rosterBooking[pRoster.indexOf(startTime)] = {
+              bookingTime: startTime,
               bookingStatus: false,
             };
           }
+          // let i = pRoster.indexOf(time);
+          // // totally free stylist can handle at most 4 perm ,while cutting stylist can only handle 2 perm 1 cut
+          // // combing all stylist's perm capacity if it is more than perm count, available for booking perm
+          // let availablePerm =
+          //   (pRosterData[i].man_count - pRosterData[i].c_count) * 4 +
+          //     pRosterData[i].c_count * 2 >
+          //   pRosterData[i].p_count;
+          // console.log("available Perm:", availablePerm);
+
+          // if (availablePerm) {
+          //   rosterBooking[pRoster.indexOf(time)] = {
+          //     bookingTime: time,
+          //     bookingStatus: true,
+          //   };
+          // } else {
+          //   rosterBooking[pRoster.indexOf(time)] = {
+          //     bookingTime: time,
+          //     bookingStatus: false,
+          //   };
           // }
-          console.log("add roster:", time, rosterBooking);
+          // }
+          console.log("add roster:", startTime, rosterBooking);
         }
         console.log("rosterBooking:", rosterBooking);
         res.json({
@@ -214,13 +266,13 @@ export class UserController {
         });
       }
     } catch (error) {
-      // console.log("Error =====", error);
+      console.log("Error =====", error);
       res.status(500);
       res.json({ error: String(error) });
     }
   };
 
-  booking_request = async (req: Request, res: Response) => {
+  bookingRequest = async (req: Request, res: Response) => {
     try {
       const { category, date, timeSlots, remarks, image_id } = req.body;
       console.log("req.body123", req.body);

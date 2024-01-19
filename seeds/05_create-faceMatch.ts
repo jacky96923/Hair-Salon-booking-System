@@ -6,7 +6,7 @@ export async function seed(knex: Knex): Promise<void> {
   // Deletes ALL existing entries from styleMatch
   await knex("style_match").del();
 
-  const workbook = xlsx.readFile("./styleMatch.xlsx");
+  const workbook = xlsx.readFile(`${__dirname}/styleMatch.xlsx`);
   const worksheet = workbook.Sheets["Sheet1"];
   const shapes: any[] = xlsx.utils.sheet_to_json(worksheet);
   console.log(shapes);

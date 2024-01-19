@@ -24,7 +24,8 @@
     "type-check": "tsc --noEmit",
     "jest": "jest --runInBand",
     "build": "tsc -p .",
-    "start": "ts-node-dev main.ts",
+    "start": "ts-node main.ts",
+    "dev": "ts-node-dev main.ts",
     "db:dev": "run-s db:update db:plan db:update",
     "db:plan": "auto-migrate pg < erd.txt",
     "db:update": "knex migrate:latest && erd-to-types < erd.txt > types.ts"

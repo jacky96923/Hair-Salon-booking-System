@@ -42,7 +42,7 @@ function getValue() {
 }
 
 async function getTimeSlots() {
-  let res = await fetch("/booking_timeslot", {
+  let res = await fetch("/bookingTimeslots", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -55,9 +55,6 @@ async function getTimeSlots() {
     updateTimeSlots(result);
   }
 }
-// async function getPhoto(){
-//   const res = await fetch("/getPhoto")
-// }
 
 categoryElement.addEventListener("change", async (event) => {
   getValue();
@@ -162,7 +159,7 @@ async function submitRequestForm(event) {
     formObject.image_id = photoId;
   }
   console.log("check form data", formObject);
-  let res = await fetch("/booking_request", {
+  let res = await fetch("/bookingRequest", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

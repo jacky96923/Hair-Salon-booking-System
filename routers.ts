@@ -1,12 +1,14 @@
 import express from "express";
+import { knex } from "./main";
+
 import { isLoggedIn } from "./guards";
+
 import { UserService } from "./service/userService";
 import { UserController } from "./controller/userController";
 import { ImageController } from "./controller/imageController";
 import { SuggestedController } from "./controller/suggestedController";
 import { SuggestedService } from "./service/suggestedService";
 import { GenPhotoController } from "./controller/genPhotoController";
-import { knex } from "./main";
 import { SaveImageController } from "./controller/saveImageController";
 import { SaveImageService } from "./service/saveImageService";
 import { GetPreviewService } from "./service/getPreviewService";
@@ -18,60 +20,78 @@ import { BookingDetailsService } from "./service/bookingDetailsService";
 
 export const userService = new UserService(knex);
 export const userController = new UserController(userService);
+
 export const suggestedService = new SuggestedService(knex);
 export const suggestedController = new SuggestedController(suggestedService);
+
 export const imageController = new ImageController();
 export const genPhotoController = new GenPhotoController();
+
 export const saveImageService = new SaveImageService(knex);
 export const saveImageController = new SaveImageController(saveImageService);
+
 export const getPreviewService = new GetPreviewService(knex);
 export const getPreviewController = new GetPreviewController(getPreviewService);
+
 export const myBookingService = new MyBookingService(knex);
 export const myBookingController = new MyBookingController(myBookingService);
+
 export const bookingDetailsService = new BookingDetailsService(knex);
 export const bookingDetailsController = new BookingDetailsController(
   bookingDetailsService
 );
 
 export const userRoutes = express.Router();
-export const upload_image = express.Router();
-export const get_style = express.Router();
-export const genPhoto = express.Router();
-export const saveResult = express.Router();
-export const my_booking = express.Router();
-export const booking_details = express.Router();
-export const getGenPhoto = express.Router();
-export const get_preview = express.Router();
-export const removeGenPhoto = express.Router();
-export const getStyleImg = express.Router();
+export const uploadImageRoutes = express.Router();
+export const aiRoutes = express.Router();
+export const bookingRoutes = express.Router();
 
+// *****
+// User Routes
+// *****
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
 userRoutes.get("/logout", isLoggedIn, userController.logout);
 userRoutes.get("/username", isLoggedIn, userController.getUsername);
-userRoutes.post(
-  "/booking_timeslot",
-  isLoggedIn,
-  userController.booking_timeslot
-);
-userRoutes.post("/booking_request", isLoggedIn, userController.booking_request);
 
-upload_image.post("/upload", isLoggedIn, imageController.uploadImage);
-get_style.get("/suggested", isLoggedIn, suggestedController.getSuggested);
-genPhoto.post("/genPhoto", isLoggedIn, genPhotoController.sendRequest);
-saveResult.post("/save", isLoggedIn, saveImageController.saveImage);
-my_booking.get("/my_booking", isLoggedIn, myBookingController.getMyBooking);
-booking_details.get(
-  "/booking_details",
+// *****
+// Image Upload
+// *****
+uploadImageRoutes.post("/upload", isLoggedIn, imageController.uploadImage);
+
+// *****
+// Faceshape prediction and Haricut Gan
+// *****
+aiRoutes.get("/suggested", isLoggedIn, suggestedController.getSuggested);
+aiRoutes.post("/genPhoto", isLoggedIn, genPhotoController.sendRequest);
+aiRoutes.post("/save", isLoggedIn, saveImageController.saveImage);
+aiRoutes.get("/getGenPhoto", isLoggedIn, userController.getGenPhoto);
+aiRoutes.get("/getStyleImg", isLoggedIn, userController.getStyleImg);
+aiRoutes.delete("/removeGenPhoto", isLoggedIn, userController.removeGenPhoto);
+
+// *****
+// Booking
+// *****
+bookingRoutes.get("/booking", isLoggedIn, myBookingController.getMyBooking);
+bookingRoutes.get(
+  "/bookingDetails",
   isLoggedIn,
   bookingDetailsController.getBookingDetails
 );
-getGenPhoto.get("/getGenPhoto", isLoggedIn, userController.getGenPhoto);
-getStyleImg.get("/getStyleImg", isLoggedIn, userController.getStyleImg);
-
-get_preview.get("/getPreview/:id", isLoggedIn, getPreviewController.getPreview);
-removeGenPhoto.delete(
-  "/removeGenPhoto",
+bookingRoutes.get(
+  "/getPreview/:id",
   isLoggedIn,
-  userController.removeGenPhoto
+  getPreviewController.getPreview
+);
+// get timeslots availability
+bookingRoutes.post(
+  "/bookingTimeslots",
+  isLoggedIn,
+  userController.bookingTimeslots
+);
+// post booking
+bookingRoutes.post(
+  "/bookingRequest",
+  isLoggedIn,
+  userController.bookingRequest
 );

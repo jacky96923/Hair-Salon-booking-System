@@ -40,12 +40,14 @@ export class UserService {
   //Promise<{ man_count: number; c_count: number; } | undefined>
   async booking_timeslot(dateTime: string) {
     try {
+      //  get manpower count , cut count, perm count of the specified time interval
       return await this.knex
         .select("man_count", "c_count", "p_count")
         .from("roster")
         .where("datetime", dateTime);
     } catch (error) {}
   }
+
   async booking_request(
     user_id: number,
     category: string,
