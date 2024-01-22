@@ -184,8 +184,12 @@ reset.addEventListener("click", function () {
 const searchParams = new URLSearchParams(location.search);
 const photoId = searchParams.get("id");
 
-const noImg = document.querySelector(".noImg");
+
+
+renderImage();
+
 async function renderImage() {
+  const noImg = document.querySelector(".noImg");
   let photos = await getStyleImg(photoId);
   console.log("photos", photos);
   let styleImg = document.getElementById("styleImg");
@@ -201,7 +205,6 @@ async function renderImage() {
     styleImg.remove();
   }
 }
-renderImage();
 
 async function getStyleImg(id) {
   const res = await fetch(`/getStyleImg?id=${id}`, {

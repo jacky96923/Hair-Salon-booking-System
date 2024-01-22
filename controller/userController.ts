@@ -171,7 +171,7 @@ export class UserController {
         }[] = [];
         for (let time of roster) {
           let dateTime = date + " " + time;
-          //console.log("datetime:", dateTime);
+          console.log("datetime:", dateTime);
           const { man_count, c_count, p_count } = (
             (await this.userService.booking_timeslot(
               category,
@@ -180,9 +180,9 @@ export class UserController {
           )[0];
           pRosterData.push({ man_count, c_count, p_count });
         }
-        //console.log("pRosterData: ", pRosterData)
+        console.log("pRosterData: ", pRosterData)
         let pRoster = roster.slice(0, roster.length - 2);
-        //console.log(pRoster)
+        console.log(pRoster)
         for (let time of pRoster) {
           for (let i = 0; i <= 2; i++) {
             if (
@@ -202,7 +202,7 @@ export class UserController {
             }
           }
         }
-        // console.log("rosterBooking:", rosterBooking);
+        console.log("rosterBooking:", rosterBooking);
         res.json({
           category: category,
           bookingDate: date,
