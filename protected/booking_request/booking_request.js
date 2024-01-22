@@ -156,7 +156,11 @@ async function submitRequestForm(event) {
     date: form.date.value,
     timeSlots: document.querySelector(".selected").id,
     remarks: form.remarks.value,
+    image_id: null,
   };
+  if (photoId) {
+    formObject.image_id = photoId;
+  }
   console.log("check form data", formObject);
   let res = await fetch("/booking_request", {
     method: "POST",
@@ -197,7 +201,8 @@ async function renderImage() {
     noImg.remove();
     for (let photo of photos) {
       let img = document.createElement("img");
-      img.src = photo.filename;
+      img.src = "/" + photo.filename;
+      console.log("request:", photo.filename);
 
       styleImg.appendChild(img);
     }

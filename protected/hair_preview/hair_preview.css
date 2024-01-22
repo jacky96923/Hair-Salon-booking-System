@@ -22,7 +22,6 @@
   width: auto;
   margin: 1rem;
   font-family: Fantasy;
-
 }
 
 #user_pic {
@@ -47,19 +46,19 @@
   border-top: 1px solid grey;
   width: auto;
   height: 4rem;
+  font-family: Fantasy;
 }
 
 #photo_container {
   /* border: 1px solid black; */
   height: auto;
-  width: auto;
-  margin-left: 6rem;
-  margin-right: 6rem;
+  width: 100%;
+  margin-left: 1rem;
+  margin-right: 1rem;
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   font-family: Fantasy;
-
 }
 
 #vl {
@@ -69,23 +68,48 @@
   margin-bottom: 1rem;
 }
 
+#remove_preview {
+  position: relative;
+  left: 50rem;
+}
+
 #user_image {
-  border: 1px solid black;
-  height: 50rem;
-  width: 50rem;
-  min-width: 50rem;
-  margin: 2rem;
+  border: 1px dotted black;
+  height: 35rem;
+  width: 35rem;
+  min-width: 35rem;
+  margin: none;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 #output_image {
-  border: 1px solid black;
-  height: 50rem;
-  min-width: 50rem;
-  max-width: 65rem;
-  margin: 2rem;
+  border: 1px dotted black;
+  height: 35rem;
+  min-width: 35rem;
+  max-width: 35rem;
+  margin: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#result_wrap {
+  height: 35rem;
+  min-width: 35rem;
+  max-width: 35rem;
+  margin: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#result_image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 #style_confirm {
@@ -94,7 +118,7 @@
   align-items: center;
 }
 
-/* @media (max-width: 50rem) {
+@media (max-width: 65rem) {
   #photo_container {
     flex-direction: column;
     align-items: center;
@@ -102,13 +126,15 @@
   #vl {
     display: none;
   }
-} */
+}
 
 #result_wrap {
   height: auto;
   width: 65rem;
   display: flex;
   flex-direction: column;
+  flex-wrap: nowrap;
+
   align-items: center;
   justify-content: center;
 }
@@ -170,7 +196,6 @@
 }
 
 #check_boxes {
-  border: 1px solid black;
   width: auto;
   height: auto;
   margin-left: 8rem;
@@ -185,6 +210,7 @@ select {
   width: 30rem;
   height: 3rem;
   font-size: 23px;
+  font-family: Fantasy;
 }
 
 input#textInput {
@@ -217,11 +243,17 @@ input#textInput {
   align-items: center;
 }
 
-#hair_selection {
-  border: 1px dotted black;
-  font-size: larger;
-  min-width: 20rem;
+#style_select {
   width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+#hair_selection {
+  border: 1px solid black;
+  font-size: larger;
+  width: 50rem;
   min-height: 3rem;
   max-height: auto;
   margin-left: 8rem;
@@ -230,11 +262,10 @@ input#textInput {
   flex-wrap: nowrap;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 #preview {
-  border: 1px solid black;
   width: 30rem;
   height: 30rem;
 }
@@ -245,7 +276,7 @@ input#textInput {
 
 #preview_select {
   width: auto;
-  height: 10rem;
+  height: 5rem;
   margin: 5rem;
   display: flex;
   justify-content: space-around;
@@ -255,17 +286,26 @@ button.btn {
   font-size: 30px;
 }
 
-.popup {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  padding: 20px;
-  z-index: 9999;
-}
-
 .popup_message {
   font-size: 18px;
+}
+
+#All_reset {
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  bottom: 8rem;
+  margin-top: 7rem;
+}
+
+#loading_img {
+  position: relative;
+  left: 15rem;
+  bottom: 5rem;
+}
+
+#action_btn {
+  margin-top: 5rem;
 }

@@ -38,54 +38,67 @@ export class UserService {
     }
   };
   //Promise<{ man_count: number; c_count: number; } | undefined>
-  async booking_timeslot(category: string, dateTime: string) {
+  async booking_timeslot(dateTime: string) {
     try {
-      if (category === "Haircut Wash Style") {
-        return await this.knex
-          .select("man_count", "c_count")
-          .from("roster")
-          .where("datetime", dateTime);
-      } else if (category === "Style Perming") {
-        return await this.knex
-          .select("man_count", "c_count", "p_count")
-          .from("roster")
-          .where("datetime", dateTime);
-      }
+      return await this.knex
+        .select("man_count", "c_count", "p_count")
+        .from("roster")
+        .where("datetime", dateTime);
     } catch (error) {}
   }
   async booking_request(
     user_id: number,
     category: string,
     datetime: string,
-    remarks: string
+    remarks: string,
+    image_id?: number
   ) {
     try {
       if (category === "Haircut Wash Style") {
-        await this.knex("booking").insert({
-          user_id: user_id,
-          purpose: category,
-          datetime: datetime,
-          remarks: remarks,
-        });
+        if (image_id) {
+          await this.knex("booking").insert({
+            user_id: user_id,
+            purpose: category,
+            datetime: datetime,
+            remarks: remarks,
+            image_id: image_id,
+          });
+        } else {
+          await this.knex("booking").insert({
+            user_id: user_id,
+            purpose: category,
+            datetime: datetime,
+            remarks: remarks,
+          });
+        }
         await this.knex.raw(
           "update roster set c_count = c_count + 1 where datetime = ?",
           [datetime]
         );
       } else if (category === "Style Perming") {
-        await this.knex("booking").insert({
-          user_id: user_id,
-          purpose: category,
-          datetime: datetime,
-          remarks: remarks,
-        });
-
+        if (image_id) {
+          await this.knex("booking").insert({
+            user_id: user_id,
+            purpose: category,
+            datetime: datetime,
+            remarks: remarks,
+            image_id: image_id,
+          });
+        } else {
+          await this.knex("booking").insert({
+            user_id: user_id,
+            purpose: category,
+            datetime: datetime,
+            remarks: remarks,
+          });
+        }
         let momentStartDateTime = moment(datetime, "YYYY-MM-DD hh:mm");
         let timeslots = 3;
         for (let j = 0; j < timeslots; j++) {
           momentStartDateTime.add(j, "hours");
           await this.knex.raw(
             "update roster set p_count = p_count + 1 where datetime = ?",
-            [datetime]
+            [momentStartDateTime]
           );
           momentStartDateTime.subtract(j, "hours");
         }

@@ -4,9 +4,9 @@ export function isLoggedIn(req: Request, res: Response, next: NextFunction) {
   if (req.session?.["user"]) {
     next();
   } else {
-    res.status(400).json({
-      message: "Please login first",
-    });
-    // res.redirect("/login/login.html");
+    // res.status(400).json({
+    //   message: "Please login first",
+    // });
+    res.redirect("/login/login.html");
   }
 }

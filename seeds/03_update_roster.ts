@@ -34,13 +34,31 @@ export async function seed(knex: Knex): Promise<void> {
     booking_datetime[1],
   ]);
   await knex.raw(`UPDATE roster SET p_count = p_count + 1 WHERE datetime = ?`, [
+    moment(booking_datetime[1]).add(1, "hour").format("YYYY-MM-DD HH:mm"),
+  ]);
+  await knex.raw(`UPDATE roster SET p_count = p_count + 1 WHERE datetime = ?`, [
+    moment(booking_datetime[1]).add(2, "hour").format("YYYY-MM-DD HH:mm"),
+  ]);
+  await knex.raw(`UPDATE roster SET p_count = p_count + 1 WHERE datetime = ?`, [
     booking_datetime[2],
+  ]);
+  await knex.raw(`UPDATE roster SET p_count = p_count + 1 WHERE datetime = ?`, [
+    moment(booking_datetime[2]).add(1, "hour").format("YYYY-MM-DD HH:mm"),
+  ]);
+  await knex.raw(`UPDATE roster SET p_count = p_count + 1 WHERE datetime = ?`, [
+    moment(booking_datetime[2]).add(2, "hour").format("YYYY-MM-DD HH:mm"),
   ]);
   await knex.raw(`UPDATE roster SET c_count = c_count + 1 WHERE datetime = ?`, [
     booking_datetime[3],
   ]);
   await knex.raw(`UPDATE roster SET p_count = p_count + 1 WHERE datetime = ?`, [
     booking_datetime[4],
+  ]);
+  await knex.raw(`UPDATE roster SET p_count = p_count + 1 WHERE datetime = ?`, [
+    moment(booking_datetime[4]).add(1, "hour").format("YYYY-MM-DD HH:mm"),
+  ]);
+  await knex.raw(`UPDATE roster SET p_count = p_count + 1 WHERE datetime = ?`, [
+    moment(booking_datetime[4]).add(2, "hour").format("YYYY-MM-DD HH:mm"),
   ]);
   await knex.raw(`UPDATE roster SET c_count = c_count + 1 WHERE datetime = ?`, [
     booking_datetime[5],
