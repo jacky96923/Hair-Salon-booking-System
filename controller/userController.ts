@@ -5,6 +5,19 @@ import { UserService } from "../service/userService";
 export class UserController {
   constructor(private userService: UserService) {}
 
+  checkLogin = async (req: Request, res: Response) => {
+    try {
+      if (req.session.user){
+        return res.json({msg: "Logged in already"})
+      } else {
+        return res.json({warning: "Not logged in yet"})
+      }
+    } catch (error) {
+      console.log("checkLogin error")
+      return 
+    }
+  }
+
   login = async (req: Request, res: Response) => {
     try {
       const email = req.body.email;
@@ -99,7 +112,7 @@ export class UserController {
         console.log("user session deleted");
       }
 
-      return res.redirect("/login/login.html");
+      return res.redirect("/");
     } catch (error) {
       res.status(500);
       return res.json({ error: error });

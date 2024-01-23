@@ -1,4 +1,4 @@
-import express from "express";
+import express, { NextFunction } from "express";
 import { sessionMiddleware } from "./session";
 import Knex from "knex";
 
@@ -40,25 +40,18 @@ app.use("/", getStyleImg);
 
 app.use(terminalCounter);
 
-app.get("/", (req, res, next) => {
-  if (!req.session.user) {
-    res.redirect("/login/login.html");
-    return;
-  }
-  next();
-});
-
 app.use(express.static("public"));
+app.use("/assets", express.static("assets"));
 app.use(isLoggedIn, express.static("protected"))
 app.use(express.static("result_images"));
 app.use(express.static("hair_styles"));
-// app.use(express.static(join("public", "login")));
-app.use("/assets", express.static("assets"));
-// app.use(isLoggedIn, express.static("hair_preview"));
 
-//app.use("/register", registerRoutes)
 
-//app.use(isLoggedIn, express.static('protected'))
+app.use("/", (req, res, next) => {
+  res.status(404).end("404 Page Not Found")
+});
+
+
 
 const PORT = 8080;
 

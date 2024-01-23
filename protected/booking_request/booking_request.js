@@ -1,4 +1,9 @@
 let usernameDivElement = document.querySelector("#user_name");
+let logoImage = document.querySelector("#logo_image")
+
+logoImage.addEventListener("click", function () {
+  window.location.href = "/"
+})
 
 async function main() {
   await getUsername();

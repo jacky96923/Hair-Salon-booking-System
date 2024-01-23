@@ -1,24 +1,18 @@
-let usernameDivElement = document.querySelector("#user_name");
-
+// Actual functions to be done when loading this page
 async function main() {
-  await getUsername();
+  // check if user logged in first to decide what to display homepage
+  let loginStatus = await checkLogin();
+  if (loginStatus){
+    await getUsername();
+    await getGenPhoto();
+  } else {
+    noLoginLoadPage();
+  }
 }
 
 window.onload = main();
-async function getUsername() {
-  let res = await fetch("/username");
-  if (res.ok) {
-    let response = await res.json();
-    console.log(response);
-    displayUser(response);
-  }
-}
-function displayUser(response) {
-  usernameDivElement.innerHTML = "";
-  let username = response.name;
-  username = username.slice(0, 1).toUpperCase() + username.slice(1);
-  usernameDivElement.innerText = username;
-}
+
+// Scroll down animation after loadPage
 window.addEventListener("load", function () {
   var targetElement = document.getElementById("scrollTarget");
 
@@ -27,6 +21,80 @@ window.addEventListener("load", function () {
   });
 });
 
+// Add event listeners for book now & create style buttons & logo redirecting to home page 
+let desBooking = document.getElementById("desBooking");
+desBooking.addEventListener("click", function () {
+  window.location.href = "/booking_request/booking_request.html";
+});
+
+let desCreate = document.getElementById("desCreate");
+desCreate.addEventListener("click", function () {
+  window.location.href = "/hair_preview/hair_preview.html";
+});
+
+let logoImage = document.querySelector("#logo_image")
+logoImage.addEventListener("click", function () {
+  window.location.href = "/"
+})
+
+
+// Functions to construct main function
+async function checkLogin(){
+  let res = await fetch("/checkLogin")
+  let response = await res.json()
+  console.log(response)
+  if (response.msg){
+    return true
+  } else {
+    return false
+  }
+}
+
+function noLoginLoadPage(){
+  // If no username (no login), username div should be replaced with login div and logout anchor tag should be deleted
+  let userInfoDivElement = document.querySelector("#user_info")
+  userInfoDivElement.innerHTML = ""
+  let loginDiv = document.createElement("div")
+  loginDiv.id = "login"
+  loginDiv.textContent = "Login"
+  loginDiv.addEventListener("click", (e)=>{
+    window.location.href = "/login/login.html"
+  })
+  userInfoDivElement.appendChild(loginDiv)
+
+  let logoutAnchorElement = document.querySelector('a[href="/logout"]')
+  if (logoutAnchorElement){
+    logoutAnchorElement.remove()
+  }
+  let headerStyleDiv = document.querySelector("#headerStyle")
+  if (headerStyleDiv){
+    headerStyleDiv.remove()
+  }
+  let showResultDiv = document.querySelector("#showResult")
+  if (showResultDiv){
+    showResultDiv.remove()
+  }
+}
+
+async function getUsername() {
+  let res = await fetch("/username");
+  //console.log(res)
+  if (res.ok) {
+    let response = await res.json();
+    console.log(response);
+    displayUser(response);
+  }
+}
+
+function displayUser(response) {
+  let usernameDivElement = document.querySelector("#user_name");
+  usernameDivElement.innerHTML = "";
+  let username = response.name;
+  username = username.slice(0, 1).toUpperCase() + username.slice(1);
+  usernameDivElement.innerText = username;
+}
+
+
 async function getGenPhoto() {
   const res = await fetch("/getGenPhoto", {
     headers: {
@@ -34,6 +102,7 @@ async function getGenPhoto() {
       Accept: "application/json",
     },
   });
+  console.log(res)
   if (!res.ok) {
     window.location.href = "/login/login.html";
     return;
@@ -117,14 +186,4 @@ function renderData(photos) {
     });
   });
 }
-getGenPhoto();
 
-let desBooking = document.getElementById("desBooking");
-desBooking.addEventListener("click", function () {
-  window.location.href = "/booking_request/booking_request.html";
-});
-
-let desCreate = document.getElementById("desCreate");
-desCreate.addEventListener("click", function () {
-  window.location.href = "/hair_preview/hair_preview.html";
-});

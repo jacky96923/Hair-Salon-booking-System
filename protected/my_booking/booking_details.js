@@ -1,5 +1,11 @@
 let bookingDetailsDlElement = document.querySelector("#booking_details dl");
 let usernameDivElement = document.querySelector("#user_name");
+let logoImage = document.querySelector("#logo_image")
+
+logoImage.addEventListener("click", function () {
+  window.location.href = "/"
+})
+
 const searchParams = new URLSearchParams(location.search);
 const bookingId = searchParams.get("id");
 

@@ -1,6 +1,12 @@
 let photoInput = document.querySelector("#upload_image");
 let uploadedImage = document.querySelector("#uploaded_image");
 let usernameDivElement = document.querySelector("#user_name");
+let logoImage = document.querySelector("#logo_image")
+
+logoImage.addEventListener("click", function () {
+  window.location.href = "/"
+})
+
 let apiPath;
 let requestedStyle;
 

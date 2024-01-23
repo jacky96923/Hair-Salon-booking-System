@@ -15,22 +15,9 @@
   <body>
     <div class="container-fluid">
       <div class="top-container">
-        <div id="logo">
-          <img id="logo_image" src="../assets/logo.jpg" />
-        </div>
-        <div id="user_wrapper">
-          <div id="user_info">
-            <div id="user_pic">
-              <img id="profile_pic" src="../assets/user_img.webp" />
-            </div>
-            <div id="user_name">Kenneth Pang</div>
-          </div>
-        </div>
-      </div>
-      <div id="navbar_container">
-        <nav class="navbar navbar-expand-lg bg-light">
-          <div class="container-fluid">
-            <a class="navbar-brand" href="../home.html">Home</a>
+        <div class="topLeft">
+          <img id="logo_image" src="/assets/logo.jpg" />
+          <nav class="navbar navbar-expand-lg bg-light">
             <button
               class="navbar-toggler"
               type="button"
@@ -43,168 +30,174 @@
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-              <div class="navbar-nav">
-                <a class="nav-link" href="../home.html">My Styles</a>
-                <a class="nav-link" href="../my_booking/my_booking.html"
+              <div class="navbar-nav bg-light mt-1">
+                <a class="nav-link" href="./hair_preview/hair_preview.html"
+                  >Create Your Styles</a
+                >
+                <a class="nav-link" href="./my_booking/my_booking.html"
                   >My Bookings</a
                 >
                 <a class="nav-link" href="/logout">Logout</a>
               </div>
             </div>
-          </div>
-        </nav>
+          </nav>
+        
+        </div>
+        <div class="topRight">
+            <div id="user_info">
+              <div id="user_pic">
+                <img id="profile_pic" src="/assets/user_img.webp" />
+              </div>
+              <div id="user_name">Kenneth Pang</div>
+            </div>
+        </div>
       </div>
-    </div>
 
-    <div id="photo_container">
-      <div id="user_image"><img id="uploaded_image" /></div>
-      <div id="vl"></div>
+      <div id="photo_container">
+        <div id="user_image"><img id="uploaded_image" /></div>
+        <div id="vl"></div>
+        <form
+          id="photo_save"
+          method="POST"
+          action="/save"
+          enctype="multipart/form-data"
+        >
+          <div id="output_image">
+            <div id="result_wrap" style="display: none">
+              <img id="result_image" />
+              <img id="loading_img" src="/assets/loading.gif" />
+              <div id="style_confirm"></div>
+            </div>
+
+            <div id="action_btn"></div>
+          </div>
+        </form>
+      </div>
+      <div id="image_file">Image file</div>
       <form
-        id="photo_save"
+        id="photo_input"
         method="POST"
-        action="/save"
+        action="/upload"
         enctype="multipart/form-data"
       >
-        <div id="output_image">
-          <div id="result_wrap" style="display: none">
-            <img id="result_image" />
-            <img id="loading_img" src="/assets/loading.gif" />
-            <div id="style_confirm"></div>
-          </div>
-
-          <div id="action_btn"></div>
-        </div>
-      </form>
-    </div>
-    <div id="image_file">Image file</div>
-    <form
-      id="photo_input"
-      method="POST"
-      action="/upload"
-      enctype="multipart/form-data"
-    >
-      <input
-        id="upload_image"
-        name="upload_image"
-        type="file"
-        value="upload_image"
-        hidden="hidden"
-      />
-      <div id="submit_photo">Upload a picture of yourself</div>
-      <!-- <button id="remove_preview">Remove Photo</button> -->
-    </form>
-
-    <!-- <div id="webcam_submit">Take a photo with your webcam.</div> -->
-
-    <form id="gen_photo" method="POST" action="/genPhoto">
-      <div id="change_select">What would you change?</div>
-      <div id="check_boxes">
-        <select name="type" id="type" required>
-          <option value="hairstyle">hairstyle</option>
-          <option value="color">color</option>
-          <option value="both">both</option>
-        </select>
         <input
-          type="text"
-          name="color"
-          id="textInput"
-          placeholder="Enter Color"
+          id="upload_image"
+          name="upload_image"
+          type="file"
+          value="upload_image"
+          hidden="hidden"
         />
-      </div>
-      <div id="suggestions">Your Hair Style Suggestions</div>
-      <div id="predict_message">
-        <div>
-          Find Out Your Face Shape
-          <button type="submit" id="submit_shape" for="photo_input">
-            with AI!
+        <div id="submit_photo">Upload a picture of yourself</div>
+        <!-- <button id="remove_preview">Remove Photo</button> -->
+      </form>
+
+      <!-- <div id="webcam_submit">Take a photo with your webcam.</div> -->
+
+      <form id="gen_photo" method="POST" action="/genPhoto">
+        <div id="change_select">What would you change?</div>
+        <div id="check_boxes">
+          <select name="type" id="type" required>
+            <option value="hairstyle">hairstyle</option>
+            <option value="color">color</option>
+            <option value="both">both</option>
+          </select>
+          <input
+            type="text"
+            name="color"
+            id="textInput"
+            placeholder="Enter Color"
+          />
+        </div>
+        <div id="suggestions">Your Hair Style Suggestions</div>
+        <div id="predict_message">
+          <div>
+            Find Out Your Face Shape
+            <button type="submit" id="submit_shape" for="photo_input">
+              with AI!
+            </button>
+          </div>
+          <p class="message"></p>
+        </div>
+        <div id="style_select">
+          <div id="hair_selection">
+            <fieldset id="selection"></fieldset>
+            <div id="preview"><img id="preview_img" /></div>
+          </div>
+        </div>
+
+        <div id="preview_select">
+          <button
+            id="submit_request"
+            type="submit"
+            class="btn btn-outline-preview"
+          >
+            Preview Now!
+          </button>
+
+          <button id="request_reset" type="reset" class="btn btn-outline-reset">
+            Reset Style
           </button>
         </div>
-        <p class="message"></p>
+      </form>
+
+      <div id="All_reset">
+        <button id="reset_all" type="reset" class="btn btn-outline-reset btn-lg">
+          Reset All
+        </button>
       </div>
-      <div id="style_select">
-        <div id="hair_selection">
-          <fieldset id="selection"></fieldset>
-          <div id="preview"><img id="preview_img" /></div>
+
+      <template id="template">
+        <div>
+          <input name="hair" type="radio" />
+          <label for="hair"></label>
         </div>
-      </div>
+      </template>
 
-      <div id="preview_select">
+      <template id="save">
         <button
-          id="submit_request"
           type="submit"
-          class="btn btn-outline-preview"
-        >
-          Preview Now!
-        </button>
+          id="save_btn"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+        ></button>
+        <button id="booking_btn"></button>
+      </template>
 
-        <button id="request_reset" type="reset" class="btn btn-outline-reset">
-          Reset Style
-        </button>
-      </div>
-    </form>
-
-    <div id="All_reset">
-      <button id="reset_all" type="reset" class="btn btn-outline-reset btn-lg">
-        Reset All
-      </button>
-    </div>
-
-    <template id="template">
-      <div>
-        <input name="hair" type="radio" />
-        <label for="hair"></label>
-      </div>
-    </template>
-
-    <template id="save">
-      <button
-        type="submit"
-        id="save_btn"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-      ></button>
-      <button id="booking_btn"></button>
-    </template>
-
-    <!-- <div id="popup" class="popup">
-      <span id="popup_message"></span>
-    </div> -->
-
-    <!-- Modal -->
-    <div
-      class="modal fade"
-      id="staticBackdrop"
-      data-bs-backdrop="static"
-      data-bs-keyboard="false"
-      tabindex="-1"
-      aria-labelledby="staticBackdropLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <!-- <h1 class="modal-title fs-5" id="staticBackdropLabel">
-              Modal title
-            </h1> -->
-            <!-- <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button> -->
-          </div>
-          <div class="modal-body">Image Saved To Your profile !</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button id="to_profile" type="button" class="btn btn-primary">
-              To your profile
-            </button>
+      <div
+        class="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- <h1 class="modal-title fs-5" id="staticBackdropLabel">
+                Modal title
+              </h1> -->
+              <!-- <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button> -->
+            </div>
+            <div class="modal-body">Image Saved To Your profile !</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button id="to_profile" type="button" class="btn btn-primary">
+                To your profile
+              </button>
+            </div>
           </div>
         </div>
       </div>

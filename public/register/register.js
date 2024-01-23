@@ -36,7 +36,7 @@ document
     form.reset();
     const result = await res.json();
     if (validateInputs(result)) {
-      window.location.href = "../home.html";
+      window.location.href = "/index.html";
     }
   });
 

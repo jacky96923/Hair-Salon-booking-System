@@ -1,56 +1,64 @@
 /* nav bar */
+body{
+  height: 100vh;
+}
+
 .top-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 2;
+    position: relative;
+}
+
+.topLeft{
   display: flex;
-  justify-content: space-between;
+  align-items: flex-end;
 }
 
 #logo_image {
-max-width: 15%;
-height: auto;
+  cursor: pointer;
+  align-self: center;
+  max-width: 15%;
+  height: auto;
 }
 
-#user_wrapper {
-display: flex;
-width: auto;
+.topRight{
+  padding-bottom: 4px;
 }
 
 #user_info {
-display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-align-items: flex-end;
-height: auto;
-width: auto;
-margin: 1rem;
-font-family: Fantasy;
-
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  height: auto;
+  width: auto;
+  margin: 1rem;
 }
 
 #user_pic {
-height: 2em;
-width: 2rem;
-overflow: hidden;
-border-radius: 50%;
-margin-right: 1rem;
+  height: 2em;
+  width: 2rem;
+  overflow: hidden;
+  border-radius: 50%;
+  margin-right: 1rem;
 }
 
-#user_name{
+#user_name {
   font-size: 18px;
+  font-family: Fantasy;
 }
 
 #profile_pic {
-height: 100%;
-width: 100%;
-object-fit: contain;
+  height: 100%;
+  width: 100%;
+  object-fit: contain
 }
 
-#navbar_container {
-border-top: 1px solid grey;
-width: auto;
-height: 4rem;
-font-family: Fantasy;
-
-
+nav {
+  width: auto;
+  height: 4rem;
+  font-family: Fantasy;
 }
 /* ------------------------------------------------------------------ */
 

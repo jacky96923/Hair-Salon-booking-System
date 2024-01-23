@@ -47,6 +47,7 @@ export const getStyleImg = express.Router();
 
 userRoutes.post("/login", userController.login);
 userRoutes.post("/register", userController.register);
+userRoutes.get("/checkLogin", userController.checkLogin)
 userRoutes.get("/logout", isLoggedIn, userController.logout);
 userRoutes.get("/username", isLoggedIn, userController.getUsername);
 userRoutes.post(
