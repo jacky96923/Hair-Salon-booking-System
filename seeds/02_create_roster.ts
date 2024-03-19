@@ -7,7 +7,7 @@ export async function seed(knex: Knex): Promise<void> {
   await knex("roster").del();
 
   // Inserts seed entries
-  let startDateTime = { date: "2024-01-13", time: "10:00" };
+  let startDateTime = { date: "2024-03-01", time: "10:00" };
   let momentStartDateTime = moment(
     `${startDateTime.date} ${startDateTime.time}`,
     "YYYY-MM-DD hh:mm"

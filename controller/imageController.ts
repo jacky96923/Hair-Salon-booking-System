@@ -39,7 +39,9 @@ export class ImageController {
           // next(new Error('Missing "content" in request.body'))
           return;
         }
-        let rePath = `/uploads/${image[0]}`;
+        let rePath = `../uploads/${image[0]}`;
+        // let rePath = `${image[0]}`;
+
         console.log("path:", rePath);
         let py_filename = await fetch("http://localhost:8000/pyShape", {
           method: "POST",

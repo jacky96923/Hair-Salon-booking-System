@@ -67,12 +67,12 @@ export async function seed(knex: Knex): Promise<void> {
 
   // Inserts seed entries (bookings)
   let bookings = [
-    { date: "2024-01-29", time: "10:00" }, //user_id: 1 C
-    { date: "2024-01-29", time: "10:00" }, //user_id: 2 P
-    { date: "2024-01-29", time: "11:00" }, //user_id: 3 P
-    { date: "2024-01-29", time: "12:00" }, //user_id: 1 C
-    { date: "2024-01-29", time: "13:00" }, //user_id: 1 P
-    { date: "2024-01-29", time: "13:00" }, //user_id: 2 C
+    { date: "2024-03-29", time: "10:00" }, //user_id: 1 C
+    { date: "2024-03-29", time: "10:00" }, //user_id: 2 P
+    { date: "2024-03-29", time: "11:00" }, //user_id: 3 P
+    { date: "2024-03-29", time: "12:00" }, //user_id: 1 C
+    { date: "2024-03-29", time: "13:00" }, //user_id: 1 P
+    { date: "2024-03-29", time: "13:00" }, //user_id: 2 C
   ];
 
   // Time/Id    1        2         3       available

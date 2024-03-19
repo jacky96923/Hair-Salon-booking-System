@@ -11,8 +11,10 @@ export class GenPhotoController {
       console.log(type);
       console.log("genConPath:", path);
 
-      const imagePath = "." + path;
+      const imagePath = path.slice(1);
+
       const image = await datauri(imagePath);
+      console.log("----check image -----", image);
       const replicate = new Replicate({
         auth: REPLICATE_API_TOKEN,
       });
