@@ -1,4 +1,4 @@
-# Shving -- A hari Salon Booking System
+# Shving -- A hair Salon Booking System
 
 ![alt text](<Screenshot 2024-03-19 at 6.12.39 PM.png>)
 
