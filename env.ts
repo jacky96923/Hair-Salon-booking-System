@@ -22,6 +22,7 @@ function loadEnv() {
         TEST_DB_NAME: "",
         TEST_DB_USERNAME: "",
         TEST_DB_PASSWORD: "",
+        TEST_REPLICATE_API_TOKEN: "",
       };
       populateEnv(env, { mode: "halt" });
       return {
@@ -31,6 +32,7 @@ function loadEnv() {
         DB_NAME: env.TEST_DB_NAME,
         DB_USERNAME: env.TEST_DB_USERNAME,
         DB_PASSWORD: env.TEST_DB_PASSWORD,
+        REPLICATE_API_TOKEN: env.TEST_REPLICATE_API_TOKEN,
       };
     }
     case "ci": {
@@ -42,6 +44,7 @@ function loadEnv() {
         POSTGRES_PASSWORD: "",
         POSTGRES_HOST: "",
         POSTGRES_PORT: 5432,
+        REPLICATE_API_TOKEN: "",
       };
       populateEnv(env, { mode: "halt" });
       return {
@@ -51,6 +54,7 @@ function loadEnv() {
         DB_NAME: env.POSTGRES_DB,
         DB_USERNAME: env.POSTGRES_USER,
         DB_PASSWORD: env.POSTGRES_PASSWORD,
+        REPLICATE_API_TOKEN: env.REPLICATE_API_TOKEN,
       };
     }
     case "development":
@@ -64,6 +68,7 @@ function loadEnv() {
         DB_NAME: "",
         DB_USERNAME: "",
         DB_PASSWORD: "",
+        REPLICATE_API_TOKEN: "",
       };
       populateEnv(env, { mode: "halt" });
       return env;
@@ -75,6 +80,6 @@ function loadEnv() {
 
 export const env = loadEnv();
 
-export const REPLICATE_API_TOKEN = "r8_54aeurjzKAzaYVRMRy6FyHfKYW4m3IE3Gwj2F";
+export const REPLICATE_API_TOKEN = env.REPLICATE_API_TOKEN;
 
 console.log("check check", env);
